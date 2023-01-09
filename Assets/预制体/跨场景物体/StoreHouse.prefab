@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2532460050935395900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2532460050935395898}
+  - component: {fileID: 2532460050935395899}
+  m_Layer: 0
+  m_Name: StoreHouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2532460050935395898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532460050935395900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 643.3385, y: 716.5638, z: 49.956642}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2532460050935395899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532460050935395900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba08f4a71980df349bafa8bc59874945, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elitismSprite0: {fileID: 21300000, guid: e50669645bc669c47ab50139609dd7f2, type: 3}
+  elitismSprite1: {fileID: 21300000, guid: 59ec83a8022b27c4bb9678517b87d696, type: 3}
+  elitismSprite2: {fileID: 21300000, guid: b3520e437b3c733468ff664c20808aad, type: 3}
+  lockSprite: {fileID: 21300000, guid: 425fe740a9b1f654aac4eebec1fb8b7b, type: 3}
+  anemoSprite: {fileID: 21300000, guid: a4a6a12f8e68edc47a85a6c09e5ff748, type: 3}
+  geoSprite: {fileID: 21300000, guid: e49fc17f1d9851c44ad369fcb6f63b32, type: 3}
+  electroSprite: {fileID: 21300000, guid: db688325bd0429345a9905a76090fb82, type: 3}
+  dendroSprite: {fileID: 21300000, guid: dc1b6fa19828636478d4b2824b6b3102, type: 3}
+  hydroSprite: {fileID: 21300000, guid: 6a46cfbd02d8d564c9094c95a6a530f5, type: 3}
+  pyroSprite: {fileID: 21300000, guid: 543f18f84e47e0748b9fadde3c7e1203, type: 3}
+  cryoSprite: {fileID: 21300000, guid: 09feae46e57c9f24cbfdfdee3842fdb0, type: 3}
+  speed1x_Sprite: {fileID: 21300000, guid: 75e623467da83bb4b8f69cdb4ca4936f, type: 3}
+  speed2x_Sprite: {fileID: 21300000, guid: a7baccd8ea962c64ab0ceeea911c5bd7, type: 3}
+  pauseSprite: {fileID: 21300000, guid: bac305c7cf8a33e43b9cfdd2b991db01, type: 3}
+  continueSprite: {fileID: 21300000, guid: 2fd79a99cfebbb34f915d4c8490fbf67, type: 3}
+  atkRangeImage: {fileID: 2525742118518304647, guid: a60ea7982b69bc142a84608d408de0fa, type: 3}
+  underArrow: {fileID: 493218663871607854, guid: 25082b6b7c86caf4d8eecf05163aa205, type: 3}
+  underShadow: {fileID: 7601720831708740838, guid: 34c44e61cd2fcbe4aaa4431b9e8b6b2f, type: 3}
+  reactionShowText: {fileID: 5498713527166470504, guid: 4cd2dd39d90a560468c24f582aa1ee7f, type: 3}
+  smallDamageText: {fileID: 5498713527166470504, guid: 2aa91226aeb3f674b8fe8918169c3d23, type: 3}
+  bigDamageText: {fileID: 5498713527166470504, guid: 28292ffbc341e9648982339c3168465f, type: 3}
+  overLoadAnim: {fileID: 130848, guid: 3b78dc907b9f64546994ffcb76ed33bf, type: 3}
+  superConductAnim: {fileID: 122924, guid: d4412062babe7c34b9c13fbc4fee4905, type: 3}
+  superConductDuration: {fileID: 145256, guid: 4e3237b9fe4dc3744a55a859b86e35ed, type: 3}
+  electroChargedAnim: {fileID: 167134, guid: 0cffb2de900e80b48a464b7bcac8cfc8, type: 3}
+  swirlPyroAnim: {fileID: 187952, guid: efddcf8f19e5fce4fbc74b32f7a63e69, type: 3}
+  swirlHydroAnim: {fileID: 187952, guid: fa9bbf221e1f09d43a7f2ac0bdb92934, type: 3}
+  swirlElectroAnim: {fileID: 187952, guid: 817919c0db3f9a04da2469020cc2a30a, type: 3}
+  swirlCryoAnim: {fileID: 187952, guid: 2ad1e8fae1a9f9540afc03dbd9f4a527, type: 3}
+  crystallizationPyroShield: {fileID: 1135644536747142, guid: ee0d7ec59544bd746a39023da8590720, type: 3}
+  crystallizationHydroShield: {fileID: 1135644536747142, guid: 1f746d5c052d2c849a40511dd3797364, type: 3}
+  crystallizationElectroShield: {fileID: 1135644536747142, guid: 2b1d530dd98fa8f4099d18c73737dc4d, type: 3}
+  crystallizationCryoShield: {fileID: 1135644536747142, guid: eb9d570883af1954fba46ee4fee15b2d, type: 3}
+  underGroundLight: {fileID: 194664, guid: e2e0b751ae42dd24f89489c7199f7c75, type: 3}
+  dizzyStarts: {fileID: 109542, guid: cba9eaac744080048bd680f0b91f860b, type: 3}
+  atkRangeList:
+  - {fileID: 6645886670027540070, guid: 1e05b01b8274d3d4eaddace35a608d3f, type: 3}
+  - {fileID: 6645886670027540070, guid: d32ebb57acceb4d48b9703b62ea0a57f, type: 3}
+  - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
+  - {fileID: 6645886670027540070, guid: 8bd6b18ef6fedc844bec48ad5e66f5bc, type: 3}
+  - {fileID: 6645886670027540070, guid: 9baf9ad5fa4a5cb489e1cfd3c33e8d9f, type: 3}
+  - {fileID: 6645886670027540070, guid: c1567fd0fff17094f821aee0b69ff388, type: 3}
+  - {fileID: 6645886670027540070, guid: 39c3625c660bb524fb6a439233dddd32, type: 3}
+  - {fileID: 6645886670027540070, guid: 732ddefb86d34b443881c13151c1937a, type: 3}
+  - {fileID: 6645886670027540070, guid: d83d20e73992eec4bb801bc1c55b54d4, type: 3}
+  - {fileID: 6645886670027540070, guid: 8c718ed58be074048a6fdb862147740b, type: 3}
+  - {fileID: 6645886670027540070, guid: 4155261a9968bbd4e84e515bc759bda8, type: 3}
+  - {fileID: 6645886670027540070, guid: b93bdd1251852af4490346847d8758fc, type: 3}
+  - {fileID: 6645886670027540070, guid: db5b396854378084b94e270be96fd89d, type: 3}
