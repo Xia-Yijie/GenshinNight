@@ -622,6 +622,28 @@ public class EnemyPathController
         nxtPoint += posOffset;
         return true;
     }
+
+    /// <summary>
+    /// 返回敌人在t秒后的预期位置，最多返回到下一个目标点
+    /// </summary>
+    public Vector3 ExpectPos(float t)
+    {
+        Vector3 tarPos = GetTarPoint();
+        Vector3 pos = ec_.transform.position;
+        float dis = ec_.speed.val * t;
+
+        if (dis > Vector3.Distance(tarPos, pos)) return tarPos;
+
+        Vector2 dir = new Vector2(tarPos.x - pos.x, tarPos.z - pos.z);
+        if (dir.x * dir.x + dir.y * dir.y < 1e-3) return tarPos;
+        
+        dir.x *= 1f / Mathf.Sqrt(dir.x * dir.x + dir.y * dir.y);
+        dir.y *= 1f / Mathf.Sqrt(dir.x * dir.x + dir.y * dir.y);
+        pos.x += dis * dir.x;
+        pos.z += dis * dir.y;
+        return pos;
+    }
+    
 }
 
 public class PushAndPullController

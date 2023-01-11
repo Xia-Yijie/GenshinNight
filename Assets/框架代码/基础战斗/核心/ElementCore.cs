@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ElementCore : PropertyCore
 {
     public List<ElementTimer> elementTimerList = new List<ElementTimer>();
-    protected ElementTimer defaultElementTimer;
+    public ElementTimer defaultElementTimer;
     public ReactionController reactionController;
     
     // 每次攻击后更新该变量，如果该攻击击杀了敌人，此变量为true，否则为false
@@ -321,6 +321,7 @@ public class ElementTimer
 
     /// <summary>
     /// 判断目标能否被挂上元素，如果可以，让目标进入元素附着冷却
+    /// 也可以作为其他冷却时间的触发函数
     /// </summary>
     public bool AttachElement(ElementCore elementCore)
     {

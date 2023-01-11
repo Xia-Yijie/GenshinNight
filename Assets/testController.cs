@@ -16,7 +16,8 @@ public class testController : MonoBehaviour
     public operData itto;
     public operData raidenShogun;
     public operData wanderer;
-
+    public operData ganyu;
+    
     private void Awake()
     {
         // InitManager.Register(kroos, 1);
@@ -29,6 +30,7 @@ public class testController : MonoBehaviour
         InitManager.Register(itto, 1);
         InitManager.Register(raidenShogun, 1);
         InitManager.Register(wanderer, 1);
+        InitManager.Register(ganyu, 1);
     }
 
     void Start()

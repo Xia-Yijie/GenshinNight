@@ -102,11 +102,13 @@ public class SearchAndGive : MonoBehaviour
     {
         // 用于死亡的回调函数，在List里删掉要死的这个BattleCore
         _bc.operatorList.Remove(dying_bc);
+        CountList.Remove(dying_bc);
     }
     
     private void DelBattleCore_Enemy(BattleCore dying_bc)
     {
         _bc.enemyList.Remove(dying_bc);
+        CountList.Remove(dying_bc);
     }
     
     

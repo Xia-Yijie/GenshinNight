@@ -85,7 +85,8 @@ public class InitManager : MonoBehaviour
         dragSlotController.Init();
         
         // 初始化关卡资源控制器
-        resourceController.Init(ld_.cost, ld_.exp, ld_.HP, ld_.place);
+        if (ld_ == null) resourceController.Init(1000, 1000, 10, 10);
+        else resourceController.Init(ld_.cost, ld_.exp, ld_.HP, ld_.place);
 
         operPriority = 0;
     }

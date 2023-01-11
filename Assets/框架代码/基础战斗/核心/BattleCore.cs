@@ -12,7 +12,7 @@ public class BattleCore : ElementCore
     [HideInInspector] public float tarPriority = 0;         // 在别的BattleCore队列中排序的参照，由外部维护
     public bool dieNow = false;     //调试变量，立即杀死自身
     
-    [HideInInspector] public float norAtkInterval = 0;         // 到下一次攻击还需要的时间
+    public float norAtkInterval { get; protected set; } = 0;         // 到下一次攻击还需要的时间
     // [HideInInspector] public bool nxtAtkImmediately = false;      // 下一次退出攻击状态时，立刻清空冷却并进入攻击状态
     [HideInInspector] public bool fighting;
     
@@ -215,6 +215,16 @@ public class BattleCore : ElementCore
     {
         norAtkInterval = atkSpeedController.minAtkInterval;
     }
+    
+    public void NorAtkClear()
+    {
+        norAtkInterval = 0;
+    }
+    
+    public void NorAtkSet(float x)
+    {
+        norAtkInterval = x;
+    }
 
     /// <summary>  
     /// 表示该Core是否可以进行普攻
@@ -342,7 +352,7 @@ public class SkillAtkSpeedBuff : SkillBuffSlot
         var staInfo = anim.GetCurrentAnimatorStateInfo(0);
         if (!staInfo.IsName("Fight"))
         {
-            bc_.norAtkInterval = 0;
+            bc_.NorAtkClear();
             return;
         }
         
@@ -350,7 +360,7 @@ public class SkillAtkSpeedBuff : SkillBuffSlot
         if (fightAnimTime - atkSpeedController.minAtkInterval < 0.008f) return;
         float nspeed = (fightAnimTime / atkSpeedController.minAtkInterval) + 0.005f;
         float conTime = (staInfo.normalizedTime - (int) staInfo.normalizedTime) * fightAnimTime / nspeed;
-        bc_.norAtkInterval = atkSpeedController.minAtkInterval - conTime;
+        bc_.NorAtkSet(atkSpeedController.minAtkInterval - conTime);
     }
     
 }

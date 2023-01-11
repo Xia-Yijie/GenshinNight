@@ -21,6 +21,7 @@ public class OperatorCore : BattleCore
     [HideInInspector] public ValueBuffer recoverTime = new ValueBuffer(0);   // 干员再部署时间
     [HideInInspector] public int skillNum;      // 该干员选择的技能编号[0,2]
     [HideInInspector] public FourDirection direction;
+    [HideInInspector] public bool defaultFaceRight;
     
     public bool prePutOn;           // 一开始就在场上的
     public bool hideUnderArrow;     // 隐藏脚下箭头的
@@ -115,11 +116,13 @@ public class OperatorCore : BattleCore
         if (anim.transform.localScale.x > 0)
         {
             defaultTurn = ac_.TurnRight;
+            defaultFaceRight = true;
             defaultTurnDir_X = 1;
         }
         else
         {
             defaultTurn = ac_.TurnLeft;
+            defaultFaceRight = false;
             defaultTurnDir_X = -1;
         }
         underArrow.SetActive(!hideUnderArrow);
@@ -594,6 +597,8 @@ public class SpineAnimController
     public float atkSpeed = 1;      // 攻速相关的anim速度改变
     public float slowSpeed = 1;     // 减速相关的anim速度改变（敌人）
 
+    // 锁定旋转
+    public bool lockRol;
 
 
     public SpineAnimController(Animator animator, BattleCore bc_)
@@ -662,6 +667,7 @@ public class SpineAnimController
     /// </summary>
     public void TurnLeft()
     {
+        if (lockRol) return;
         dirRight = false;
         tarScale = leftScale;
     }
@@ -671,17 +677,37 @@ public class SpineAnimController
     /// </summary>
     public void TurnRight()
     {
-        
+        if (lockRol) return;
         dirRight = true;
         tarScale = rightScale;
     }
     
     public void TurnRightImm()
     {
-        
         dirRight = true;
         anim.transform.localScale = rightScale;
     }
+    
+    public void LockRolAndRight()
+    {
+        lockRol = true;
+        dirRight = true;
+        tarScale = rightScale;
+    }
+    
+    public void LockRolAndLeft()
+    {
+        lockRol = true;
+        dirRight = false;
+        tarScale = leftScale;
+    }
+
+    public void UnLockRol()
+    {
+        lockRol = false;
+    }
+    
+    
     
     /// <summary>
     /// 调用一次，人物将进行一次闪烁，目标颜色为color

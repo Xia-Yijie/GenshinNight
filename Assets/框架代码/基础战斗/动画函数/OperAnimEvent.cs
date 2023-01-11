@@ -62,7 +62,7 @@ public class SkillAnimStaBuff : SkillBuffSlot
     public override void BuffStart()
     {
         anim.SetInteger("sta", sta);
-        bc_.norAtkInterval = 0;
+        bc_.NorAtkClear();
         base.BuffStart();
     }
 
@@ -71,7 +71,7 @@ public class SkillAnimStaBuff : SkillBuffSlot
     public override void BuffEnd()
     {
         anim.SetInteger("sta", preSta);
-        bc_.norAtkInterval = 0;
+        bc_.NorAtkClear();
         base.BuffEnd();
     }
 }

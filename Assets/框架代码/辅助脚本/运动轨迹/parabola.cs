@@ -13,16 +13,18 @@ public class parabola : MonoBehaviour
     private bool isNull;
     private float speed = 5f;
     private float multi;
-    private Action<float, BattleCore, parabola> reachFunc;
+    private Action<float, BattleCore, parabola, bool> reachFunc;
     private Vector3 tarPY;
     
-    private const float min_distance = 0.1f;
+    private const float min_distance = 0.15f;
     private float distance;
     private Vector3 tarPos;
     private float py;
-
+    private float durTime = 0;
+    
     public void Init(Vector3 pos, BattleCore attacker_, BattleCore targetBattleCore, float speed_ = 5,
-        Action<float, BattleCore, parabola> reach = null, float Multi = 1, Vector3 tarPY_ = default)
+        Action<float, BattleCore, parabola, bool> reach = null, 
+        float Multi = 1, Vector3 tarPY_ = default)
     {
         transform.position = pos;
         tarBattleCore = targetBattleCore;
@@ -36,6 +38,7 @@ public class parabola : MonoBehaviour
         tarPos = tarTrans.position + tarPY;
         distance = Vector3.Distance(transform.position, tarPos);
         py = transform.position.y;
+        durTime = 0;
 
         if (targetBattleCore.dying)
         {
@@ -57,6 +60,10 @@ public class parabola : MonoBehaviour
             // if (Vector3.Distance(tarPos, Vector3.zero) > 200) 
             //     isNull = true;
         }
+        
+        // 随时间提高速度
+        speed += Mathf.Exp(durTime * 1.5f);
+        durTime += Time.deltaTime;
 
         // 朝向目标, 以计算运动
         transform.LookAt(tarPos);
@@ -80,10 +87,11 @@ public class parabola : MonoBehaviour
     private void Arrive()
     {
         if (!isNull)
-        {
-            if (attacker.gameObject.activeSelf) reachFunc?.Invoke(multi, tarBattleCore, this);
             tarBattleCore.DieAction -= TarNull;
-        }
+
+        if (attacker.gameObject.activeSelf)
+            reachFunc?.Invoke(multi, isNull ? null : tarBattleCore, this, isNull);
+        
         reachFunc = null;
         PoolManager.RecycleObj(gameObject);
     }
