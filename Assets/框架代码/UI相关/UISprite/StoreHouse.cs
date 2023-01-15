@@ -78,8 +78,8 @@ public class StoreHouse : MonoBehaviour
 
     [Header("攻击范围")]
     public List<GameObject> atkRangeList;
-    
-    
+    public GameObject CryoLineWall;
+    public GameObject AnemoLineWall;
     
 
     private void Awake()
@@ -91,11 +91,8 @@ public class StoreHouse : MonoBehaviour
         }
         instance = this;
         DontDestroyOnLoad(this);
-    }
-
-    private void Start()
-    {
-        // 这里是注册所有干员atkRange信息
+        
+        // 注册所有干员atkRange信息
         foreach (var atkRange in atkRangeList)
         {
             GameObject tmp = Instantiate(atkRange);
@@ -186,5 +183,4 @@ public class StoreHouse : MonoBehaviour
                 return Color.white;
         }
     }
-
 }

@@ -60,6 +60,38 @@ public class PoolManager : MonoBehaviour
         return result;
     }
 
+    /// <summary>
+    /// 根据名称找obj，如果没有返回一个同名的空物体
+    /// </summary>
+    public static GameObject GetObj(string Name)
+    {
+        // 如果没有父物体则生成
+        if (!objPrt.ContainsKey(Name))
+        {
+            objPrt.Add(Name, new GameObject(Name + "对象池"));
+        }
+
+        // 池子中有
+        GameObject result = null;
+        if (pool.ContainsKey(Name))
+        {
+            if (pool[Name].Count > 0)
+            {
+                result = pool[Name][0];
+                result.SetActive(true);
+                pool[Name].Remove(result);
+                result.transform.SetParent(objPrt[Name].transform);
+                return result;
+            }
+        }
+        // 池子中缺少
+        result = new GameObject(Name);
+        RecycleObj(result);
+        GetObj(result);
+        result.transform.SetParent(objPrt[Name].transform);
+        return result;
+    }
+    
     public static void Clear()
     {
         pool.Clear();

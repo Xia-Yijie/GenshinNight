@@ -52,6 +52,27 @@ public class parabola : MonoBehaviour
         }
     }
 
+    public void Init(Vector3 pos, BattleCore attacker_, float speed_ = 5,
+        Action<float, BattleCore, parabola, bool> reach = null, 
+        float Multi = 1, Vector3 tarPos_ = default)
+    {// 没有目标的发射
+        transform.position = pos;
+        attacker = attacker_;
+        speed = speed_;
+        multi = Multi;
+        reachFunc = reach;
+        tarPos = tarPos_;
+        
+        distance = Vector3.Distance(transform.position, tarPos);
+        py = transform.position.y;
+        durTime = 0;
+        
+        isNull = true;
+    }
+    
+    
+    
+
     void Update()
     {
         if (!isNull)

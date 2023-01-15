@@ -271,7 +271,7 @@ public class RightUIController
                 pos.x = detaPos.x;
                 pos.z = detaPos.y;
             }
-            if (rol_y == 270)
+            if (rol_y == 270 || rol_y == -90)
             {
                 pos.x = -detaPos.y;
                 pos.z = detaPos.x;

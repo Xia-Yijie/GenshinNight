@@ -20,4 +20,8 @@ MonoBehaviour:
   HighLightDescription: "\u53EF\u4EE5\u7528\u6765\u6D4B\u8BD5\u7A0B\u5E8F"
   map: {fileID: 21300000, guid: 41966b93df7505f44800b880538ca4b0, type: 3}
   loadBackground: {fileID: 0}
-  BGM: {fileID: 0}
+  BGM: {fileID: 8300000, guid: 040fc89d74e9c204ea334156caa382a3, type: 3}
+  cost: 1000
+  exp: 1000
+  HP: 10
+  place: 10

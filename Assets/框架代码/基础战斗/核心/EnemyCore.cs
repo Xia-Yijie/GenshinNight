@@ -704,6 +704,15 @@ public class PushAndPullController
         PushDizzyBuff buff = new PushDizzyBuff(this, willDizzy);
         BuffManager.AddBuff(buff);
     }
+
+    public static string PowerInterpreter(float pow)
+    {
+        if (pow < 20) return "超小力";
+        if (pow < 40) return "小力";
+        if (pow < 60) return "中等力度";
+        if (pow < 80) return "大力";
+        return "超大力";
+    }
     
 }
 

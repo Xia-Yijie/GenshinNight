@@ -24,7 +24,7 @@ public class OperatorCore : BattleCore
     [HideInInspector] public bool defaultFaceRight;
     
     public bool prePutOn;           // 一开始就在场上的
-    public bool hideUnderArrow;     // 隐藏脚下箭头的
+    public bool isSummoner;         // 是召唤物
     
     // spine动画相关
     [HideInInspector] public GameObject animObject;
@@ -125,7 +125,7 @@ public class OperatorCore : BattleCore
             defaultFaceRight = false;
             defaultTurnDir_X = -1;
         }
-        underArrow.SetActive(!hideUnderArrow);
+        underArrow.SetActive(!isSummoner);
         underArrow.transform.localEulerAngles = new Vector3(90f, 0, -atkRange.transform.localEulerAngles.y);
        
         direction = atkRange.transform.localEulerAngles.y switch
@@ -397,6 +397,7 @@ public class OperatorCore : BattleCore
     /// </summary>
     public void Retreat()
     {
+        
         if (DieAction != null)
         {
             DieAction(this);
@@ -426,7 +427,7 @@ public class OperatorCore : BattleCore
         gameObject.SetActive(false);
         
         // 播放撤退音效
-        OperUIElements.RetreatAudio.Play();
+        if (!isSummoner) OperUIElements.RetreatAudio.Play();
     }
 
     protected override void DieBegin()
@@ -455,6 +456,7 @@ public class OperatorCore : BattleCore
         ac_.ChangeColor(Color.black);
         
         // 播放死亡语音
+        if (isSummoner) return;
         OperUIElements.DieAudio.Play();
         if (od_.DieAudio.Count == 0) return;
         int id = Random.Range(0, od_.DieAudio.Count);

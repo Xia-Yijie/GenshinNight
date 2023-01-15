@@ -246,6 +246,12 @@ public class LifeController : ValueBuffer
         if (preMaxLife >= val) life = Mathf.Min(life, val); // 如果生命上限减少了
         else life = life / preMaxLife * val;    // 等比例增加
     }
+
+    public float Percentage()
+    {
+        return life / val;
+    }
+    
 }
 
 public class SPController
@@ -309,6 +315,12 @@ public class SPController
     public void GetSp_BeAtk(float getSP = 1)
     {
         if (during || reType!=recoverType.beAtk) return;
+        getSP *= spRecharge.val;
+        sp = sp + getSP > maxSp ? maxSp : sp + getSP;
+    }
+
+    public void GetSp(float getSP)
+    {
         getSP *= spRecharge.val;
         sp = sp + getSP > maxSp ? maxSp : sp + getSP;
     }
