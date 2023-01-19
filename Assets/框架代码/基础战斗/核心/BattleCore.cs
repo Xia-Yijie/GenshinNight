@@ -207,6 +207,26 @@ public class BattleCore : ElementCore
         tarBC.GetDamage(null, damage, mode, elementSlot,
             canAttachElement, haveText, isBig, true);
     }
+
+
+    /// <summary>
+    /// 释放一次治疗
+    /// </summary>
+    public void Heal(BattleCore tarBC, float count, ElementSlot elementSlot,
+        bool canAttachElement, bool haveText = false, bool isBig = false,
+        bool reversal = false)
+    {
+        tarBC.GetHeal(this, count, elementSlot, canAttachElement, haveText, isBig,
+            false, reversal);
+    }
+
+    public void Heal(BattleCore tarBC, float count, bool haveText = false, bool isBig = false,
+        bool reversal = false)
+    {
+        tarBC.GetHeal(this, count, new ElementSlot(), false, haveText, isBig,
+            false, reversal);
+    }
+    
     
     /// <summary>  
     /// 表示该BattleCore进行了一次普攻，开始冷却

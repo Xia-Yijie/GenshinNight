@@ -102,13 +102,13 @@ public class ReactionController
     
     
     public void Reaction(BattleCore attacker, ElementSlot element1, ElementSlot element2, 
-        float mastery, ref float damage, ref bool isBig)
+        float mastery, ref float damage, ref bool isBig, bool noAttacker, bool reversal)
     {// 判断两种元素应该发生什么反应，element2为后手元素，mastery为该次反应吃的元素精通
 
         switch (element2.eleType)       // 后手元素，表示触发元素
         {
             case ElementType.Anemo:     // 风
-                Swirl(element1, element2, mastery); // 必然为扩散反应
+                Swirl(element1, element2, mastery, reversal); // 必然为扩散反应
                 break;
             case ElementType.Geo:       // 岩
                 Crystallization(element1, element2, attacker, mastery);// 必然为结晶反应
@@ -227,7 +227,7 @@ public class ReactionController
                 ec_.GetDamage(attacker, OverLoadDamage(mastery), DamageMode.Physical
                         , pyroElement, false, true);
                     
-                ec_.ppc_.Push(center, PushAndPullController.littleForce);
+                ec_.ppc_.Push_Center(center, PushAndPullController.littleForce);
             }
         }
         
@@ -344,16 +344,19 @@ public class ReactionController
         firElement.eleCount = Mathf.Max(0, firElement.eleCount - sedElement.eleCount);
         sedElement.eleCount = 0;
     }
-    
-    private void Swirl(ElementSlot firElement, ElementSlot sedElement, float mastery) 
+
+    private void Swirl(ElementSlot firElement, ElementSlot sedElement, float mastery,
+        bool reversal = false) 
     {// 扩散反应
 
         Vector3 center = elc_.transform.position;
         ElementSlot swirlElement = new ElementSlot(
             firElement.eleType == ElementType.Frozen ? ElementType.Cryo : firElement.eleType
             , sedElement.eleCount);
+
+        bool attackOper = elc_.transform.CompareTag("operator") ^ reversal;     // 是否攻击干员
         
-        if (elc_.transform.CompareTag("operator"))
+        if (attackOper)
         {// 对干员造成一次扩散元素攻击，元素附着量为风元素量，精通为0
             List<OperatorCore> tars = InitManager.GetNearByOper(center, OverLoadRadius);
             foreach (var oc_ in tars)
@@ -362,8 +365,8 @@ public class ReactionController
                     , swirlElement, true, true, false, true);
             }
         }
-        else if(elc_.transform.CompareTag("enemy"))
-        {// 对干员造成一次扩散元素攻击，元素附着量为风元素量，精通为0
+        else
+        {// 对敌人造成一次扩散元素攻击，元素附着量为风元素量，精通为0
             List<EnemyCore> tars = InitManager.GetNearByEnemy(center, OverLoadRadius);
             foreach (var ec_ in tars)
             {// 对范围内的所有敌人进行攻击和元素附着

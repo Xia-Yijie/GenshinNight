@@ -28483,7 +28483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1161707832541733115, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1524081269495171558, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.y
@@ -28543,19 +28543,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6379650939296260093, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6379650939296260093, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6395367432248513350, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 6395367432248513350, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6425702234625677476, guid: 3a10b470a8bc5234cbfa52bc962dc293, type: 3}
       propertyPath: m_AnchorMax.x
@@ -29219,7 +29219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4159876042319668229, guid: 148b01d9c3725de4d9b2e6e0db5ae3e2, type: 3}
       propertyPath: appearTime
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4159876042319668229, guid: 148b01d9c3725de4d9b2e6e0db5ae3e2, type: 3}
       propertyPath: pointList.Array.size
@@ -29455,6 +29455,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 808372760478569590, guid: 5efb922419a9ecc41b27e8cf6d5505a3, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2495189278765303332, guid: 5efb922419a9ecc41b27e8cf6d5505a3, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -29555,6 +29559,14 @@ PrefabInstance:
     - target: {fileID: 4718090981544361363, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718090981544361364, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
+      propertyPath: cannotPlayBGM
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4718090981544361364, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
+      propertyPath: cannotPlayTalk
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4718090981544361365, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: m_RootOrder
@@ -30379,7 +30391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415462247224210244, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: appearTime
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2415462247224210244, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: pointList.Array.size
@@ -30511,7 +30523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415462247224210245, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4334062406005258429, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_LocalScale.x
@@ -30527,19 +30539,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9094556517090981677, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9094556517090981677, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9115180669315595158, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.58
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9115180669315595158, guid: d028e91d62c570943a6b96419060d687, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d028e91d62c570943a6b96419060d687, type: 3}
@@ -30552,19 +30564,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2719597496065386194, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 2719597496065386194, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2734821811425323625, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 2734821811425323625, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4797479895013542232, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_Mesh
@@ -30584,7 +30596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8811047585104965121, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8811047585104965122, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: pointList.Array.size

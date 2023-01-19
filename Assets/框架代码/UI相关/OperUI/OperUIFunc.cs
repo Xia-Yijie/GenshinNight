@@ -45,6 +45,8 @@ public class OperUIFunc : MonoBehaviour
         // 正常准备释放技能
         if (!sp_.CanReleaseSkill() || sp_.outType != releaseType.hand) return;
         int skillNum = OperUIManager.showingOper.skillNum;
+        sp_.ReleaseSkill();
+
         switch (skillNum)
         {
             case 0:
@@ -58,7 +60,6 @@ public class OperUIFunc : MonoBehaviour
                 break;
         }
         
-        sp_.ReleaseSkill();
         OperUIManager.CloseOperUI();
     }
 

@@ -7,10 +7,14 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour
 {
     public AudioClip mainSceneBGM;
-    
-    private static AudioManager instance;
     public AudioMixer Mixer;
-    private static float randomTalkCoolTime = 0;
+    
+    [Header("不会播放BGM")]
+    public bool cannotPlayBGM;
+    [Header("不会播放干员语音")]
+    public bool cannotPlayTalk;
+
+    private static AudioManager instance;
     
     public static AudioSource Operator;
     public static AudioSource BGM;
@@ -42,25 +46,12 @@ public class AudioManager : MonoBehaviour
         BGM.outputAudioMixerGroup = instance.Mixer.FindMatchingGroups("BGM")[0];
         PlayBGM();
     }
-    private void Update()
-    {
-        if (randomTalkCoolTime > 0)
-        {
-            randomTalkCoolTime -= Time.deltaTime;
-        }
-    }
 
     public static void OperatorTalk(AudioClip talk)
     {
+        if (instance.cannotPlayTalk) return;
         Operator.clip = talk;
         Operator.Play();
-    }
-    
-    public static void OperatorTalkAndClod(AudioClip talk)
-    {
-        Operator.clip = talk;
-        Operator.Play();
-        randomTalkCoolTime = 5f;
     }
 
     public static void PlayEFF(AudioClip eff)
@@ -79,6 +70,7 @@ public class AudioManager : MonoBehaviour
 
     public static void PlayBGM(AudioClip bgm = null)
     {
+        if (instance.cannotPlayBGM) return;
         BGM.clip = bgm == null ? instance.mainSceneBGM : bgm;
         BGM.Play();
     }

@@ -71,6 +71,7 @@ public class StoreHouse : MonoBehaviour
     public static Color32 HydroDamageColor = new Color32(0, 160, 255, 255);
     public static Color32 PyroDamageColor = new Color32(255, 50, 50, 255);
     public static Color32 CryoDamageColor = new Color32(175, 255, 255, 255);
+    public static Color32 HealCountColor = new Color32(0, 255, 0, 255);
 
     [Header("状态相关")] 
     public GameObject underGroundLight;

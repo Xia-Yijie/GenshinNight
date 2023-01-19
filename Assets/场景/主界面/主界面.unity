@@ -30867,6 +30867,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4718090981544361364, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
+      propertyPath: cannotPlayBGM
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4718090981544361365, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: m_RootOrder
       value: 11

@@ -126,7 +126,8 @@ public class ElementCore : PropertyCore
     /// swirl==true，表示为扩散伤害，反应精通为0
     /// </summary>
     public void GetDamage(BattleCore attacker, float damage, DamageMode mode, ElementSlot elementSlot,
-        bool attached, bool haveText = false, bool isBig = false, bool noAttacher = false)
+        bool attached, bool haveText = false, bool isBig = false, bool noAttacher = false,
+        bool reversal = false)
     {
         lastAttacker = noAttacher ? null : attacker;
         
@@ -135,7 +136,7 @@ public class ElementCore : PropertyCore
             if (attached)       // 受到元素附着，将发生反应
             {
                 ElementSlot element2 = new ElementSlot(elementSlot.eleType, elementSlot.eleCount);
-                AttachedElement(attacker, element2, ref damage, ref isBig, noAttacher);
+                AttachedElement(attacker, element2, ref damage, ref isBig, noAttacher, reversal);
             }
 
             // 元素抗性
@@ -184,9 +185,47 @@ public class ElementCore : PropertyCore
             false, false, true);
     }
 
+    public void GetHeal(BattleCore healer, float count, ElementSlot elementSlot,
+        bool attached, bool haveText = false, bool isBig = false, bool noHealer = false,
+        bool reversal = false)
+    {// 受到一次治疗
+        if (elementSlot.eleType != ElementType.None && attached) 
+        {
+            if (attached)       // 受到元素附着，将发生反应
+            {
+                ElementSlot element2 = new ElementSlot(elementSlot.eleType, elementSlot.eleCount);
+                AttachedElement(healer, element2, ref count, ref isBig, noHealer, reversal);
+            }
+        }
+        
+        /****** 这里可以加一点委托，如受治疗加成 ******/
+        float finalCount = count;
+        
+        
+        life_.GetHeal(finalCount);               // 最终受到的伤害
+        
+        // 显示伤害数字
+        if (!haveText && !isBig) return;
+        GameObject damageText;
+        if (isBig) damageText = PoolManager.GetObj(StoreHouse.instance.bigDamageText);
+        else damageText = PoolManager.GetObj(StoreHouse.instance.smallDamageText);
+        Text text = damageText.GetComponent<Text>();
+        damageText.transform.SetParent(OperUIManager.WorldCanvas.transform);
+
+        text.text = finalCount.ToString("f0");
+        text.color = StoreHouse.HealCountColor;
+        Vector3 center = transform.position;
+        text.transform.position = center;
+    }
+
+    public void GetHeal(BattleCore healer, float count)
+    {
+        GetHeal(healer, count, new ElementSlot(), false);
+    }
+
 
     private void AttachedElement(BattleCore attacker, ElementSlot element2,
-        ref float damage, ref bool isBig, bool noAttacher)           
+        ref float damage, ref bool isBig, bool noAttacher, bool reversal = false)           
     {// 受到元素附着，返回值为经过元素反应后的伤害值（蒸发融化等）
         
         // 如果身上没有任何元素，且元素不是风岩，直接附着即可
@@ -214,13 +253,13 @@ public class ElementCore : PropertyCore
             // 进行元素反应
             if (noAttacher)
             {// 如果没有攻击来源，反应精通为0
-                reactionController.Reaction(attacker, element1, element2, 
-                    0, ref damage, ref isBig);
+                reactionController.Reaction(attacker, element1, element2,
+                    0, ref damage, ref isBig, noAttacher, reversal);
             }
             else
             {// 吃后手攻击者的精通
                 reactionController.Reaction(attacker, element1, element2,
-                    attacker.elementMastery.val, ref damage, ref isBig);
+                    attacker.elementMastery.val, ref damage, ref isBig, noAttacher, reversal);
             }
             
             if (element1.eleCount <= 0)         // 如果附着元素已完全消失，移除该元素

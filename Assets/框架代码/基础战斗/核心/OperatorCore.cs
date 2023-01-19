@@ -137,6 +137,7 @@ public class OperatorCore : BattleCore
             270 => FourDirection.UP,
             _ => FourDirection.None
         };
+        ac_.UnLockRol();
 
         // 让Anim开始播放动画
         anim.SetBool("start", true);
@@ -183,6 +184,9 @@ public class OperatorCore : BattleCore
                     od_.skill2_recoverType, od_.skill2_releaseType, od_.spRecharge);
                 break;
         }
+        
+        // 干员自伤，拍完后删掉
+        GetDamage(life_.life / 3f * 2f, DamageMode.Magic);
     }
 
     private void InitCalculation()
@@ -689,7 +693,7 @@ public class SpineAnimController
         dirRight = true;
         anim.transform.localScale = rightScale;
     }
-    
+
     public void LockRolAndRight()
     {
         lockRol = true;

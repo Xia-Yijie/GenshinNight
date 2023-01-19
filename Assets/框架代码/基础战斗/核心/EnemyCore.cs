@@ -670,7 +670,7 @@ public class PushAndPullController
     }
 
 
-    public void Push(Vector3 forcePoint, float forceStrength)
+    public void Push_Center(Vector3 forcePoint, float forceStrength)
     {
         // 从力的发出点往外推
         if (ec_.shieldList.Count > 0) return;
@@ -679,7 +679,13 @@ public class PushAndPullController
         Displacement(direction,forceStrength);
     }
     
-    public void Pull(Vector3 forcePoint, float forceStrength)
+    public void Push(Vector3 direction, float forceStrength)
+    {
+        if (ec_.shieldList.Count > 0) return;
+        Displacement(direction,forceStrength);
+    }
+    
+    public void Pull_Center(Vector3 forcePoint, float forceStrength)
     {
         // 从力的发出点往里拉
         if (ec_.shieldList.Count > 0) return;
