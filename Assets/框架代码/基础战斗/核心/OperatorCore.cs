@@ -184,9 +184,6 @@ public class OperatorCore : BattleCore
                     od_.skill2_recoverType, od_.skill2_releaseType, od_.spRecharge);
                 break;
         }
-        
-        // 干员自伤，拍完后删掉
-        GetDamage(life_.life / 3f * 2f, DamageMode.Magic);
     }
 
     private void InitCalculation()
@@ -244,6 +241,7 @@ public class OperatorCore : BattleCore
     {
         if (dizziness > 0) return;
         var staInfo = anim.GetCurrentAnimatorStateInfo(0);
+        // fighting = anim.GetBool("fight");
         if (staInfo.IsName("Fight"))
         {
             fighting = true;
@@ -252,29 +250,29 @@ public class OperatorCore : BattleCore
         
         if (!tarIsNull)
         {
-            if (CanAtk())
+            if (CanAtk() && !fighting)
             {
                 anim.SetBool("fight", true);
-                fightingContinue = (int) (3 / Time.timeScale);
-                NorAtkStartCool();
+                // fightingContinue = (int) (3 / Time.timeScale);
+                // NorAtkStartCool();
                 
                 // 根据目标位置转变干员朝向
                 Vector2 detaPos = BaseFunc.xz(transform.position) - BaseFunc.xz(target.transform.position);
                 if (detaPos.x < 0) ac_.TurnRight();
                 else ac_.TurnLeft();
             }
-            else if (fightingContinue > 0)
-            {
-                fightingContinue--;
-            }
-            else
-            {
-                anim.SetBool("fight", false);
-            }
+            // else if (fightingContinue > 0)
+            // {
+            //     fightingContinue--;
+            // }
+            // else
+            // {
+            //     anim.SetBool("fight", false);
+            // }
         }
         else
         {
-            anim.SetBool("fight", false);
+            // anim.SetBool("fight", false);
             defaultTurn();
         }
     }

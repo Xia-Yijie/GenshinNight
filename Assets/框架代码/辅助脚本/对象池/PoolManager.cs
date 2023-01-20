@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-public class PoolManager : MonoBehaviour
+public class PoolManager
 {
     // 对象池
     private const int maxCount = 64;
@@ -23,6 +23,7 @@ public class PoolManager : MonoBehaviour
             {
                 pool[obj.name].Add(obj);
             }
+            else Debug.Log("超过对象池最大上线");
         }
         else
         {
@@ -52,7 +53,7 @@ public class PoolManager : MonoBehaviour
             }
         }
         // 池子中缺少
-        result = Instantiate(perfab, null);
+        result = Object.Instantiate(perfab, null);
         result.name = perfab.name;
         RecycleObj(result);
         GetObj(result);
@@ -96,6 +97,7 @@ public class PoolManager : MonoBehaviour
     {
         pool.Clear();
         objPrt.Clear();
+        EnemyPoolManager.Clear();
     }
     
 }

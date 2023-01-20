@@ -17,9 +17,19 @@ public class OperAnimEvent : MonoBehaviour
         oc_.OnStart();
     }
 
+    public void FightBegin()
+    {
+        oc_.NorAtkStartCool();
+    }
+    
     public void OnAttack()
     {
         oc_.OnAttack();
+    }
+
+    public void FightEnd()
+    {
+        oc_.anim.SetBool("fight", false);
     }
 
     public void OnDie()
