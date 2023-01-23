@@ -17,7 +17,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
     private bool waving;                            // 当前是否处于下一波次展示时间
     
     public bool disableWaveUI = false;              // 激活时，禁用红门UI
-    private Queue<EnemyCore> enemyQueue = new Queue<EnemyCore>();           // 当前波次的敌人队列
+    private Queue<EnemyWaveInfoSlot> enemyQueue = new Queue<EnemyWaveInfoSlot>();           // 当前波次的敌人队列
     private List<List<string>> redDoorTextList = new List<List<string>>();  // 红门展示的敌人文本，以波次切分
 
     private void Awake()
@@ -33,11 +33,9 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
             i.startButton.onClick.AddListener(NextWaveStart);
         }
         
-        maxWave = InitManager.allEnemyList.Count;
-        foreach (var i in InitManager.allEnemyList)
+        maxWave = InitManager.EnemySlotList.Count;
+        foreach (var i in InitManager.EnemySlotList)
         {
-            
-            
             // 统计每一波次的敌人名称
             List<Dictionary<string, int>> map = new List<Dictionary<string, int>>();
             redDoorTextList.Add(new List<string>());
@@ -60,7 +58,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
                 for (int k = 0; k < InitManager.redDoorUILIst.Count; k++)
                 {
                     if (BaseFunc.preEqual(InitManager.redDoorUILIst[k].transform.position,
-                        j.transform.position))
+                        BaseFunc.x0z(j.pointList[0])))
                     {
                         id = k;
                         break;
@@ -99,18 +97,19 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
         // 生成满足条件的敌人
         while (enemyQueue.Count > 0 && timeLine >= enemyQueue.Peek().appearTime)
         {
-            EnemyCore ec = enemyQueue.Dequeue();
-            ec.gameObject.SetActive(true);
-            InitManager.enemyList.Add(ec);
+            EnemyWaveInfoSlot slot = enemyQueue.Dequeue();
+            EnemyCore ec = EnemyPoolManager.GetEnemy(slot.ei_);
+
+            ec.EnemyInit(slot.pointList);
             ec.DieAction += DelFromEnemyList;
-            ec.EnemyInit();
+            InitManager.enemyList.Add(ec);
         }
         // 如果当前波次的所有敌人均已生成，开始进入下一波的等待
         if (enemyQueue.Count == 0 && !disableWaveUI && !waving)
             NextWaveUI();
         
         //下一波开始倒计时
-        if (waving && wave < InitManager.allEnemyList.Count)
+        if (waving && wave < InitManager.EnemySlotList.Count)
         {
             nxtWaveTime += Time.deltaTime;
             foreach (var i in InitManager.redDoorUILIst)
@@ -128,7 +127,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
     public void NextWaveUI()
     {
         int nwave = wave + 1;
-        if (nwave >= InitManager.allEnemyList.Count) return;
+        if (nwave >= InitManager.EnemySlotList.Count) return;
 
         nxtWaveTime = 0;
         // 更新所有红门的文本
@@ -150,7 +149,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
     public void NextWaveStart()
     {
         wave++;
-        if (wave >= InitManager.allEnemyList.Count) return;
+        if (wave >= InitManager.EnemySlotList.Count) return;
         
         timeLine = 0;
         enemyQueue.Clear();
@@ -176,7 +175,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
             i.gc_.Hide();
         }
         
-        foreach (var i in InitManager.allEnemyList[wave])
+        foreach (var i in InitManager.EnemySlotList[wave])
         {
             enemyQueue.Enqueue(i);
         }

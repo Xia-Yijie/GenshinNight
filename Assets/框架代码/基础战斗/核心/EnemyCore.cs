@@ -10,15 +10,17 @@ public class EnemyCore : BattleCore
 {
     [Header("敌人数据")]
     public enemyInfo ei_;
-    
+    public bool willRegister = false;
+
     [Header("敌人的行动轨迹")] 
     public int wave;
     public float appearTime;        //该敌人出现的时间
-    public List<Vector3> pointList = new List<Vector3>();   //该敌人的路径锚点(x,y,time,sta)
+    public List<Vector3> pointList = new List<Vector3>();   //该敌人的路径锚点(x,y,time)
 
     [HideInInspector] public Animator anim;
     public SpineAnimController ac_;
     public EnemyPathController epc_;
+    private Vector3 localAnimPosition;
     private int fightingContinue = 0;       // fight激活后延续几帧
 
     private int cannotMove = 0;     // 锁定移动，只有该变量=0时才可以移动
@@ -26,6 +28,7 @@ public class EnemyCore : BattleCore
     public ValueBuffer speed;      // 基础移动速度
     private ValueBuffer speedDeta = new ValueBuffer(1);    // 移动速度和动画播放速度的改变量
 
+    [HideInInspector] public Rigidbody rigidbody;
     public PushAndPullController ppc_;
     
     // 敌人特有的，区别于普攻范围的索敌列表，由子类自行处理
@@ -36,23 +39,42 @@ public class EnemyCore : BattleCore
     protected override void Awake_Core()
     {
         base.Awake_Core();
-        InitManager.Register(this);
+        // InitManager.Register(this);
         ppc_ = new PushAndPullController(this);
-        transform.position = BaseFunc.x0z(pointList[0]);
-        
         anim = transform.Find("anim").GetComponent<Animator>();
+        rigidbody = GetComponent<Rigidbody>();
+        ac_ = new SpineAnimController(anim, this);
+        localAnimPosition = anim.transform.localPosition;
+
+        if (willRegister)
+        {
+            EnemyWaveInfoSlot slot = new EnemyWaveInfoSlot(ei_, wave, appearTime, pointList);
+            InitManager.Register(slot);
+            EnemyPoolManager.RecycleEnemy(this);
+        }
     }
 
     protected override void Start_Core()
     {
         base.Start_Core();
         
+        // EnemyInit(null);
+        
         animTransform = anim.transform;
-        ac_ = new SpineAnimController(anim, this);
+        // gameObject.SetActive(false);        // 敌人开始是处于关闭状态
+    }
+
+    public virtual void EnemyInit(List<Vector3> pointList_)
+    {// 每次激活时调用的函数
+        
+        if (pointList_ != null) pointList = new List<Vector3>(pointList_);
         epc_ = new EnemyPathController(this, pointList);
         
+        // 将敌人移动到初始位置
+        transform.position = epc_.GetTarPoint();
+
         // 设置敌人重量和瞄准信息
-        GetComponent<Rigidbody>().mass = ei_.mass;
+        rigidbody.mass = ei_.mass;
         aimingMode = ei_.aimingMode;
         
         // 初始化battleCalculation
@@ -65,8 +87,6 @@ public class EnemyCore : BattleCore
         // 设置spController
         sp_.Init(this, ei_.initSP, ei_.maxSP, ei_.duration,
             ei_.skill_recoverType, ei_.skill_releaseType, ei_.spRecharge);
-
-        gameObject.SetActive(false);        // 敌人开始是处于关闭状态
     }
     
     
@@ -86,12 +106,17 @@ public class EnemyCore : BattleCore
 
     private void InitCalculation()
     {
-        atk_.ChangeBaseValue(ei_.atk);
-        def_.ChangeBaseValue(ei_.def);
-        magicDef_.ChangeBaseValue(ei_.magicDef);
+        atk_.Init(ei_.atk);
+        def_.Init(ei_.def);
+        magicDef_.Init(ei_.magicDef);
         life_.InitBaseLife(ei_.life);
-        maxBlock.ChangeBaseValue(ei_.consumeBlock);
+        maxBlock.Init(ei_.consumeBlock);
         atkSpeedController = new AtkSpeedController(this, ac_, 0, ei_.minAtkInterval);
+        
+        elementMastery.Init(ei_.elementalMastery);
+        elementDamage.Init(ei_.elementalDamage);
+        elementResistance.Init(ei_.elementalResistance);
+        shieldStrength.Init(ei_.shieldStrength);
     }
 
     public override bool GetDizzy()
@@ -222,15 +247,37 @@ public class EnemyCore : BattleCore
         // 敌人到达终点后
         if (dying) return;
         dying = true;
-        if (DieAction != null) DieAction(this);
+        if (DieAction != null)
+        {
+            DieAction(this);
+            DieAction = null;
+        }
+        
         InitManager.resourceController.HPIncrease(-ei_.consumeHP);
         anim.transform.parent = null;
         transform.position = new Vector3(999, 999, 999);
         ac_.ChangeColor(Color.black);
-        Invoke(nameof(DestroySelf), 0.8f);
         
         // 播放敌人进门音效
         OperUIElements.EnemyInAudio.Play();
+        
+        Invoke(nameof(DestroySelf), 0.8f);
+    }
+
+    void DestroySelf()
+    {
+        // Destroy(anim.gameObject);
+        // Destroy(gameObject);
+        
+        anim.transform.SetParent(transform);
+        anim.transform.localPosition = localAnimPosition;
+        ac_.ChangeDefaultColorImmediately();
+        dying = false;
+        
+        operatorList.Clear();
+        enemyList.Clear();
+
+        EnemyPoolManager.RecycleEnemy(this);
     }
     
     /// <summary>
@@ -304,15 +351,14 @@ public class EnemyCore : BattleCore
 
     public void OnDie()
     {
-        Destroy(anim.gameObject);
-        Destroy(gameObject);
+        DestroySelf();
     }
 
-    private void DestroySelf()
-    {
-        Destroy(anim.gameObject);
-        Destroy(gameObject);
-    }
+    // private void DestroySelf()
+    // {
+    //     Destroy(anim.gameObject);
+    //     Destroy(gameObject);
+    // }
 
     public override void FrozenBegin()
     {
@@ -333,9 +379,7 @@ public class EnemyCore : BattleCore
     {
         cannotMove--;    
     }
-    
-    public virtual void EnemyInit() { }
-    
+
 }
 
 public class Spfa
@@ -514,7 +558,7 @@ public class EnemyPathController
     public int blueDoorNum{ get; private set; }
     private Queue<Vector2> realPointQueue = new Queue<Vector2>();
 
-    private Vector3 posOffset;
+    public Vector3 posOffset;
 
     public EnemyPathController(EnemyCore enemyCore, List<Vector3> pointList)
     {
@@ -541,7 +585,7 @@ public class EnemyPathController
         }
         
         // 给一个随机偏移量
-        posOffset = new Vector3(Random.Range(-0.14f, 0.14f), 0, Random.Range(-0.14f, 0.14f));
+        posOffset = new Vector3(Random.Range(-0.18f, 0.18f), 0, Random.Range(-0.18f, 0.18f));
     }
 
     public void Update()

@@ -188,18 +188,18 @@ public class OperatorCore : BattleCore
 
     private void InitCalculation()
     {
-        atk_.ChangeBaseValue(od_.atk);
-        def_.ChangeBaseValue(od_.def);
-        magicDef_.ChangeBaseValue(od_.magicDef);
+        atk_.Init(od_.atk);
+        def_.Init(od_.def);
+        magicDef_.Init(od_.magicDef);
         life_.InitBaseLife(od_.life);
-        maxBlock.ChangeBaseValue(od_.maxBlock);
+        maxBlock.Init(od_.maxBlock);
         atkSpeedController = new AtkSpeedController(this, ac_, 0, od_.maxAtkInterval);
 
-        elementMastery.ChangeBaseValue(od_.elementalMastery);
-        elementDamage.ChangeBaseValue(od_.elementalDamage);
-        elementResistance.ChangeBaseValue(od_.elementalResistance);
-        recoverTime.ChangeBaseValue(od_.reTime);
-        shieldStrength.ChangeBaseValue(od_.shieldStrength);
+        elementMastery.Init(od_.elementalMastery);
+        elementDamage.Init(od_.elementalDamage);
+        elementResistance.Init(od_.elementalResistance);
+        recoverTime.Init(od_.reTime);
+        shieldStrength.Init(od_.shieldStrength);
         
         costNeed.ChangeBaseValue(od_.cost);
     }

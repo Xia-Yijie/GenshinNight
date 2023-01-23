@@ -162,6 +162,16 @@ public class ValueBuffer
     }
     
     /// <summary>  
+    /// 初始化
+    /// </summary>
+    public void Init(float newBaseVal)
+    {
+        valueBuffList.Clear();
+        valueFuncList.Clear();
+        ChangeBaseValue(newBaseVal);
+    }
+    
+    /// <summary>  
     /// 更改基础数值
     /// </summary>
     public void ChangeBaseValue(float newBaseVal)
@@ -219,7 +229,7 @@ public class LifeController : ValueBuffer
 
     public void InitBaseLife(float v)
     {
-        ChangeBaseValue(v);
+        Init(v);
         life = v;
     }
 

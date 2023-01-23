@@ -22,7 +22,7 @@ public class InitManager : MonoBehaviour
     public static int operPriority;
     
     // 本场战斗会出现的所有敌人，按波次切分
-    public static List<List<EnemyCore>> allEnemyList = new List<List<EnemyCore>>();
+    public static List<List<EnemyWaveInfoSlot>> EnemySlotList = new List<List<EnemyWaveInfoSlot>>();
     public static int totEnemyNum;
     // 地图信息
     private static Dictionary<Vector2, TileSlot> baseMp = new Dictionary<Vector2, TileSlot>();
@@ -98,7 +98,7 @@ public class InitManager : MonoBehaviour
         allOperDataList.Clear();
         allOperNumList.Clear();
         offOperList.Clear();
-        allEnemyList.Clear();
+        EnemySlotList.Clear();
         baseMp.Clear();
         mp.Clear();
         blueDoorPathList.Clear();
@@ -143,11 +143,11 @@ public class InitManager : MonoBehaviour
         allOperNumList.Add(num);
     }
 
-    public static void Register(EnemyCore ec_)
+    public static void Register(EnemyWaveInfoSlot slot)
     {
-        while(allEnemyList.Count<=ec_.wave)
-            allEnemyList.Add(new List<EnemyCore>());
-        allEnemyList[ec_.wave].Add(ec_);
+        while (EnemySlotList.Count <= slot.wave)
+            EnemySlotList.Add(new List<EnemyWaveInfoSlot>());
+        EnemySlotList[slot.wave].Add(slot);
         totEnemyNum++;
     }
 
