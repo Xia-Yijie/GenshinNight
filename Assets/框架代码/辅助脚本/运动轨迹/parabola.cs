@@ -7,102 +7,111 @@ using UnityEngine.Rendering;
 
 public class parabola : MonoBehaviour
 {
-    private BattleCore tarBattleCore;
-    private BattleCore attacker;
-    private Transform tarTrans;
-    private bool isNull;
-    private float speed = 5f;
-    private float multi;
-    private Action<float, BattleCore, parabola, bool> reachFunc;
-    private Vector3 tarPY;
+    private float g = 40f;                  // 重力加速度
+
+    private BattleCore tarBattleCore;       // 追踪的目标
+    private BattleCore attacker;            // 发射的来源
+    private Transform tarTrans;             // 目标的transform
+    private bool isNull;                    // 目标是否消失
+    private float speed = 5f;               // 速度
+    private float multi;                    // 本次攻击的倍率
+    private Action<float, BattleCore, parabola, bool> reachFunc;    // 到达函数，如果attacker消失则不执行
+    private Vector3 tarPY;                  // 目标初始偏移量
+    private float durTime = 0;              // 整个运动需要的时间
+    private Vector3 tarPos;                 // 目标的初始位置
+    private Vector2 tarPos2D;
+    private Vector2 direction2D;            // 在平面上移动的方向向量（归一化）
+    private float VH;                       // 当前在垂直方向上的速度
     
-    private const float min_distance = 0.15f;
-    private float distance;
-    private Vector3 tarPos;
-    private float py;
-    private float durTime = 0;
-    
+    private Vector3 tarDetaPos;             // 目标移动的位置向量
+    private Vector2 localPos;               // 如果目标未移动，当前应该处在的位置
+
+    // private const float min_distance = 0.15f;
+    // private float distance;
+                     
+    // private float py;
+
     public void Init(Vector3 pos, BattleCore attacker_, BattleCore targetBattleCore, float speed_ = 5,
-        Action<float, BattleCore, parabola, bool> reach = null, 
-        float Multi = 1, Vector3 tarPY_ = default)
+        Action<float, BattleCore, parabola, bool> reach = null,
+        float Multi = 1, Vector3 tarPY_ = default, float G = 40f)
     {
-        transform.position = pos;
         tarBattleCore = targetBattleCore;
-        attacker = attacker_;
         tarTrans = tarBattleCore.animTransform;
-        speed = speed_;
-        multi = Multi;
-        reachFunc = reach;
-        tarPY = tarPY_;
-
-        tarPos = tarTrans.position + tarPY;
-        distance = Vector3.Distance(transform.position, tarPos);
-        py = transform.position.y;
-        durTime = 0;
-
+        tarPos = tarTrans.position + tarPY_;
         if (targetBattleCore.dying)
         {
-            reachFunc = null;
-            PoolManager.RecycleObj(gameObject);
+            Init(pos, attacker_, speed_, reach, Multi, tarPos, G);     // 执行无目标的初始化
+            return;
         }
-        else
-        {
-            isNull = false;
-            tarBattleCore.DieAction += TarNull;
-        }
+
+        norInit(pos, attacker_, speed_, reach, Multi, G);
+        
+        isNull = false;
+        tarBattleCore.DieAction += TarNull;
     }
 
     public void Init(Vector3 pos, BattleCore attacker_, float speed_ = 5,
         Action<float, BattleCore, parabola, bool> reach = null, 
-        float Multi = 1, Vector3 tarPos_ = default)
+        float Multi = 1, Vector3 tarPos_ = default, float G = 40f)
     {// 没有目标的发射
+        tarPos = tarPos_;
+        norInit(pos, attacker_, speed_, reach, Multi, G);
+        isNull = true;
+    }
+
+    private void norInit(Vector3 pos, BattleCore attacker_, float speed_,
+        Action<float, BattleCore, parabola, bool> reach, float Multi, float G)
+    {// 其他初始化，需要先初始化好目标点tarPos
         transform.position = pos;
         attacker = attacker_;
         speed = speed_;
         multi = Multi;
         reachFunc = reach;
-        tarPos = tarPos_;
+        g = G;
         
-        distance = Vector3.Distance(transform.position, tarPos);
-        py = transform.position.y;
-        durTime = 0;
-        
-        isNull = true;
+        // 计算垂直初速度
+        Vector2 prePos2D = BaseFunc.xz(pos);
+        tarPos2D = BaseFunc.xz(tarPos);
+        float distance = Vector2.Distance(prePos2D, tarPos2D);
+        durTime = distance / speed;
+        float detaH = pos.y - tarPos.y;
+        VH = 0.5f * g * (durTime - (2 * detaH / g) / durTime);    // 初始垂直速度
+
+        // 计算二维方向向量
+        direction2D = tarPos2D - prePos2D;
+        float k = Mathf.Sqrt(1f / (direction2D.x * direction2D.x + direction2D.y * direction2D.y));
+        direction2D *= k;
+
+        localPos = BaseFunc.xz(pos);
+        tarDetaPos = Vector3.zero;
     }
-    
-    
     
 
     void Update()
     {
-        if (!isNull)
-        {
-            tarPos = tarTrans.position + tarPY;
-            // if (Vector3.Distance(tarPos, Vector3.zero) > 200) 
-            //     isNull = true;
-        }
-        
-        // 随时间提高速度
-        speed += Mathf.Exp(durTime * 1.5f);
-        durTime += Time.deltaTime;
-
-        // 朝向目标, 以计算运动
-        transform.LookAt(tarPos);
-        // 根据距离衰减 角度
-        float angle = Mathf.Min(1, Vector3.Distance(transform.position, tarPos) / distance);
-        // 旋转对应的角度（线性插值一定角度，然后每帧绕X轴旋转）
-        transform.rotation = transform.rotation * Quaternion.Euler(0, 0, Mathf.Clamp(-angle, -42, 42));
-        // 当前距离目标点
-        float currentDist = Vector2.Distance(BaseFunc.xz(transform.position), BaseFunc.xz(tarPos));
-        // 很接近目标了, 准备结束循环
-        if (currentDist < min_distance)
-        {
+        // 计算剩余时间
+        durTime -= Time.deltaTime;
+        if (durTime <= 0)
+        {// 时间到，已到达目标点
             Arrive();
             return;
         }
-        // 平移 (朝向Z轴移动)
-        transform.Translate(Vector3.forward * Mathf.Min(speed * Time.deltaTime, currentDist));
-        transform.position = new Vector3(transform.position.x, py, transform.position.z);
+        
+        // 计算二维平面平移
+        localPos += direction2D * (speed * Time.deltaTime);
+        
+        // 计算垂直方向位移
+        float disH = VH * Time.deltaTime;
+        VH -= g * Time.deltaTime;
+        
+        if (!isNull)
+        {// 如果目标还在，计算当前目标的偏移量
+            tarDetaPos = tarTrans.position - tarPos;
+        }
+        
+        // 根据移动量改变位置的xz，根据偏移量改变整体位置
+        Vector3 pos = new Vector3(localPos.x, transform.position.y + disH, localPos.y);
+        transform.position = pos + tarDetaPos;
     }
 
     private void Arrive()

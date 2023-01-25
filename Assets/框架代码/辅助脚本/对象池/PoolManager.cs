@@ -9,6 +9,8 @@ public class PoolManager
     private const int maxCount = 64;
     private static Dictionary<string, List<GameObject>> pool = new Dictionary<string, List<GameObject>>();
     private static Dictionary<string, GameObject> objPrt = new Dictionary<string, GameObject>();
+    private static Transform PoolPrt;
+    private static bool PoolPrtNotNull = false;
     
     public static void RecycleObj(GameObject obj)
     {
@@ -36,7 +38,14 @@ public class PoolManager
         // 如果没有父物体则生成
         if (!objPrt.ContainsKey(perfab.name))
         {
-            objPrt.Add(perfab.name, new GameObject(perfab.name + "对象池"));
+            if (!PoolPrtNotNull)
+            {
+                PoolPrt = new GameObject("对象池的特效们").transform;
+                PoolPrtNotNull = true;
+            }
+            GameObject prt = new GameObject(perfab.name + "对象池");
+            prt.transform.SetParent(PoolPrt);
+            objPrt.Add(perfab.name, prt);
         }
 
         // 池子中有

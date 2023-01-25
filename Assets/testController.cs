@@ -25,7 +25,7 @@ public class testController : MonoBehaviour
         // InitManager.Register(steward, 1);
         // InitManager.Register(beagle, 1);
         // InitManager.Register(melantha, 1);
-        InitManager.Register(orchid, 1);
+        // InitManager.Register(orchid, 1);
         // InitManager.Register(catapult, 1);
         InitManager.Register(dadaliya, 1);
         InitManager.Register(itto, 1);

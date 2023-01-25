@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     public AudioClip mainSceneBGM;
     public AudioMixer Mixer;
+    public GameObject Carrier;
+    private static GameObject CarriersPrt;
     
     [Header("不会播放BGM")]
     public bool cannotPlayBGM;
@@ -18,7 +20,7 @@ public class AudioManager : MonoBehaviour
     
     public static AudioSource Operator;
     public static AudioSource BGM;
-    public static AudioSource[] EFF = new AudioSource[5];
+    public static List<AudioCarrier> EFF_List = new List<AudioCarrier>();
     private static int EFFPointer = 0;
     
     private void Awake()
@@ -37,10 +39,8 @@ public class AudioManager : MonoBehaviour
         Operator = gameObject.AddComponent<AudioSource>();
         BGM = gameObject.AddComponent<AudioSource>();
         BGM.loop = true;
-        for (int i = 0; i < 5; i++)
-        {
-            EFF[i] = gameObject.AddComponent<AudioSource>();
-        }
+
+        CarriersPrt = new GameObject("音效载体队列");
 
         Operator.outputAudioMixerGroup = instance.Mixer.FindMatchingGroups("Voice")[0];
         BGM.outputAudioMixerGroup = instance.Mixer.FindMatchingGroups("BGM")[0];
@@ -54,18 +54,21 @@ public class AudioManager : MonoBehaviour
         Operator.Play();
     }
 
-    public static void PlayEFF(AudioClip eff)
+    public static void PlayEFF(AudioClip clip, float volume = 1)
     {
-        for (int i = 0; i < 5; i++)
+        AudioCarrier carrier = null;
+        if (EFF_List.Count == 0)
         {
-            if (!EFF[EFFPointer].isPlaying)
-            {
-                EFF[EFFPointer].clip = eff;
-                EFF[EFFPointer].Play();
-                break;
-            }
-            EFFPointer = (EFFPointer + 1) % 5;
+            carrier = Instantiate(instance.Carrier, CarriersPrt.transform).GetComponent<AudioCarrier>();
         }
+        else
+        {
+            carrier = EFF_List[EFF_List.Count - 1];
+            carrier.gameObject.SetActive(true);
+            EFF_List.RemoveAt(EFF_List.Count - 1);
+        }
+
+        carrier.PlayAudio(clip, volume);
     }
 
     public static void PlayBGM(AudioClip bgm = null)

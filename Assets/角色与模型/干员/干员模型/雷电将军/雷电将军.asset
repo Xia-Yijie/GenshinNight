@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
+  m_Name: "\u96F7\u7535\u5C06\u519B"
+  m_EditorClassIdentifier: 
+  type: 2
+  skillType: 2
+  Name: "\u96F7\u7535\u5C06\u519B"
+  EnName: 
+  elementType: 2
+  is3D: 0
+  aimingMode: 1
+  canAtkDrone: 0
+  banLowGround: 0
+  banHighGround: 1
+  imageInQueue: {fileID: 21300000, guid: fd79f335a5e1fee4a8d2b7ad9cd77bdb, type: 3}
+  operUIImage1: {fileID: 21300000, guid: 0795caf3ef87a4243adc4f3b3a9e2bd1, type: 3}
+  operUIImage2: {fileID: 21300000, guid: 0795caf3ef87a4243adc4f3b3a9e2bd1, type: 3}
+  operPrefab: {fileID: 9075692056654107673, guid: aa4c7a77b42962c4b86c01cdd5cb3d20, type: 3}
+  Report: {fileID: 8300000, guid: c19dc4075e259b04b8e13a34a6c5fdbd, type: 3}
+  Deploy:
+  - {fileID: 8300000, guid: 26887be5e1ad86b4b92f4c17f220b431, type: 3}
+  - {fileID: 8300000, guid: 474e11cc206fb3e4e9746cc0ffd8f3fc, type: 3}
+  - {fileID: 8300000, guid: 736512496f70bc6489730d9420a42b7d, type: 3}
+  Selected:
+  - {fileID: 8300000, guid: 6e5d2050de1493d4a921e16dc24c3882, type: 3}
+  - {fileID: 8300000, guid: d503dc2381cbc1b48b3d1273e28a12f4, type: 3}
+  - {fileID: 8300000, guid: 172eec8cbe817b34aa6c94f93a614ce5, type: 3}
+  ElitismUP:
+  - {fileID: 8300000, guid: b12dbb5dcb3901d4ca314d8fd9d10d14, type: 3}
+  - {fileID: 8300000, guid: fde95dcbdb398034985bf8ebe8dda704, type: 3}
+  LowHP:
+  - {fileID: 8300000, guid: 7b794e3743baaac4c856f9128dec0c37, type: 3}
+  - {fileID: 8300000, guid: c8a73fe73c3529848831064d2aa9d4f4, type: 3}
+  - {fileID: 8300000, guid: 19621f3d8e0a263449cbc0d7c7833534, type: 3}
+  DieAudio:
+  - {fileID: 8300000, guid: 1f1e46e0355e3024384f804a10d715a9, type: 3}
+  - {fileID: 8300000, guid: df3b543523c0f65489488be6715d2e73, type: 3}
+  - {fileID: 8300000, guid: 4fd78803ee73acb4cbf9f9ee67f2afe1, type: 3}
+  Skill1_Release: []
+  Skill2_Release:
+  - {fileID: 8300000, guid: 0f9b17cf5fff1a04fb460d8163aa1e35, type: 3}
+  - {fileID: 8300000, guid: a770568905621604296e9f17846365ef, type: 3}
+  - {fileID: 8300000, guid: cf09666f93b832048941807a8304d551, type: 3}
+  Skill3_Release:
+  - {fileID: 8300000, guid: 38726d7164ee54d438fbad6df05fa435, type: 3}
+  - {fileID: 8300000, guid: f1987e68f6bd55c468afa8d6f971b2ad, type: 3}
+  - {fileID: 8300000, guid: c6ddb9819550b644fac72d3f9cfee5a4, type: 3}
+  End_3Star: {fileID: 0}
+  End_Fail: {fileID: 0}
+  atk: 1000
+  def: 0
+  magicDef: 0
+  life: 10000
+  maxBlock: 2
+  maxAtkInterval: 1.67
+  cost: 0
+  consumPlace: 1
+  reTime: 0
+  maxLevel: 000000000000000000000000
+  elementalMastery: 0
+  elementalDamage: 1
+  elementalResistance: 0
+  spRecharge: 1
+  shieldStrength: 0
+  Description:
+  - "\u53EF\u4EE5\u83B7\u5F97\u613F\u529B\uFF0C\u5207\u6362\u6280\u80FD\u65F6\u80FD\u5FEB\u901F\u56DE\u590D\u6280\u529B"
+  - "\u53EF\u4EE5\u83B7\u5F97\u613F\u529B\uFF0C\u5207\u6362\u6280\u80FD\u65F6\u80FD\u5FEB\u901F\u56DE\u590D\u6280\u529B"
+  - "\u53EF\u4EE5\u83B7\u5F97\u613F\u529B\uFF0C\u5207\u6362\u6280\u80FD\u65F6\u80FD\u5FEB\u901F\u56DE\u590D\u6280\u529B"
+  talentName1: "\u4E07\u5343\u7684\u613F\u671B"
+  talentName2: "\u6B8A\u80DC\u4E4B\u5FA1\u4F53"
+  atkSpeedDescription: 0
+  resetSpeedDescription: 0
+  growingAtk:
+  - 0
+  - 0
+  - 0
+  growingDef:
+  - 0
+  - 0
+  - 0
+  growingLife:
+  - 0
+  - 0
+  - 0
+  elitismAtk:
+  - 0
+  - 0
+  elitismDef:
+  - 0
+  - 0
+  elitismLife:
+  - 0
+  - 0
+  elitismMagicDef:
+  - 0
+  - 0
+  elitismBlock: 0000000000000000
+  elitismExp: 0000000000000000
+  elitismCost: 0000000000000000
+  trustAtk: 0
+  trustDef: 0
+  trustLife: 0
+  trustMagicDef: 0
+  potentialAtk:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  potentialDef:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  potentialLife:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  potentialMagicDef:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  potentialCost: 000000000000000000000000000000000000000000000000
+  potentialReTime:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  talentImage:
+  - {fileID: 21300000, guid: ad3ffc6ac54b1d64488d6eaf44a4ed9c, type: 3}
+  - {fileID: 21300000, guid: 2febf15cfc656d14085a681db97aaabe, type: 3}
+  atkRange:
+  - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
+  - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
+  - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
+  atkRangeImage:
+  - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
+  - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
+  - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
+  illustratedBookImage: {fileID: 21300000, guid: a9e7ca91293e8cc478454f53ffd2059d, type: 3}
+  profession: 0
+  star: 5
+  skillImage:
+  - {fileID: 21300000, guid: 91849f321dacf6e4d9f5c4278c611422, type: 3}
+  - {fileID: 21300000, guid: fef9556a501008c4e9c19b8d1c1c05f1, type: 3}
+  - {fileID: 21300000, guid: 34605b70ba1503040b50f0b915aa158f, type: 3}
+  skillName0: "\u6E90\u6D41\u91CD\u65A9"
+  description0:
+  - "\u4E0B\u4E00\u6B21\u653B\u51FB\u9020\u6210\u66F4\u9AD8\u7684\u4F24\u5BB3\uFF0C\u83B7\u5F97\u66F4\u591A\u7684\u613F\u529B"
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  initSP0: 00000000000000000000000000000000000000000000000000000000
+  maxSP0: 03000000000000000000000000000000000000000000000000000000
+  duration0:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  expNeed0: 000000000000000000000000000000000000000000000000
+  costNeed0: 000000000000000000000000000000000000000000000000
+  skill0_recoverType: 1
+  skill0_releaseType: 3
+  skillCanEndEarly0: 0
+  skillName1: "\u795E\u53D8\u2022\u6076\u66DC\u5F00\u773C"
+  description1:
+  - "\u5BF9\u524D\u65B9\u5927\u8303\u56F4\u654C\u4EBA\u9020\u6210\u96F7\u5143\u7D20\u9B54\u6CD5\u4F24\u5BB3\u3002\u968F\u540E\u83B7\u5F97\u96F7\u7F5A\u6076\u66DC\u4E4B\u773C\uFF0C\u80FD\u534F\u52A9\u96F7\u7535\u5C06\u519B\u8FDB\u884C\u653B\u51FB\uFF0C\u5E76\u63D0\u9AD8\u5143\u7D20\u5145\u80FD\u6548\u7387"
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  initSP1: 00000000000000000000000000000000000000000000000000000000
+  maxSP1: 02000000000000000000000000000000000000000000000000000000
+  duration1:
+  - 1.66
+  - 1.66
+  - 1.66
+  - 1.66
+  - 1.66
+  - 1.66
+  - 1.66
+  expNeed1: 000000000000000000000000000000000000000000000000
+  costNeed1: 000000000000000000000000000000000000000000000000
+  skill1_recoverType: 0
+  skill1_releaseType: 0
+  skillCanEndEarly1: 0
+  skillName2: "\u5965\u4E49\u2022\u68A6\u60F3\u771F\u8BF4"
+  description2:
+  - "\u5BF9\u524D\u65B9\u4E00\u6761\u76F4\u7EBF\u7684\u654C\u4EBA\u9020\u6210\u5DE8\u989D\u4F24\u5BB3\uFF0C\u968F\u540E\u653B\u51FB\u53D8\u4E3A\u96F7\u5143\u7D20\u9B54\u6CD5\u4F24\u5BB3\uFF0C\u5E76\u56DE\u590D\u613F\u529B"
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  initSP2: 00000000000000000000000000000000000000000000000000000000
+  maxSP2: 01000000000000000000000000000000000000000000000000000000
+  duration2:
+  - 10
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  expNeed2: 000000000000000000000000000000000000000000000000
+  costNeed2: 000000000000000000000000000000000000000000000000
+  skill2_recoverType: 0
+  skill2_releaseType: 0
+  skillCanEndEarly2: 0
+  elitism: 0
+  level: 0
+  trust: 0
+  potential: 0

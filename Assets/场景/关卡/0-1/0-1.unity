@@ -6186,9 +6186,9 @@ Transform:
   - {fileID: 1821902296}
   - {fileID: 1801467784}
   - {fileID: 222797229}
+  - {fileID: 1324104929}
   - {fileID: 1044694841}
   - {fileID: 135352159}
-  - {fileID: 1324104929}
   - {fileID: 1141759540}
   m_Father: {fileID: 903390602}
   m_RootOrder: 0
@@ -8603,6 +8603,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811047585104965122, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
+      propertyPath: willRegister
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811047585104965122, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: pointList.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -9215,6 +9219,10 @@ PrefabInstance:
     - target: {fileID: 8811047585104965121, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: m_Name
       value: "\u6C34\u53F2\u83B1\u59C6\uFF08\u5C0F\uFF09"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8811047585104965122, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
+      propertyPath: willRegister
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8811047585104965122, guid: 234c05d728f831a4989f0364d5f565d4, type: 3}
       propertyPath: pointList.Array.size

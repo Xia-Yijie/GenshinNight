@@ -66,8 +66,8 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
                 }
                 if (id != -1)
                 {
-                    if (!map[id].ContainsKey(j.ei_.name)) map[id][j.ei_.name] = 0;
-                    map[id][j.ei_.name]++;
+                    if (!map[id].ContainsKey(j.ei_.Name)) map[id][j.ei_.Name] = 0;
+                    map[id][j.ei_.Name]++;
                 }
             }
             for (int k = 0; k < InitManager.redDoorUILIst.Count; k++)

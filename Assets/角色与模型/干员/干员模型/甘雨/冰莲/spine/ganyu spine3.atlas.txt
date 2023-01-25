@@ -1,0 +1,76 @@
+
+ganyu spine3.png
+size: 88,465
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hua1
+  rotate: true
+  xy: 2, 215
+  size: 50, 83
+  orig: 52, 83
+  offset: 1, 0
+  index: -1
+hua10
+  rotate: true
+  xy: 66, 54
+  size: 69, 18
+  orig: 69, 18
+  offset: 0, 0
+  index: -1
+hua2
+  rotate: false
+  xy: 2, 396
+  size: 83, 67
+  orig: 83, 67
+  offset: 0, 0
+  index: -1
+hua3
+  rotate: false
+  xy: 2, 328
+  size: 84, 66
+  orig: 84, 66
+  offset: 0, 0
+  index: -1
+hua4
+  rotate: false
+  xy: 2, 2
+  size: 37, 66
+  orig: 37, 66
+  offset: 0, 0
+  index: -1
+hua5
+  rotate: true
+  xy: 2, 70
+  size: 53, 62
+  orig: 65, 71
+  offset: 0, 9
+  index: -1
+hua6
+  rotate: true
+  xy: 2, 169
+  size: 44, 82
+  orig: 44, 82
+  offset: 0, 0
+  index: -1
+hua7
+  rotate: true
+  xy: 2, 267
+  size: 59, 79
+  orig: 60, 80
+  offset: 0, 0
+  index: -1
+hua8
+  rotate: true
+  xy: 2, 125
+  size: 42, 81
+  orig: 42, 82
+  offset: 0, 1
+  index: -1
+hua9
+  rotate: true
+  xy: 41, 5
+  size: 63, 18
+  orig: 63, 21
+  offset: 0, 1
+  index: -1

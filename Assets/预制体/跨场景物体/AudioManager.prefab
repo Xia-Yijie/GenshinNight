@@ -45,3 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSceneBGM: {fileID: 8300000, guid: 8a72831958f447749be9f5a9674771c0, type: 3}
   Mixer: {fileID: 24100000, guid: ed85c97e2765817419050f859d08365a, type: 2}
+  Carrier: {fileID: 917973024196058305, guid: a9124ccebc502ca48ae936f8d885848a, type: 3}
+  cannotPlayBGM: 0
+  cannotPlayTalk: 0
