@@ -18,6 +18,7 @@ public class testController : MonoBehaviour
     public operData wanderer;
     public operData ganyu;
     public operData Jean;
+    public operData Yelan;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class testController : MonoBehaviour
         InitManager.Register(wanderer, 1);
         InitManager.Register(ganyu, 1);
         InitManager.Register(Jean, 1);
+        InitManager.Register(Yelan, 1);
     }
 
     void Start()

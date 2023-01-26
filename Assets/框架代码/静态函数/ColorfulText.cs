@@ -39,4 +39,11 @@ public class CT
         return GetColorfulText(x.ToString("f0") + "%", normalBlue);
     }
     
+    public static string ChangeToColorfulPercentage(float x, int count)
+    {
+        x *= 100;
+        string s = count.ToString();
+        return GetColorfulText(x.ToString("f" + s) + "%", normalBlue);
+    }
+    
 }
