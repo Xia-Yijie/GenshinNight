@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4390442208645706}
   - component: {fileID: 198787726311629002}
   - component: {fileID: 199933405106971054}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: sw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4714,7 +4714,7 @@ GameObject:
   - component: {fileID: 4139434256153142}
   - component: {fileID: 198290396439047860}
   - component: {fileID: 199356372063538384}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4810,7 +4810,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9417,7 +9417,7 @@ GameObject:
   - component: {fileID: 4298194597701214}
   - component: {fileID: 198849586617747722}
   - component: {fileID: 199269356130100756}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9513,7 +9513,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -14120,7 +14120,7 @@ GameObject:
   - component: {fileID: 4035345662925496}
   - component: {fileID: 198856343938075130}
   - component: {fileID: 199295091013039254}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: lines-big-sub
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14216,7 +14216,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -18868,7 +18868,7 @@ GameObject:
   - component: {fileID: 4349779293049160}
   - component: {fileID: 198439853546764630}
   - component: {fileID: 199845834826345562}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: "\u7EDC\u547D\u4E1D\u51FB\u4E2D"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18882,9 +18882,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1814450909871590}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.6050398, y: -2.2010098, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4161347764843384}
   - {fileID: 4452250499872640}
@@ -18970,7 +18970,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -23631,7 +23631,7 @@ GameObject:
   - component: {fileID: 4161347764843384}
   - component: {fileID: 198360576165559628}
   - component: {fileID: 199125369723995524}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: lines-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23727,7 +23727,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -28379,7 +28379,7 @@ GameObject:
   - component: {fileID: 4452250499872640}
   - component: {fileID: 198063324826983468}
   - component: {fileID: 199590406776231000}
-  m_Layer: 4
+  m_Layer: 3
   m_Name: lines-2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28475,7 +28475,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3

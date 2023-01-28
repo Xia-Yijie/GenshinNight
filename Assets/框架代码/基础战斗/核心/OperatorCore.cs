@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Spine;
 using UnityEditor;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 using Random = UnityEngine.Random;
 
 public class OperatorCore : BattleCore
@@ -20,7 +22,8 @@ public class OperatorCore : BattleCore
     [HideInInspector] public int operID;        // 在InitManager的offOperList里的编号
     [HideInInspector] public ValueBuffer recoverTime = new ValueBuffer(0);   // 干员再部署时间
     [HideInInspector] public int skillNum;      // 该干员选择的技能编号[0,2]
-    [HideInInspector] public FourDirection direction;
+    [HideInInspector] public FourDirection direction;       // 默认的放置方向
+    [HideInInspector] public Vector3 directionVector;       // 默认放置方向的正前方方向向量
     [HideInInspector] public bool defaultFaceRight;
     
     public bool prePutOn;           // 一开始就在场上的
@@ -34,7 +37,6 @@ public class OperatorCore : BattleCore
 
     // atkRange相关
     [HideInInspector] public SearchAndGive atkRange;        // 当前atkRange的脚本
-    [HideInInspector] public float defaultTurnDir_X;        // 干员默认朝向X方向的乘子
     private Action defaultTurn;         // 干员朝默认方向旋转的函数
     private GameObject underArrow;
 
@@ -76,15 +78,18 @@ public class OperatorCore : BattleCore
         underArrow = Instantiate(StoreHouse.instance.underArrow, transform);
         underArrow.transform.localPosition = new Vector3(0, 0.001f, 0);
         
-        OperInit();
         ac_.ChangeDefaultColorImmediately();
         frozen_Inc_DecSpeed = 0;            // 干员的被冻结时间不会随之延长
 
-        if (prePutOn)
+        if (prePutOn && !isSummoner)
         {
             InitManager.operList.Add(this);
+            OperInit();
             return;
         }
+        
+        DieAction?.Invoke(this);
+        DieAction = null;
         gameObject.SetActive(false);
     }
 
@@ -117,26 +122,40 @@ public class OperatorCore : BattleCore
         {
             defaultTurn = ac_.TurnRight;
             defaultFaceRight = true;
-            defaultTurnDir_X = 1;
         }
         else
         {
             defaultTurn = ac_.TurnLeft;
             defaultFaceRight = false;
-            defaultTurnDir_X = -1;
         }
         underArrow.SetActive(!isSummoner);
         underArrow.transform.localEulerAngles = new Vector3(90f, 0, -atkRange.transform.localEulerAngles.y);
-       
-        direction = atkRange.transform.localEulerAngles.y switch
-        {
-            0 => FourDirection.Right,
-            90 => FourDirection.Down,
-            180 => FourDirection.Left,
-            -90 => FourDirection.UP,
-            270 => FourDirection.UP,
-            _ => FourDirection.None
-        };
+        
+        switch (atkRange.transform.localEulerAngles.y)
+        {// 初始化默认方向
+            case 0:
+                direction = FourDirection.Right;
+                directionVector = new Vector3(1, 0, 0);
+                break;
+            case 90:
+                direction = FourDirection.Down;
+                directionVector = new Vector3(0, 0, -1);
+                break;
+            case 180:
+                direction = FourDirection.Left;
+                directionVector = new Vector3(-1, 0, 0);
+                break;
+            case -90:
+            case 270:
+                direction = FourDirection.UP;
+                directionVector = new Vector3(0, 0, 1);
+                break;
+            default:
+                direction = FourDirection.None;
+                directionVector = Vector3.zero;
+                break;
+        }
+        
         ac_.UnLockRol();
 
         // 让Anim开始播放动画

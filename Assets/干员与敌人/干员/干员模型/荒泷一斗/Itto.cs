@@ -134,6 +134,7 @@ public class Itto : OperatorCore
     {
         GameObject athrow = PoolManager.GetObj(achouThrow);
         Vector3 pos = transform.position;
+        int defaultTurnDir_X = defaultFaceRight ? 1 : -1;
         pos += new Vector3(0.3f * defaultTurnDir_X, 0, 0.3f);
         athrow.transform.position = pos;
         Vector3 rol = athrow.transform.localEulerAngles;
@@ -153,6 +154,7 @@ public class Itto : OperatorCore
     IEnumerator achou_animControl()
     {
         Vector3 scale = achou_anim.transform.localScale;
+        int defaultTurnDir_X = defaultFaceRight ? 1 : -1;
         scale.x = Mathf.Abs(scale.x) * defaultTurnDir_X;
         achou_anim.transform.localScale = scale;
         

@@ -11,6 +11,8 @@ public class BattleCore : ElementCore
     [HideInInspector] public AimingMode aimingMode;
     [HideInInspector] public float tarPriority = 0;         // 在别的BattleCore队列中排序的参照，由外部维护
     public bool dieNow = false;     //调试变量，立即杀死自身
+    // private int MaxSortDelay = 10;  // 每10帧排一次序
+    // private int sortDelay;          
     
     public float norAtkInterval { get; protected set; } = 0;         // 到下一次攻击还需要的时间
     // [HideInInspector] public bool nxtAtkImmediately = false;      // 下一次退出攻击状态时，立刻清空冷却并进入攻击状态
@@ -38,6 +40,8 @@ public class BattleCore : ElementCore
 
     // 当死亡时给外界广播回调用的函数
     public Action<BattleCore> DieAction;
+    // 当普通攻击时给外界广播回调的函数
+    public Action<BattleCore> NorAtkAction;
 
     // 阻挡的BattleCore列表
     [HideInInspector] public List<BattleCore> blockList = new List<BattleCore>();

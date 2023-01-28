@@ -15,6 +15,7 @@ public class EnemyAnimEvent : MonoBehaviour
     public void OnAttack()
     {
         ec_.OnAttack();
+        ec_.NorAtkAction?.Invoke(ec_);
     }
 
     public void OnDie()

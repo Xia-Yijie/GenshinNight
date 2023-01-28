@@ -25,6 +25,7 @@ public class OperAnimEvent : MonoBehaviour
     public void OnAttack()
     {
         oc_.OnAttack();
+        oc_.NorAtkAction?.Invoke(oc_);
     }
 
     public void FightEnd()

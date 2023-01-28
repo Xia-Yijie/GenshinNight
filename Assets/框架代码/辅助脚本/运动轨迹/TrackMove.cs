@@ -78,8 +78,8 @@ public class TrackMove : MonoBehaviour
         if (!isNull)
         {
             if (attacker.gameObject.activeSelf) reachFunc?.Invoke(multi, tarBattleCore, this);
-            tarBattleCore.DieAction -= TarNull;
         }
+        tarBattleCore.DieAction -= TarNull;
         reachFunc = null;
         PoolManager.RecycleObj(gameObject);
     }

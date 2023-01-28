@@ -14,8 +14,6 @@ public class PoolManager
     
     public static void RecycleObj(GameObject obj)
     {
-        if (obj == null) return;
-        
         obj.SetActive(false);
         obj.transform.SetParent(objPrt[obj.name].transform);
 
