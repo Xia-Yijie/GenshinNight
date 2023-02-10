@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711e856df5cc6a64fbd12d1819b750a1, type: 3}
   m_Name: "\u5927\u578B\u96F7\u53F2\u83B1\u59C6"
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   Name: "\u5927\u578B\u96F7\u53F2\u83B1\u59C6"
-  atk: 0
+  atk: 1000
   def: 0
   magicDef: 0
   life: 100000
   consumeBlock: 1
-  minAtkInterval: 1
+  minAtkInterval: 2.5
   talentDescription: 
   elementType: 0
   elementalMastery: 0

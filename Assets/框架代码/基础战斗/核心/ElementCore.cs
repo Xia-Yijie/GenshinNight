@@ -151,17 +151,7 @@ public class ElementCore : PropertyCore
         }
         damage = GetDamageProperty(damage, mode);   // 计算防御和法抗
 
-        // 身上所有的护盾先吃一遍伤害，最终受到的伤害由护盾挡下伤害后剩余最少的那个决定
-        float finalDamage = damage;
-        for (int i = 0; i < shieldList.Count; i++)
-        {
-            var shield = shieldList[i];
-            finalDamage = Mathf.Min(finalDamage, shield.GetDamage(damage, elementSlot.eleType));
-            if (!shield.isActiveAndEnabled) i--;
-        }
-        
-        life_.GetDamage(finalDamage);               // 最终受到的伤害
-        if (!noAttacher) attacker.targetIsKilled = life_.life <= 0;      // 目标是否被击杀
+        float finalDamage = damage;     // 最终受到的伤害
         
         // 显示伤害数字
         if (!haveText && !isBig) return;
@@ -176,6 +166,18 @@ public class ElementCore : PropertyCore
         text.color = StoreHouse.GetElementDamageColor(elementSlot.eleType);
         Vector3 center = transform.position;
         text.transform.position = center;
+        
+        
+        // 身上所有的护盾先吃一遍伤害，最终受到的伤害由护盾挡下伤害后剩余最少的那个决定
+        for (int i = 0; i < shieldList.Count; i++)
+        {
+            var shield = shieldList[i];
+            finalDamage = Mathf.Min(finalDamage, shield.GetDamage(damage, elementSlot.eleType));
+            if (!shield.isActiveAndEnabled) i--;
+        }
+        
+        life_.GetDamage(finalDamage);               // 最终受到的伤害
+        if (!noAttacher) attacker.targetIsKilled = life_.life <= 0;      // 目标是否被击杀
     }
 
     public void GetDamage(float damage, DamageMode mode)

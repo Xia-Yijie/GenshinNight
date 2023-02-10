@@ -245,7 +245,6 @@ public class DragSlot : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
         InitManager.resourceController.CostIncrease(-operatorCore.costNeed.val);
         InitManager.resourceController.RemainPlaceIncrease(-operatorCore.od_.consumPlace);
         
-        InitManager.operList.Add(operatorCore);
         InitManager.offOperList[operatorCore.operID].RemoveAt(0);
         InitManager.dragSlotController.RefreshDragSlot();
     }

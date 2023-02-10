@@ -148,9 +148,9 @@ public class BattleCore : ElementCore
     }
 
     public virtual void RevokeDizzy()
-    {// 眩晕结束
+    {// 眩晕计数器-1
         dizziness--;
-        norAtkInterval = 0;
+        NorAtkClear();
     }
 
     /// <summary>  

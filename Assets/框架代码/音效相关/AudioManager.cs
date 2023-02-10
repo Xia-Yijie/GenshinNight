@@ -9,8 +9,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip mainSceneBGM;
     public AudioMixer Mixer;
     public GameObject Carrier;
-    private static GameObject CarriersPrt;
-    
+
     [Header("不会播放BGM")]
     public bool cannotPlayBGM;
     [Header("不会播放干员语音")]
@@ -40,8 +39,6 @@ public class AudioManager : MonoBehaviour
         BGM = gameObject.AddComponent<AudioSource>();
         BGM.loop = true;
 
-        CarriersPrt = new GameObject("音效载体队列");
-
         Operator.outputAudioMixerGroup = instance.Mixer.FindMatchingGroups("Voice")[0];
         BGM.outputAudioMixerGroup = instance.Mixer.FindMatchingGroups("BGM")[0];
         PlayBGM();
@@ -59,7 +56,7 @@ public class AudioManager : MonoBehaviour
         AudioCarrier carrier = null;
         if (EFF_List.Count == 0)
         {
-            carrier = Instantiate(instance.Carrier, CarriersPrt.transform).GetComponent<AudioCarrier>();
+            carrier = Instantiate(instance.Carrier, instance.transform).GetComponent<AudioCarrier>();
         }
         else
         {

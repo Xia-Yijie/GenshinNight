@@ -63,14 +63,14 @@ Shader "Spine/Skeleton Tint" {
                 //half2 center = half2(0, -0);
                 //v.vertex.zy -= center;
 
-                half z = v.vertex.z * cosTheta - v.vertex.y * sinTheta;
+                half z = v.vertex.z * cosTheta - v.vertex.y * sinTheta - 1;
                 half y = v.vertex.z * sinTheta + v.vertex.y * cosTheta;
                 v.vertex = half4(v.vertex.x, y, z, v.vertex.w);
 
                 //v.vertex.zy += center;
 
                 float4 verticalClipPos = UnityObjectToClipPos(v.vertex);
-                o.pos.z = verticalClipPos.z / verticalClipPos.w * o.pos.w ;
+                o.pos.z = verticalClipPos.z / verticalClipPos.w * o.pos.w;
 
 				o.vertexColor = v.vertexColor * float4(_Color.rgb * _Color.a, _Color.a); // Combine a PMA version of _Color with vertexColor.
 				return o;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -63,5 +64,4 @@ public static class BaseFunc
         if (directionVector.z < 0 && tmp.z > 0) return false;
         return true;
     }
-    
 }

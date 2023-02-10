@@ -47,6 +47,7 @@ public class AnemoSlime : EnemyCore
     
     private void AnemoAttack(float multi, BattleCore tarBC, parabola par, bool tarIsNull)
     {
+        if (tarIsNull) return;
         GameObject hitAnim = PoolManager.GetObj(AnemoHit);
         hitAnim.transform.parent = tarBC.transform;
         Vector3 pos = tarBC.animTransform.localPosition + new Vector3(0, 0, 0.5f);

@@ -108,7 +108,8 @@ public class ReactionController
         switch (element2.eleType)       // 后手元素，表示触发元素
         {
             case ElementType.Anemo:     // 风
-                Swirl(element1, element2, mastery, reversal); // 必然为扩散反应
+                Swirl(attacker, noAttacker, element1, element2,
+                    mastery, reversal); // 必然为扩散反应
                 break;
             case ElementType.Geo:       // 岩
                 Crystallization(element1, element2, attacker, mastery);// 必然为结晶反应
@@ -141,7 +142,7 @@ public class ReactionController
                         isBig = true;
                         break;
                     case ElementType.Cryo:      // 冰
-                        Frozen(element1, element2, mastery);
+                        Frozen(element1, element2);
                         break;
                     case ElementType.Electro:   // 雷
                         ElectroCharged_Refresh(mastery);
@@ -159,7 +160,7 @@ public class ReactionController
                         isBig = true;
                         break;
                     case ElementType.Hydro:     // 水
-                        Frozen(element1, element2, mastery);
+                        Frozen(element1, element2);
                         break;
                     case ElementType.Electro:   // 雷
                         SuperConduct(attacker, element1, element2, mastery);
@@ -320,7 +321,7 @@ public class ReactionController
             elc_.attachedElement.Remove(ElementType.Hydro);
     }
 
-    private void Frozen(ElementSlot firElement, ElementSlot sedElement, float mastery) 
+    private void Frozen(ElementSlot firElement, ElementSlot sedElement) 
     {// 冻结反应
 
         // 展示反应文本
@@ -345,8 +346,9 @@ public class ReactionController
         sedElement.eleCount = 0;
     }
 
-    private void Swirl(ElementSlot firElement, ElementSlot sedElement, float mastery,
-        bool reversal = false) 
+    private void Swirl(BattleCore attacker, bool noAttacker
+        , ElementSlot firElement, ElementSlot sedElement, 
+        float mastery, bool reversal = false) 
     {// 扩散反应
 
         Vector3 center = elc_.transform.position;
@@ -357,12 +359,12 @@ public class ReactionController
         bool attackOper = elc_.transform.CompareTag("operator") ^ reversal;     // 是否攻击干员
         
         if (attackOper)
-        {// 对干员造成一次扩散元素攻击，元素附着量为风元素量，精通为0
+        {// 对干员造成一次扩散元素攻击，元素附着量为风元素量
             List<OperatorCore> tars = InitManager.GetNearByOper(center, OverLoadRadius);
             foreach (var oc_ in tars)
             {// 对范围内所有干员进行攻击和元素附着
-                oc_.GetDamage((BattleCore)elc_, SwirlDamage(mastery), DamageMode.Magic
-                    , swirlElement, true, true, false, true);
+                oc_.GetDamage(attacker, SwirlDamage(mastery), DamageMode.Magic
+                    , swirlElement, true, true, false, noAttacker);
             }
         }
         else
@@ -370,8 +372,8 @@ public class ReactionController
             List<EnemyCore> tars = InitManager.GetNearByEnemy(center, OverLoadRadius);
             foreach (var ec_ in tars)
             {// 对范围内的所有敌人进行攻击和元素附着
-                ec_.GetDamage((BattleCore)elc_, SwirlDamage(mastery), DamageMode.Magic
-                    , swirlElement, true, true, false, true);
+                ec_.GetDamage(attacker, SwirlDamage(mastery), DamageMode.Magic
+                    , swirlElement, true, true, false, noAttacker);
             }
         }
         
@@ -486,31 +488,31 @@ public class ReactionController
     private float OverLoadDamage(float mastery)
     {
         // 返回超载反应的伤害，只与元素精通相关
-        return mastery;
+        return 8 + 8 * mastery;
     }
     
     private float SuperConductDamage(float mastery)
     {
         // 返回超导反应的伤害，只与元素精通相关
-        return mastery;
+        return 4 + 4 * mastery;
     }
 
     private float ElectroChargedDamage(float mastery)
     {
         // 返回感电反应的伤害，只与元素精通相关
-        return mastery;
+        return 3 + 3 * mastery;
     }
 
     private float SwirlDamage(float mastery)
     {
         // 返回扩散反应的伤害
-        return mastery;
+        return 1 + mastery;
     }
     
     private float CrystallizationLife(float mastery)
     {
         // 返回结晶反应盾的厚度
-        return mastery + 2000;
+        return 1 + 1.5f * mastery;
     }
 
 

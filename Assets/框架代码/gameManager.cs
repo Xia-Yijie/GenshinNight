@@ -14,6 +14,11 @@ public class gameManager : MonoBehaviour
     public static List<operData>[] formation = new List<operData>[4];   // 预设的4个编队
     public static int formationNum;     // 当前选择的编队编号
     
+    // 持有的摩拉袋数量
+    public static int Mora=10;
+    // 当前的罐装知识数据
+    public static canningKnowledgeData knowledgeData = new canningKnowledgeData();
+    public static canningKnowledgeData_Strengthen knowledgeDataStrengthen = new canningKnowledgeData_Strengthen();
     
     private void Awake()
     {
@@ -31,7 +36,8 @@ public class gameManager : MonoBehaviour
     
     void Start()
     {
-        
+        // SaveManager.Save();
+        // SaveManager.Load();
     }
 
     // Update is called once per frame

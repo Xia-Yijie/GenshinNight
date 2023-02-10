@@ -137,7 +137,7 @@ public class InitManager : MonoBehaviour
         redDoorUILIst.Add(rdu_);
     }
 
-    public static void Register(operData od_, int num)
+    public static void Register(operData od_, int num = 1)
     {
         allOperDataList.Add(od_);
         allOperNumList.Add(num);

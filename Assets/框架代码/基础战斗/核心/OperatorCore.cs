@@ -83,7 +83,6 @@ public class OperatorCore : BattleCore
 
         if (prePutOn && !isSummoner)
         {
-            InitManager.operList.Add(this);
             OperInit();
             return;
         }
@@ -175,6 +174,9 @@ public class OperatorCore : BattleCore
         // 初始化是否可以打无人机
         canAtkDrone = od_.canAtkDrone;
         
+        // 像InitManager里注册
+        InitManager.operList.Add(this);
+        
         // 改变脚下tile的类型
         TileSlot tile = InitManager.GetMap(transform.position);
         if (tile != null)
@@ -239,7 +241,7 @@ public class OperatorCore : BattleCore
     {
         lowHP_CoolTime -= Time.deltaTime;       // 每帧调用，冷却时间正常减少
         
-        if (life_.life / life_.val > lowHP_DeadLine)
+        if (life_.life / life_.val > lowHP_DeadLine || dying)
         {// 如果不在低血量线下
             notLowHP = true;
             return;
@@ -249,7 +251,7 @@ public class OperatorCore : BattleCore
         notLowHP = false;
         
         if (lowHP_CoolTime > 0) return;         // 如果还在冷却
-        
+
         // 此时可播放低血量语音
         if (od_.LowHP.Count == 0) return;
         int id = Random.Range(0, od_.LowHP.Count);
@@ -501,6 +503,7 @@ public class OperatorCore : BattleCore
     public override bool GetDizzy()
     {
         if (!base.GetDizzy()) return false;
+        if (dizziness > 1) return true;
         Vector3 pos = new Vector3(0, 0, 1);
         dizzyStarts = PoolManager.GetObj(StoreHouse.instance.dizzyStarts);
         dizzyStarts.transform.SetParent(transform);
@@ -511,7 +514,7 @@ public class OperatorCore : BattleCore
     public override void RevokeDizzy()
     {
         base.RevokeDizzy();
-        PoolManager.RecycleObj(dizzyStarts);
+        if (dizziness <= 0) PoolManager.RecycleObj(dizzyStarts);
     }
 
     /// <summary>

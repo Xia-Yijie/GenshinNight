@@ -85,6 +85,7 @@ public class PyroSlime : EnemyCore
     public void SpAtkOut()
     {
         // 找到范围内优先级最大的目标干员
+        if (operatorList_es.Count == 0) return;
         float maxPrio = -1e9f;
         OperatorCore spTarOC = operatorList_es[0];
         foreach (var OC in operatorList_es)
