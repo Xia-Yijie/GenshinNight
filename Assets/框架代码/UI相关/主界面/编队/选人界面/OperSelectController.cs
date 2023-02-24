@@ -19,7 +19,8 @@ public class OperSelectController : MonoBehaviour
 
     private void Awake()
     {
-        int cnt = gameManager.AllOperData.Count / 2 + gameManager.AllOperData.Count % 2;
+        int allOperCnt = gameManager.AllOperData.Count;
+        int cnt = allOperCnt / 2 + allOperCnt % 2;
 
         for (int i = 0; i < cnt; i++)
         {
@@ -27,7 +28,7 @@ public class OperSelectController : MonoBehaviour
             selectSlotsList.Add(obj.transform);
         }
 
-        for (int i = 0; i < gameManager.AllOperData.Count; i++)
+        for (int i = 0; i < allOperCnt; i++)
         {
             int k = i / 2;
             GameObject obj = Instantiate(operSelectObj, selectSlotsList[k]);
@@ -47,10 +48,22 @@ public class OperSelectController : MonoBehaviour
     {
         flu_.ChangeOD(od_);
         MainSceneResource.instance.operSelectPanel.Show();
+
+        for (int j = 0; j < operSelects.Count; j++)
+        {
+            operSelects[j].gameObject.SetActive(j < gameManager.UnlockCharacterNum);
+        }
+        int cnt = gameManager.UnlockCharacterNum / 2 + gameManager.UnlockCharacterNum % 2;
+        for (int j = 0; j < selectSlotsList.Count; j++)
+        {
+            selectSlotsList[j].gameObject.SetActive(j < cnt);
+        }
+        
         
         int i = 0;
         foreach (var OD in gameManager.AllOperData)
         {
+            if (!gameManager.AllOperValid[OD.Name]) continue;
             if (gameManager.formation[gameManager.formationNum].Contains(OD))
             {
                 operSelects[i].ChangeShowingOD(OD);
@@ -61,6 +74,7 @@ public class OperSelectController : MonoBehaviour
 
         foreach (var OD in gameManager.AllOperData)
         {
+            if (!gameManager.AllOperValid[OD.Name]) continue;
             if (!gameManager.formation[gameManager.formationNum].Contains(OD))
             {
                 operSelects[i].ChangeShowingOD(OD);

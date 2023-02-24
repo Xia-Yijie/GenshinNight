@@ -15,6 +15,8 @@ public class canningKnowledgeUI : MonoBehaviour
     public Sprite CommonSprite;
     public Sprite StrengthenSprite;
     public Scrollbar contentBar;
+    public List<RectTransform> eachRect = new List<RectTransform>();
+    public Transform disableSlotPrt;
 
     /*
      * 0:通用罐装知识界面
@@ -51,6 +53,14 @@ public class canningKnowledgeUI : MonoBehaviour
     {
         isStrengthen = !isStrengthen;
         RefreshPage();
+        
+    }
+
+    public void PlayStrengthenAudio()
+    {
+        AudioManager.PlayEFF(isStrengthen
+            ? ShopUIController.instance.SelectStrengthenAudio
+            : ShopUIController.instance.CancelStrengthenAudio, 0.6f);
     }
 
     public void RefreshPage()
@@ -67,9 +77,9 @@ public class canningKnowledgeUI : MonoBehaviour
     public Transform slotPrt;
     private List<canningKnowledgeSlot> poolValid = new List<canningKnowledgeSlot>();
     private List<canningKnowledgeSlot> poolUsed = new List<canningKnowledgeSlot>();
-    
-    public void GetSlot(Sprite sprite, string title, string description, int price, 
-        Action buyAction, int remainNum, int totalNum)
+
+    public void GetSlot(Sprite sprite, string title, string description,
+        KnowledgeBuffer buffer)
     {// 生成一个条目，初始化并送到used中
         canningKnowledgeSlot slot;
         if (poolValid.Count > 0)
@@ -82,8 +92,17 @@ public class canningKnowledgeUI : MonoBehaviour
             slot = Instantiate(ck_slot, slotPrt).GetComponent<canningKnowledgeSlot>();
         }
         slot.gameObject.SetActive(true);
-        slot.Init(sprite, title, description, price, buyAction, remainNum, totalNum);
+        slot.transform.SetParent(slotPrt);
+        slot.Init(sprite, title, description, buffer);
         poolUsed.Add(slot);
+    }
+
+    public void RefreshUISlot()
+    {// 刷新上层UI，避免出现扩展不成功的现象
+        foreach (var i in eachRect)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(i);
+        }
     }
 
     public void ClearSlots()
@@ -91,6 +110,7 @@ public class canningKnowledgeUI : MonoBehaviour
         foreach (var i in poolUsed)
         {
             i.gameObject.SetActive(false);
+            i.transform.SetParent(disableSlotPrt);
             poolValid.Add(i);
         }
         poolUsed.Clear();

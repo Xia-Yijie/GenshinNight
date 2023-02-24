@@ -9,7 +9,7 @@ public class SaveManager
     {
         SaveData save = new SaveData();
         save.Mora = 20;
-        save.canningKnowledgeData_.maxAtkIncNum = 10;
+        save.canningKnowledgeData_.atkInc.maxNum = 10;
         save.UnlockOperList.Add(true);
         
         string JsonString = JsonUtility.ToJson(save);

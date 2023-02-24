@@ -12,15 +12,15 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
     
     private string[] universalKnowledgeTitle =
     {
-        "攻击提升",
-        "防御提升",
-        "生命提升",
-        "阻挡数提升",
-        "元素伤害提升",
-        "充能效率提升",
-        "元素精通提升",
-        "护盾强效提升",
-        "部署费用下降",
+        "单手剑战斗技巧·八",
+        "不坏之金刚",
+        "飞跃医院",
+        "双城记",
+        "清泉的猎人",
+        "逃逸电子",
+        "废图毁腾",
+        "茂知之壳",
+        "硬着陆",
     };
 
     private string[] universalKnowledgeDescription =
@@ -36,34 +36,6 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
         "部署费用-1",
     };
 
-    private int[] universalKnowledgePrice = {1, 2, 3, 4, 5, 6, 7, 8, 90};
-
-    private Action[] universalKnowledgeActions =
-    {
-        canningKnowledgeFunc_Nor.AtkInc,
-        canningKnowledgeFunc_Nor.DefInc,
-        canningKnowledgeFunc_Nor.LifeInc,
-        canningKnowledgeFunc_Nor.BlockInc,
-        canningKnowledgeFunc_Nor.DamInc,
-        canningKnowledgeFunc_Nor.RechargeInc,
-        canningKnowledgeFunc_Nor.MasteryInc,
-        canningKnowledgeFunc_Nor.ShieldStrengthInc,
-        canningKnowledgeFunc_Nor.CostDec,
-    };
-    
-    private Action[] universalKnowledgeSettingActions =
-    {
-        canningKnowledgeFunc_Nor.AtkSetting,
-        canningKnowledgeFunc_Nor.DefSetting,
-        canningKnowledgeFunc_Nor.LifeSetting,
-        canningKnowledgeFunc_Nor.BlockSetting,
-        canningKnowledgeFunc_Nor.DamSetting,
-        canningKnowledgeFunc_Nor.RechargeSetting,
-        canningKnowledgeFunc_Nor.MasterySetting,
-        canningKnowledgeFunc_Nor.ShieldStrengthSetting,
-        canningKnowledgeFunc_Nor.CostSetting,
-    };
-
     private string Dori_UniversalKnowledge = "这里都是各个领域的基础知识，" +
                                              "使用后可以强化基础属性，对所有形态的旅行者都有效！";
 
@@ -72,24 +44,11 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
     public override void GenerateUniversalKnowledge(bool isShop)
     {
         canningKnowledgeData data = gameManager.knowledgeData;
-        int[] maxNum =
+        KnowledgeBuffer[] buffers =
         {
-            data.maxAtkIncNum, data.maxDefIncNum, data.maxLifeIncNum, data.maxBlockIncNum,
-            data.maxDamIncNum, data.maxRechargeIncNum, data.maxMasteryIncNum,
-            data.maxShieldStrengthIncNum, data.maxCostDecNum,
-        };
-        int[] hadNum =
-        {
-            data.atkIncNum, data.defIncNum, data.lifeIncNum, data.blockIncNum,
-            data.damIncNum, data.rechargeIncNum, data.masteryIncNum,
-            data.shieldStrengthIncNum, data.costDecNum,
-        };
-        int[] totalNum =
-        {
-            canningKnowledgeData.atkIncTotal, canningKnowledgeData.defIncTotal, canningKnowledgeData.lifeIncTotal,
-            canningKnowledgeData.blockIncTotal, canningKnowledgeData.damIncTotal, canningKnowledgeData.rechargeIncTotal,
-            canningKnowledgeData.masteryIncTotal, canningKnowledgeData.shieldStrengthIncTotal,
-            canningKnowledgeData.costDecTotal,
+            data.atkInc, data.defInc, data.lifeInc, data.blockInc,
+            data.damInc, data.rechargeInc, data.masteryInc,
+            data.shieldStrengthInc, data.costDecInc,
         };
 
         if (isShop)
@@ -98,9 +57,9 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
             for (int i = 0; i < 9; i++)
             {
                 ckui.GetSlot(universalCanSprite, universalKnowledgeTitle[i],
-                    universalKnowledgeDescription[i], universalKnowledgePrice[i],
-                    universalKnowledgeActions[i], totalNum[i] - maxNum[i], totalNum[i]);
+                    universalKnowledgeDescription[i], buffers[i]);
             }
+            ckui.RefreshUISlot();
             ShopUIController.ShowText(Dori_UniversalKnowledge);
         }
         else
@@ -109,9 +68,9 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
             for (int i = 0; i < 9; i++)
             {
                 cksui.GetSlot(universalCanSprite, universalKnowledgeTitle[i],
-                    universalKnowledgeDescription[i], universalKnowledgeSettingActions[i],
-                    hadNum[i], maxNum[i], hadNum[i] == maxNum[i]);
+                    universalKnowledgeDescription[i], buffers[i]);
             }
+            cksui.RefreshUISlot();
         }
         
     }
@@ -121,15 +80,15 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
     
     private string[] universalKnowledgeTitle_S =
     {
-        "攻击提升_S",
-        "防御提升_S",
-        "生命提升_S",
-        "阻挡数提升_S",
-        "元素伤害提升_S",
-        "充能效率提升_S",
-        "元素精通提升_S",
-        "护盾强效提升_S",
-        "部署费用下降_S",
+        "无坚不摧",
+        "约等于天下无敌",
+        "飞跃水疗馆",
+        "三之定则",
+        "破灭之时",
+        "第三类永动机",
+        "嬗变核素",
+        "群玉临空",
+        "金牌飞行执照",
     };
 
     private string[] universalKnowledgeDescription_S =
@@ -137,40 +96,12 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
         "攻击力+2%",
         "防御力+2%",
         "生命值+2%",
-        "阻挡数+2",
+        "阻挡数+1",
         "元素伤害+2%",
         "充能效率+2%",
         "元素精通+2",
         "护盾强效+2%",
         "部署费用-2",
-    };
-
-    private int[] universalKnowledgePrice_S = {1, 2, 3, 4, 5, 6, 7, 8, 90};
-
-    private Action[] universalKnowledgeActions_S =
-    {
-        canningKnowledgeFunc_Nor.AtkInc_S,
-        canningKnowledgeFunc_Nor.DefInc_S,
-        canningKnowledgeFunc_Nor.LifeInc_S,
-        canningKnowledgeFunc_Nor.BlockInc_S,
-        canningKnowledgeFunc_Nor.DamInc_S,
-        canningKnowledgeFunc_Nor.RechargeInc_S,
-        canningKnowledgeFunc_Nor.MasteryInc_S,
-        canningKnowledgeFunc_Nor.ShieldStrengthInc_S,
-        canningKnowledgeFunc_Nor.CostDec_S,
-    };
-    
-    private Action[] universalKnowledgeSettingActions_S =
-    {
-        canningKnowledgeFunc_Nor.AtkSetting_S,
-        canningKnowledgeFunc_Nor.DefSetting_S,
-        canningKnowledgeFunc_Nor.LifeSetting_S,
-        canningKnowledgeFunc_Nor.BlockSetting_S,
-        canningKnowledgeFunc_Nor.DamSetting_S,
-        canningKnowledgeFunc_Nor.RechargeSetting_S,
-        canningKnowledgeFunc_Nor.MasterySetting_S,
-        canningKnowledgeFunc_Nor.ShieldStrengthSetting_S,
-        canningKnowledgeFunc_Nor.CostSetting_S,
     };
 
     private string Dori_UniversalKnowledge_S = "强化罐装知识，嘿嘿，它们是教令院都买不到的好东西。" +
@@ -179,24 +110,11 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
     public override void GenerateUniversalKnowledge_S(bool isShop)
     {
         canningKnowledgeData_Strengthen data = gameManager.knowledgeDataStrengthen;
-        int[] maxNum =
+        KnowledgeBuffer[] buffers =
         {
-            data.maxAtkIncNum, data.maxDefIncNum, data.maxLifeIncNum, data.maxBlockIncNum,
-            data.maxDamIncNum, data.maxRechargeIncNum, data.maxMasteryIncNum,
-            data.maxShieldStrengthIncNum, data.maxCostDecNum,
-        };
-        int[] hadNum =
-        {
-            data.atkIncNum, data.defIncNum, data.lifeIncNum, data.blockIncNum,
-            data.damIncNum, data.rechargeIncNum, data.masteryIncNum,
-            data.shieldStrengthIncNum, data.costDecNum,
-        };
-        int[] totalNum =
-        {
-            canningKnowledgeData_Strengthen.atkIncTotal, canningKnowledgeData_Strengthen.defIncTotal, canningKnowledgeData_Strengthen.lifeIncTotal,
-            canningKnowledgeData_Strengthen.blockIncTotal, canningKnowledgeData_Strengthen.damIncTotal, canningKnowledgeData_Strengthen.rechargeIncTotal,
-            canningKnowledgeData_Strengthen.masteryIncTotal, canningKnowledgeData_Strengthen.shieldStrengthIncTotal,
-            canningKnowledgeData_Strengthen.costDecTotal,
+            data.atkInc, data.defInc, data.lifeInc, data.blockInc,
+            data.damInc, data.rechargeInc, data.masteryInc,
+            data.shieldStrengthInc, data.costDecInc,
         };
 
         if (isShop)
@@ -205,9 +123,9 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
             for (int i = 0; i < 9; i++)
             {
                 ckui.GetSlot(universalCanSprite_S, universalKnowledgeTitle_S[i], 
-                    universalKnowledgeDescription_S[i], universalKnowledgePrice_S[i], 
-                    universalKnowledgeActions_S[i], totalNum[i] - maxNum[i], totalNum[i]);
+                    universalKnowledgeDescription_S[i], buffers[i]);
             }
+            ckui.RefreshUISlot();
             ShopUIController.ShowText(Dori_UniversalKnowledge_S);
         }
         else
@@ -216,9 +134,9 @@ public class canningKnowledgeGenerate_Nor : baseKnowledgeGenerator
             for (int i = 0; i < 9; i++)
             {
                 cksui.GetSlot(universalCanSprite_S, universalKnowledgeTitle_S[i],
-                    universalKnowledgeDescription_S[i], universalKnowledgeSettingActions_S[i],
-                    hadNum[i], maxNum[i], hadNum[i] == maxNum[i]);
+                    universalKnowledgeDescription_S[i], buffers[i]);
             }
+            cksui.RefreshUISlot();
         }
         
         

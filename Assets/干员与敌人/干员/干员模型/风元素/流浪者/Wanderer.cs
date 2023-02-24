@@ -180,6 +180,8 @@ public class Wanderer : OperatorCore
 
         AudioManager.PlayEFF(upAtkClips[upAtkPointer], 0.7f);
         upAtkPointer = (upAtkPointer + 1) % upAtkClips.Count;
+
+        NorAtkAction?.Invoke(this);     // 视为普通攻击
     }
 
 

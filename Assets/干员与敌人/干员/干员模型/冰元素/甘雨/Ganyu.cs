@@ -101,6 +101,8 @@ public class Ganyu : OperatorCore
         anim.SetBool("sp", false);
         Archery(frostFlask_firstMulti[skillLevel[0]], frostFlaskArrow, frostFlaskAttack);
         AudioManager.PlayEFF(frostOutAudio);
+        
+        NorAtkAction?.Invoke(this);
     }
 
     private void Archery(float multi, GameObject proArrow,
@@ -202,7 +204,7 @@ public class Ganyu : OperatorCore
         base.SkillStart_3();
         GanyuSkill3Buff skill3Buff = new GanyuSkill3Buff(this);
         BuffManager.AddBuff(skill3Buff);
-        AudioManager.PlayEFF(skill3StartAudio);
+        AudioManager.PlayEFF(skill3StartAudio, 0.7f);
     }
 
     public IEnumerator IcePearlAmplification()

@@ -179,7 +179,7 @@ public class Jean : OperatorCore
             FourDirection.UP => new Vector3(0,0,1),
             _ => new Vector3(0,0,-1)
         };
-        ElementSlot anemoSlot = new ElementSlot(ElementType.Anemo, 2f);
+        ElementSlot anemoSlot = new ElementSlot(ElementType.None, 2f);
         float dam = atk_.val * skill2_Multi[skillLevel[1]];
         foreach (var tarBC in enemyList)
         {
@@ -190,6 +190,7 @@ public class Jean : OperatorCore
             GameObject hit = PoolManager.GetObj(GaleHit);
             hit.transform.position = tarBC.animTransform.position + new Vector3(0, 0, 0.3f);
             hit.transform.SetParent(tarBC.transform);
+            hit.transform.eulerAngles = new Vector3(0, roly, 0);
             DurationRecycleObj hitRecycle = new DurationRecycleObj(hit, 0.8f, tarBC, true);
             BuffManager.AddBuff(hitRecycle); 
         }

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
   m_Name: "\u7434"
   m_EditorClassIdentifier: 
-  type: 5
+  type: 3
   skillType: 1
   Name: "\u7434"
   EnName: 
@@ -79,6 +79,7 @@ MonoBehaviour:
   - 
   talentName1: "\u987A\u98CE\u800C\u884C"
   talentName2: "\u542C\u51ED\u98CE\u5F15"
+  shopDescription: "\u53EF\u9760\u7684\u4EE3\u7406\u9A91\u58EB\u56E2\u957F\uFF0C\u4E00\u5FC3\u4E3A\u8499\u5FB7\u64CD\u52B3"
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -160,6 +161,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   illustratedBookImage: {fileID: 21300000, guid: d3a02392395d03b4f98446221911bc79, type: 3}
+  shopImage: {fileID: 21300000, guid: d17caaac4f8c84a4ebbd3f344e8cdb22, type: 3}
   profession: 0
   star: 5
   skillImage:

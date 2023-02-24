@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class canKnowSettingSlot : MonoBehaviour
 {
+    public RectTransform selfTrans;
     public Image itemImage;
     public Text titleText;
     public Text descriptionText;
@@ -14,44 +15,40 @@ public class canKnowSettingSlot : MonoBehaviour
     public Sprite greenSprite;
     public Sprite redSprite;
     
-    private int hadNum;
-    private int totalNum;
-    private bool isEnable;
-    private Action enableAction;
+    private KnowledgeBuffer buffer;
 
-    public void Init(Sprite sprite, string title, string description, 
-        Action enableAction_, int hadNum_, int totalNum_, bool isEnable_)
+    private void Awake()
     {
+        selfTrans = GetComponent<RectTransform>();
+    }
+    
+    
+    public void Init(Sprite sprite, string title, string description, 
+        KnowledgeBuffer knowledgeBuffer)
+    {
+        buffer = knowledgeBuffer;
+        
         itemImage.sprite = sprite;
         titleText.text = title;
         descriptionText.text = description;
-
-        hadNum = hadNum_;
-        totalNum = totalNum_;
-        enableAction = enableAction_;
-        isEnable = isEnable_;
-
-        if (totalNum == 0) isEnable = false;
+        
         RefreshSlot();
     }
 
     public void OnClick()
     {
-        isEnable = !isEnable;
-        if (totalNum == 0) isEnable = false;
-        hadNum = isEnable ? totalNum : 0;
-        enableAction?.Invoke();
+        buffer.SwitchEnable();
         RefreshSlot();
     }
 
     private void RefreshSlot()
     {
-        numText.text = hadNum + "/" + totalNum;
-        if (!isEnable)
+        numText.text = buffer.num + "/" + buffer.maxNum;
+        if (!buffer.isEnabled())
         {
             backImage.color = new Color32(160, 160, 160, 200);
             clickButtonImage.sprite = redSprite;
-            statusText.text = totalNum == 0 ? "未获得" : "已关闭";
+            statusText.text = buffer.maxNum == 0 ? "未获得" : "已关闭";
         }
         else
         {
@@ -59,5 +56,7 @@ public class canKnowSettingSlot : MonoBehaviour
             clickButtonImage.sprite = greenSprite;
             statusText.text = "已激活";
         }
+        
+        LayoutRebuilder.ForceRebuildLayoutImmediate(selfTrans);
     }
 }

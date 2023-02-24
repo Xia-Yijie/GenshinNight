@@ -123,12 +123,12 @@ public class ElementCore : PropertyCore
     /// isBig==true，则展示大伤害
     /// haveText==true，isBig==false，则展示小伤害
     /// haveText==false，isBig==false，不展示伤害
-    /// swirl==true，表示为扩散伤害，反应精通为0
     /// </summary>
     public void GetDamage(BattleCore attacker, float damage, DamageMode mode, ElementSlot elementSlot,
         bool attached, bool haveText = false, bool isBig = false, bool noAttacher = false,
-        bool reversal = false)
+        BattleArgs args = default)
     {
+        args ??= new BattleArgs();
         lastAttacker = noAttacher ? null : attacker;
         
         if (elementSlot.eleType != ElementType.None) 
@@ -136,7 +136,8 @@ public class ElementCore : PropertyCore
             if (attached)       // 受到元素附着，将发生反应
             {
                 ElementSlot element2 = new ElementSlot(elementSlot.eleType, elementSlot.eleCount);
-                AttachedElement(attacker, element2, ref damage, ref isBig, noAttacher, reversal);
+                AttachedElement(attacker, element2, ref damage, ref isBig, noAttacher
+                    , args.reactionReversal);
             }
 
             // 元素抗性
@@ -191,6 +192,7 @@ public class ElementCore : PropertyCore
         bool attached, bool haveText = false, bool isBig = false, bool noHealer = false,
         bool reversal = false)
     {// 受到一次治疗
+
         if (elementSlot.eleType != ElementType.None && attached) 
         {
             if (attached)       // 受到元素附着，将发生反应

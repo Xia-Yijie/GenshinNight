@@ -15,7 +15,11 @@ public class canKnowSettingUI : MonoBehaviour
     public Sprite CommonSprite;
     public Sprite StrengthenSprite;
     public Scrollbar contentBar;
-
+    public List<RectTransform> eachRect = new List<RectTransform>();
+    public Transform disableSlotPrt;
+    public AudioClip enableAllAudio;
+    public AudioClip disableAllAudio;
+    
     /*
      * 0:通用罐装知识界面
      * 1~7:风岩雷草水火冰，元素罐装知识界面
@@ -52,6 +56,13 @@ public class canKnowSettingUI : MonoBehaviour
         isStrengthen = !isStrengthen;
         RefreshPage();
     }
+    
+    public void PlayStrengthenAudio()
+    {
+        AudioManager.PlayEFF(isStrengthen
+            ? ShopUIController.instance.SelectStrengthenAudio
+            : ShopUIController.instance.CancelStrengthenAudio, 0.6f);
+    }
 
     public void RefreshPage()
     {// 刷新页面
@@ -63,6 +74,7 @@ public class canKnowSettingUI : MonoBehaviour
         ShopUIController.ShowText("所有的罐装知识都激活了，有没有感觉到力量在身体内流淌呢？");
         gameManager.knowledgeData.EnableAll();
         gameManager.knowledgeDataStrengthen.EnableAll();
+        AudioManager.PlayEFF(enableAllAudio);
         RefreshPage();
     }
 
@@ -71,6 +83,7 @@ public class canKnowSettingUI : MonoBehaviour
         ShopUIController.ShowText("所有的罐装知识都被关闭了，是想要挑战自己吗？");
         gameManager.knowledgeData.DisableAll();
         gameManager.knowledgeDataStrengthen.DisableAll();
+        AudioManager.PlayEFF(disableAllAudio);
         RefreshPage();
     }
 
@@ -82,7 +95,7 @@ public class canKnowSettingUI : MonoBehaviour
     private List<canKnowSettingSlot> poolUsed = new List<canKnowSettingSlot>();
     
     public void GetSlot(Sprite sprite, string title, string description, 
-        Action buyAction, int hadNum, int totalNum, bool isEnable)
+        KnowledgeBuffer buffer)
     {// 生成一个条目，初始化并送到used中
         canKnowSettingSlot slot;
         if (poolValid.Count > 0)
@@ -95,8 +108,17 @@ public class canKnowSettingUI : MonoBehaviour
             slot = Instantiate(ck_slot, slotPrt).GetComponent<canKnowSettingSlot>();
         }
         slot.gameObject.SetActive(true);
-        slot.Init(sprite, title, description, buyAction, hadNum, totalNum, isEnable);
+        slot.transform.SetParent(slotPrt);
+        slot.Init(sprite, title, description, buffer);
         poolUsed.Add(slot);
+    }
+    
+    public void RefreshUISlot()
+    {// 刷新上层UI，避免出现扩展不成功的现象
+        foreach (var i in eachRect)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(i);
+        }
     }
     
     public void ClearSlots()
@@ -104,6 +126,7 @@ public class canKnowSettingUI : MonoBehaviour
         foreach (var i in poolUsed)
         {
             i.gameObject.SetActive(false);
+            i.transform.SetParent(disableSlotPrt);
             poolValid.Add(i);
         }
         poolUsed.Clear();

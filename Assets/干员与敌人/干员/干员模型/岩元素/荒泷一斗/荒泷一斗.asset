@@ -78,6 +78,7 @@ MonoBehaviour:
   - 
   talentName1: "\u8352\u6CF7\u7B2C\u4E00"
   talentName2: "\u8D64\u9B3C\u4E4B\u8840"
+  shopDescription: "\u8352\u6CF7\u53EF\u4EE5\u8F93\u4F46\u7EDD\u4E0D\u8BA4\u8F93\u540D\u526F\u5176\u5B9E\u7537\u5B50\u6C49\u4E00\u6597"
   atkSpeedDescription: 1
   resetSpeedDescription: 3
   growingAtk:
@@ -159,6 +160,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   illustratedBookImage: {fileID: 21300000, guid: 2ec8254533b7e02448e596ded189a6d6, type: 3}
+  shopImage: {fileID: 21300000, guid: c95acac224840904f85b5181bdc3ff84, type: 3}
   profession: 0
   star: 5
   skillImage:

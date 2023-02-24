@@ -157,18 +157,20 @@ public class BattleCore : ElementCore
     /// 自身对tarBC造成一次伤害，结束后更新彼此数值
     /// </summary>
     public void Battle(BattleCore tarBC, float damage, DamageMode mode, // 造成伤害的基础数值，以及本次伤害类型
-        ElementSlot elementSlot, ElementTimer timer,    // 元素攻击，以及使用的元素计时器
-        bool haveText = false, bool isBig = false)      // 显示攻击数字                    
+        ElementSlot elementSlot, ElementTimer timer, // 元素攻击，以及使用的元素计时器
+        bool haveText = false, bool isBig = false, // 显示攻击数字    
+        BattleArgs args = default)  // 附加参数                      
     {
         bool canAttachElement = CauseDamageElement(
             tarBC, ref damage, elementSlot, timer);
         tarBC.GetDamage(this, damage, mode, elementSlot,
             canAttachElement, haveText, isBig);
     }
-    
+
     public void Battle(BattleCore tarBC, float damage, DamageMode mode, // 造成伤害的基础数值，以及本次伤害类型
-        ElementSlot elementSlot, bool canAttachElement,    // 元素攻击，以及使用的元素计时器
-        bool haveText = false, bool isBig = false)      // 显示攻击数字                    
+        ElementSlot elementSlot, bool canAttachElement, // 元素攻击，以及使用的元素计时器
+        bool haveText = false, bool isBig = false, // 显示攻击数字      
+        BattleArgs args = default)  // 附加参数                       
     {
         CauseDamageElement(tarBC, ref damage, elementSlot);
         tarBC.GetDamage(this, damage, mode, elementSlot,
@@ -192,10 +194,11 @@ public class BattleCore : ElementCore
         Battle(tarBC, damage, DamageMode.Physical, phy, defaultElementTimer, haveText, isBig);
     }
 
-    public static void Battle_NoAttacker(BattleCore tarBC, float damage, 
+    public static void Battle_NoAttacker(BattleCore tarBC, float damage,
         DamageMode mode, // 造成伤害的基础数值，以及本次伤害类型
-        ElementSlot elementSlot, ElementTimer timer,    // 元素攻击，以及使用的元素计时器
-        bool haveText = false, bool isBig = false) // 显示攻击数字     
+        ElementSlot elementSlot, ElementTimer timer, // 元素攻击，以及使用的元素计时器
+        bool haveText = false, bool isBig = false, // 显示攻击数字      
+        BattleArgs args = default)  // 附加参数      
     {
         bool canAttachElement = elementSlot.eleType != ElementType.None &&
                                 timer != null && timer.AttachElement(tarBC);
@@ -273,6 +276,15 @@ public enum AimingMode : byte
     operatorFirst,
     [EnumLabel("瞄准敌人")]
     enemyFirst
+}
+
+public class BattleArgs
+{// Battle函数的额外传参对象
+    public bool reactionReversal = false;       // 翻转元素反应的作用对象（干员<->敌人）
+    public float ignoreDefPercentage = 0;      // 以百分比无视敌人的防御，取值[0, 1]
+    public float ignoreDefFixed = 0;           // 以固定数值无视敌人的防御
+    public float ignoreMagicDefFixed = 0;      // 法术穿透
+    public float finalDamageAddition = 0;       // 直接加在最总伤害上
 }
 
 public class AtkSpeedController

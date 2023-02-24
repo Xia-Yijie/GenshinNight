@@ -52,6 +52,11 @@ public static class BaseFunc
     {
         return (Mathf.Abs(x.x - y.x) < eps) && (Mathf.Abs(x.z - y.z) < eps);
     }
+    
+    public static bool almostZero(Vector3 a)
+    {
+        return Mathf.Abs(a.x) < 1e-3 && Mathf.Abs(a.y) < 1e-3 && Mathf.Abs(a.z) < 1e-3;
+    }
 
     public static bool isFront(Vector3 pos, Vector3 tarPos, Vector3 directionVector)
     {// 判断tarPos是否在pos根据direction向量的正前方

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\u591C\u5170"
   m_EditorClassIdentifier: 
   type: 3
-  skillType: 2
+  skillType: 0
   Name: "\u591C\u5170"
   EnName: 
   elementType: 4
@@ -78,6 +78,7 @@ MonoBehaviour:
   - "\u5584\u4E8E\u4F7F\u7528\u9677\u9631\u4E0E\u589E\u76CA\u6765\u63A7\u5236\u6218\u573A\u5C40\u52BF\u7684\u6C34\u5143\u7D20\u5C04\u624B"
   talentName1: "\u731C\u5148\u6709\u65B9"
   talentName2: "\u5999\u8F6C\u968F\u5FC3"
+  shopDescription: "\u6E38\u8D70\u4E8E\u6697\u5904\u7684\u7279\u5DE5\uFF0C\u5CA9\u4E0A\u8336\u5BA4\u7684\u8001\u677F"
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -159,6 +160,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7edd7817dc3b85a42ad4ce38c63fa8ac, type: 3}
   - {fileID: 21300000, guid: 7edd7817dc3b85a42ad4ce38c63fa8ac, type: 3}
   illustratedBookImage: {fileID: 21300000, guid: 0fd7b9dd39264aa42a96720855a025ca, type: 3}
+  shopImage: {fileID: 21300000, guid: 3e0dd873f12409b4bbe8dfd56194cf42, type: 3}
   profession: 0
   star: 5
   skillImage:

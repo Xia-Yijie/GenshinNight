@@ -6,82 +6,59 @@ using UnityEngine;
 public class canningKnowledgeData
 {
     //************* 通用属性 ****************
-    // 攻击提升，每个1%
-    public const int atkIncTotal = 10;
-    public const double atkIncRate = 0.01d;
-    public int maxAtkIncNum = 0;
-    public int atkIncNum = 0;
-    // 防御提升，每个1%
-    public const int defIncTotal = 10;
-    public const double defIncRate = 0.01d;
-    public int maxDefIncNum = 0;
-    public int defIncNum = 0;
-    // 生命提升，每个1%
-    public const int lifeIncTotal = 10;
-    public const double lifeIncRate = 0.01d;
-    public int maxLifeIncNum = 0;
-    public int lifeIncNum = 0;
-    // 阻挡数提升，每个1
-    public const int blockIncTotal = 0;
-    public int maxBlockIncNum = 0;
-    public int blockIncNum = 0;
-    // 元素伤害提升，每个1%
-    public const int damIncTotal = 10;
-    public const double damIncRate = 0.01d;
-    public int maxDamIncNum = 0;
-    public int damIncNum = 0;
-    // 充能效率提升，每个1%
-    public const int rechargeIncTotal = 10;
-    public const double rechargeIncRate = 0.01d;
-    public int maxRechargeIncNum = 0;
-    public int rechargeIncNum = 0;
-    // 元素精通提升，每个1
-    public const int masteryIncTotal = 10;
-    public const int masteryIncRate = 1;
-    public int maxMasteryIncNum = 0;
-    public int masteryIncNum = 0;
-    // 护盾强效提升，每个1%
-    public const int shieldStrengthIncTotal = 10;
-    public const double shieldStrengthIncRate = 0.01d;
-    public int maxShieldStrengthIncNum = 0;
-    public int shieldStrengthIncNum = 0;
-    // 部署费用下降，每个下降1
-    public const int costDecTotal = 4;
-    public const int costDecRate = 1;
-    public int maxCostDecNum = 0;
-    public int costDecNum = 0;
+    public KnowledgeBuffer atkInc = new KnowledgeBuffer(10, 2);
+    public KnowledgeBuffer defInc = new KnowledgeBuffer(10, 2);
+    public KnowledgeBuffer lifeInc = new KnowledgeBuffer(10, 2);
+    public KnowledgeBuffer blockInc = new KnowledgeBuffer(1, 24);
+    public KnowledgeBuffer damInc = new KnowledgeBuffer(10, 3);
+    public KnowledgeBuffer rechargeInc = new KnowledgeBuffer(10, 3);
+    public KnowledgeBuffer masteryInc = new KnowledgeBuffer(10, 3);
+    public KnowledgeBuffer shieldStrengthInc = new KnowledgeBuffer(10, 3);
+    public KnowledgeBuffer costDecInc = new KnowledgeBuffer(4, 7);
     
     //************* 风主罐装知识 ****************
-
-
-
-
-
+    public KnowledgeBuffer SharpAnemo = new KnowledgeBuffer(1, 22);
+    public KnowledgeBuffer WhirlingAnemo = new KnowledgeBuffer(1, 12);
+    public KnowledgeBuffer ProtectedAnemo = new KnowledgeBuffer(1, 8);
+    public KnowledgeBuffer RechargeAnemo = new KnowledgeBuffer(1, 10);
+    public KnowledgeBuffer BuffAnemo = new KnowledgeBuffer(1, 28);
 
     public void EnableAll()
     {
-        atkIncNum = maxAtkIncNum;
-        defIncNum = maxDefIncNum;
-        lifeIncNum = maxLifeIncNum;
-        blockIncNum = maxBlockIncNum;
-        damIncNum = maxDamIncNum;
-        rechargeIncNum = maxRechargeIncNum;
-        masteryIncNum = maxMasteryIncNum;
-        shieldStrengthIncNum = maxShieldStrengthIncNum;
-        costDecNum = maxCostDecNum;
+        atkInc.Enable();
+        defInc.Enable();
+        lifeInc.Enable();
+        blockInc.Enable();
+        damInc.Enable();
+        rechargeInc.Enable();
+        masteryInc.Enable();
+        shieldStrengthInc.Enable();
+        costDecInc.Enable();
+        
+        SharpAnemo.Enable();
+        WhirlingAnemo.Enable();
+        ProtectedAnemo.Enable();
+        RechargeAnemo.Enable();
+        BuffAnemo.Enable();
     }
 
     public void DisableAll()
     {
-        atkIncNum = 0;
-        defIncNum = 0;
-        lifeIncNum = 0;
-        blockIncNum = 0;
-        damIncNum = 0;
-        rechargeIncNum = 0;
-        masteryIncNum = 0;
-        shieldStrengthIncNum = 0;
-        costDecNum = 0;
+        atkInc.Disable();
+        defInc.Disable();
+        lifeInc.Disable();
+        blockInc.Disable();
+        damInc.Disable();
+        rechargeInc.Disable();
+        masteryInc.Disable();
+        shieldStrengthInc.Disable();
+        costDecInc.Disable();
+        
+        SharpAnemo.Disable();
+        WhirlingAnemo.Disable();
+        ProtectedAnemo.Disable();
+        RechargeAnemo.Disable();
+        BuffAnemo.Disable();
     }
 }
 
@@ -89,77 +66,113 @@ public class canningKnowledgeData
 public class canningKnowledgeData_Strengthen
 {
     //************* 通用属性 ****************
-    // 攻击提升，每个2%
-    public const int atkIncTotal = 5;
-    public const double atkIncRate = 0.02d;
-    public int maxAtkIncNum = 0;
-    public int atkIncNum = 0;
-    // 防御提升，每个2%
-    public const int defIncTotal = 5;
-    public const double defIncRate = 0.02d;
-    public int maxDefIncNum = 0;
-    public int defIncNum = 0;
-    // 生命提升，每个2%
-    public const int lifeIncTotal = 5;
-    public const double lifeIncRate = 0.02d;
-    public int maxLifeIncNum = 0;
-    public int lifeIncNum = 0;
-    // 阻挡数提升，每个1
-    public const int blockIncTotal = 1;
-    public int maxBlockIncNum = 0;
-    public int blockIncNum = 0;
-    // 元素伤害提升，每个2%
-    public const int damIncTotal = 5;
-    public const double damIncRate = 0.02d;
-    public int maxDamIncNum = 0;
-    public int damIncNum = 0;
-    // 充能效率提升，每个2%
-    public const int rechargeIncTotal = 5;
-    public const double rechargeIncRate = 0.02d;
-    public int maxRechargeIncNum = 0;
-    public int rechargeIncNum = 0;
-    // 元素精通提升，每个2
-    public const int masteryIncTotal = 5;
-    public const int masteryIncRate = 2;
-    public int maxMasteryIncNum = 0;
-    public int masteryIncNum = 0;
-    // 护盾强效提升，每个2%
-    public const int shieldStrengthIncTotal = 5;
-    public const double shieldStrengthIncRate = 0.02d;
-    public int maxShieldStrengthIncNum = 0;
-    public int shieldStrengthIncNum = 0;
-    // 部署费用下降，每个下降2
-    public const int costDecTotal = 3;
-    public const int costDecRate = 2;
-    public int maxCostDecNum = 0;
-    public int costDecNum = 0;
+    public KnowledgeBuffer atkInc = new KnowledgeBuffer(5, 4);
+    public KnowledgeBuffer defInc = new KnowledgeBuffer(5, 4);
+    public KnowledgeBuffer lifeInc = new KnowledgeBuffer(5, 4);
+    public KnowledgeBuffer blockInc = new KnowledgeBuffer(1, 30);
+    public KnowledgeBuffer damInc = new KnowledgeBuffer(5, 6);
+    public KnowledgeBuffer rechargeInc = new KnowledgeBuffer(5, 6);
+    public KnowledgeBuffer masteryInc = new KnowledgeBuffer(5, 6);
+    public KnowledgeBuffer shieldStrengthInc = new KnowledgeBuffer(5, 6);
+    public KnowledgeBuffer costDecInc = new KnowledgeBuffer(2, 16);
     
+    //************* 风主罐装知识 ****************
+    public KnowledgeBuffer SuperSlashAnemo = new KnowledgeBuffer(1, 32);
+    public KnowledgeBuffer PowerUpAnemo = new KnowledgeBuffer(2, 16);
+    public KnowledgeBuffer ExtraDamIncAnemo = new KnowledgeBuffer(1, 16);
+    public KnowledgeBuffer SpInitAnemo = new KnowledgeBuffer(1, 18);
+    public KnowledgeBuffer LongDurationAnemo = new KnowledgeBuffer(1, 22);
+    public KnowledgeBuffer HealAnemo = new KnowledgeBuffer(1, 15);
+    public KnowledgeBuffer GreenAnemo = new KnowledgeBuffer(1, 48);
     
     
     
     public void EnableAll()
     {
-        atkIncNum = maxAtkIncNum;
-        defIncNum = maxDefIncNum;
-        lifeIncNum = maxLifeIncNum;
-        blockIncNum = maxBlockIncNum;
-        damIncNum = maxDamIncNum;
-        rechargeIncNum = maxRechargeIncNum;
-        masteryIncNum = maxMasteryIncNum;
-        shieldStrengthIncNum = maxShieldStrengthIncNum;
-        costDecNum = maxCostDecNum;
+        atkInc.Enable();
+        defInc.Enable();
+        lifeInc.Enable();
+        blockInc.Enable();
+        damInc.Enable();
+        rechargeInc.Enable();
+        masteryInc.Enable();
+        shieldStrengthInc.Enable();
+        costDecInc.Enable();
+        
+        SuperSlashAnemo.Enable();
+        PowerUpAnemo.Enable();
+        ExtraDamIncAnemo.Enable();
+        SpInitAnemo.Enable();
+        LongDurationAnemo.Enable();
+        HealAnemo.Enable();
+        GreenAnemo.Enable();
     }
 
     public void DisableAll()
     {
-        atkIncNum = 0;
-        defIncNum = 0;
-        lifeIncNum = 0;
-        blockIncNum = 0;
-        damIncNum = 0;
-        rechargeIncNum = 0;
-        masteryIncNum = 0;
-        shieldStrengthIncNum = 0;
-        costDecNum = 0;
+        atkInc.Disable();
+        defInc.Disable();
+        lifeInc.Disable();
+        blockInc.Disable();
+        damInc.Disable();
+        rechargeInc.Disable();
+        masteryInc.Disable();
+        shieldStrengthInc.Disable();
+        costDecInc.Disable();
+        
+        SuperSlashAnemo.Disable();
+        PowerUpAnemo.Disable();
+        ExtraDamIncAnemo.Disable();
+        SpInitAnemo.Disable();
+        LongDurationAnemo.Disable();
+        HealAnemo.Disable();
+        GreenAnemo.Disable();
     }
+}
+
+[System.Serializable]
+public class KnowledgeBuffer
+{
+    public int total { get; private set; }  // 表示本知识在商店中总共的售卖数量
+    public int price { get; private set; }  // 表示本知识的价格
+    
+    public int num;                         // 表示本知识当前激活的数量
+    public int maxNum;                      // 表示本知识当前可激活的最大数量
+
+    public KnowledgeBuffer(int total_, int price_)
+    {
+        total = total_;
+        price = price_;
+        num = 0;
+        maxNum = 0;
+    }
+
+    public void Enable()
+    {
+        num = maxNum;
+    }
+
+    public void Disable()
+    {
+        num = 0;
+    }
+
+    public bool isEnabled()
+    {
+        return maxNum != 0 && num == maxNum;
+    }
+
+    public void SwitchEnable()
+    {
+        if (isEnabled()) Disable();
+        else Enable();
+    }
+
+    public void Buy()
+    {
+        if (maxNum >= total) return;
+        if (isEnabled() || maxNum == 0) num++;
+        maxNum++;
+    }
+    
 }

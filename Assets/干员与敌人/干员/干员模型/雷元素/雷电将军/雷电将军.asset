@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
   m_Name: "\u96F7\u7535\u5C06\u519B"
   m_EditorClassIdentifier: 
-  type: 2
+  type: 3
   skillType: 2
   Name: "\u96F7\u7535\u5C06\u519B"
   EnName: 
@@ -78,6 +78,7 @@ MonoBehaviour:
   - "\u53EF\u4EE5\u83B7\u5F97\u613F\u529B\uFF0C\u5207\u6362\u6280\u80FD\u65F6\u80FD\u5FEB\u901F\u56DE\u590D\u6280\u529B"
   talentName1: "\u4E07\u5343\u7684\u613F\u671B"
   talentName2: "\u6B8A\u80DC\u4E4B\u5FA1\u4F53"
+  shopDescription: "\u6B64\u4E16\u6700\u4E3A\u6B8A\u80DC\u6700\u4E3A\u6050\u6016\u7684\u96F7\u9706\u5316\u8EAB"
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -159,6 +160,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   illustratedBookImage: {fileID: 21300000, guid: a9e7ca91293e8cc478454f53ffd2059d, type: 3}
+  shopImage: {fileID: 21300000, guid: 0f6a7da096c51284a983c9f12208385c, type: 3}
   profession: 0
   star: 5
   skillImage:

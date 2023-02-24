@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class canningKnowledgeSlot : MonoBehaviour
 {
+    public RectTransform selfTrans;
     public Image itemImage;
     public Text titleText;
     public Text descriptionText;
@@ -18,54 +19,55 @@ public class canningKnowledgeSlot : MonoBehaviour
     public Sprite canPurchaseSprite;
     public Sprite cannotPurchaseSprite;
     
-    private int price;
-    private int remainNum;
-    private int totalNum;
-    private Action purchaseAction;
+    private KnowledgeBuffer buffer;
 
-    public void Init(Sprite sprite, string title, string description, int price_,
-        Action buyAction, int remainNum_, int totalNum_)
+    private void Awake()
     {
+        selfTrans = GetComponent<RectTransform>();
+    }
+
+
+    public void Init(Sprite sprite, string title, string description, 
+        KnowledgeBuffer knowledgeBuffer)
+    {
+        buffer = knowledgeBuffer;
+        
         itemImage.sprite = sprite;
         titleText.text = title;
         descriptionText.text = description;
-        priceText.text = price_.ToString();
-        
-        price = price_;
-        remainNum = remainNum_;
-        totalNum = totalNum_;
-        purchaseAction = buyAction;
+        priceText.text = buffer.price.ToString();
 
         RefreshRemainNum();
     }
 
     public void OnPurchase()
     {
-        if (gameManager.Mora < price)
+        if (gameManager.Mora < buffer.price)
         {
             ShopUIController.ShowText("哎呀，客官好像没有足够的摩拉呢。不过没关系，我会帮客官把这批货留着的，嘿嘿~");
             return;
         }
 
-        if (remainNum == 0)
+        if (buffer.maxNum == buffer.total)
         {
             ShopUIController.ShowText("真是抱歉，客官要的那个已经没货了。");
             return;
         }
 
-        gameManager.Mora -= price;
+        gameManager.Mora -= buffer.price;
         ShopUIController.RefreshMora();
         
         ShopUIController.ShowText("客官出手可真是大方~我这里还有好多货，客官不看看再走吗？");
-        purchaseAction?.Invoke();
-        remainNum--;
+        buffer.Buy();
         RefreshRemainNum();
+        
+        ShopUIController.PlayBuyAudio();
     }
 
     private void RefreshRemainNum()
     {
-        remainText.text = remainNum + "/" + totalNum;
-        if (remainNum == 0)
+        remainText.text = buffer.total - buffer.maxNum + "/" + buffer.total;
+        if (buffer.maxNum == buffer.total)
         {
             backImage.color = new Color32(160, 160, 160, 200);
             purchaseButtonImage.sprite = cannotPurchaseSprite;
@@ -75,7 +77,6 @@ public class canningKnowledgeSlot : MonoBehaviour
             backImage.color = new Color32(255, 255, 255, 200);
             purchaseButtonImage.sprite = canPurchaseSprite;
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(selfTrans);
     }
-    
-
 }

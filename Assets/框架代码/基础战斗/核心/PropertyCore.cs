@@ -65,8 +65,10 @@ public class PropertyCore : MonoBehaviour
     /// <summary>  
     /// 计算受到防御和法抗，以及伤害委托后的伤害值
     /// </summary>
-    public float GetDamageProperty(float baseDamage, DamageMode mode = DamageMode.Physical)
+    public float GetDamageProperty(float baseDamage, DamageMode mode = DamageMode.Physical,
+        BattleArgs args = default)
     {
+        args ??= new BattleArgs();
         float dam = baseDamage;
         dam *= getDamInc_.val < -1 ? 0 : 1 + getDamInc_.val;
         
@@ -75,12 +77,21 @@ public class PropertyCore : MonoBehaviour
             List<Func<float, float>> tmp = new List<Func<float, float>>(getDamFuncList);
             foreach (var damFunc in tmp) dam = damFunc(dam);
         }
-        
+
 
         if (mode == DamageMode.Physical)
-            dam = dam - def_.val < 0 ? 0 : dam - def_.val;
-        else if (mode == DamageMode.Magic)
-            dam = dam * (1 - (magicDef_.val / 100));
+        {
+            float def = def_.val;
+            def *= (1 - args.ignoreDefPercentage);
+            def = def - args.ignoreDefFixed < 0 ? 0 : def - args.ignoreDefFixed;    // 防御穿透
+            dam = dam - def < 0 ? 0 : dam - def;
+        }
+            
+        else if (mode == DamageMode.Magic){
+            float mdef = magicDef_.val;
+            mdef = mdef - args.ignoreMagicDefFixed < 0 ? 0 : mdef - args.ignoreMagicDefFixed;// 法术穿透
+            dam = dam * (1 - (mdef / 100));
+        }
 
         return dam;
     }

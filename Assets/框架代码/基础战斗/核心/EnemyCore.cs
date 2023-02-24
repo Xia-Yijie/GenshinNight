@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO.MemoryMappedFiles;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -30,6 +31,8 @@ public class EnemyCore : BattleCore
 
     [HideInInspector] public Rigidbody rigidbody;
     public PushAndPullController ppc_;
+
+    public EnemyLayerController elc_;   // 敌人层级控制器
     
     // 敌人特有的，区别于普攻范围的索敌列表，由子类自行处理
     [HideInInspector] public List<OperatorCore> operatorList_es = new List<OperatorCore>();
@@ -45,6 +48,7 @@ public class EnemyCore : BattleCore
         rigidbody = GetComponent<Rigidbody>();
         ac_ = new SpineAnimController(anim, this);
         localAnimPosition = anim.transform.localPosition;
+        elc_ = new EnemyLayerController(this);
 
         if (willRegister)
         {
@@ -73,9 +77,10 @@ public class EnemyCore : BattleCore
         // 将敌人移动到初始位置
         transform.position = epc_.GetTarPoint();
 
-        // 设置敌人重量和瞄准信息
+        // 设置敌人重量和瞄准信息，层级信息
         rigidbody.mass = ei_.mass;
         aimingMode = ei_.aimingMode;
+        elc_.Clear();
         
         // 初始化battleCalculation
         InitCalculation();
@@ -287,6 +292,7 @@ public class EnemyCore : BattleCore
     {
         blocked++;
         cannotMove++;
+        elc_.Add();
     }
 
     /// <summary>
@@ -296,6 +302,7 @@ public class EnemyCore : BattleCore
     {
         blocked--;
         cannotMove--;
+        elc_.Del();
     }
 
     public ValueBuffInner GetSlow(float slowRate)
@@ -380,6 +387,44 @@ public class EnemyCore : BattleCore
         cannotMove--;    
     }
 
+}
+
+public class EnemyLayerController
+{
+    private int defaultLayer;
+    private EnemyCore ec_;
+    private int colliderVote;
+
+    public EnemyLayerController(EnemyCore ec)
+    {
+        ec_ = ec;
+        defaultLayer = ec_.gameObject.layer;
+        colliderVote = 0;
+    }
+
+    public void Clear()
+    {
+        colliderVote = 0;
+        RefreshLayer();
+    }
+
+    public void Add()
+    {
+        colliderVote++;
+        RefreshLayer();
+    }
+
+    public void Del()
+    {
+        colliderVote--;
+        RefreshLayer();
+    }
+
+    private void RefreshLayer()
+    {// 根据enemy当前的情况，重置enemy的layer
+        if (colliderVote <= 0) ec_.gameObject.layer = defaultLayer;
+        else ec_.gameObject.layer=LayerMask.NameToLayer("enemy_collider");
+    }
 }
 
 public class Spfa
@@ -690,6 +735,7 @@ public class EnemyPathController
     
 }
 
+
 public class PushAndPullController
 {
     public static float littleForce = 20f;
@@ -713,11 +759,17 @@ public class PushAndPullController
 
     }
 
+    public bool Immune()
+    {
+        return ec_.shieldList.Count > 0;
+    }
+
+
 
     public void Push_Center(Vector3 forcePoint, float forceStrength)
     {
         // 从力的发出点往外推
-        if (ec_.shieldList.Count > 0) return;
+        if (Immune()) return;
         Vector3 pos = ec_.transform.position;
         Vector3 direction = new Vector3(pos.x - forcePoint.x, 0, pos.z - forcePoint.z);
         Displacement(direction,forceStrength);
@@ -725,17 +777,31 @@ public class PushAndPullController
     
     public void Push(Vector3 direction, float forceStrength)
     {
-        if (ec_.shieldList.Count > 0) return;
+        if (Immune()) return;
         Displacement(direction,forceStrength);
     }
     
     public void Pull_Center(Vector3 forcePoint, float forceStrength)
     {
         // 从力的发出点往里拉
-        if (ec_.shieldList.Count > 0) return;
+        if (Immune()) return;
         Vector3 pos = ec_.transform.position;
         Vector3 direction = new Vector3(forcePoint.x - pos.x, 0, forcePoint.z - pos.z);
         Displacement(direction,forceStrength);
+    }
+    
+    public void Absorb_Center(Vector3 forcePoint, float forceStrength, float radius)
+    {
+        // 从力的发出点往里拉，越靠近中心点力越小，如果目标处于半径外受到全部的力
+        if (Immune()) return;
+
+        float force = forceStrength;
+        float dis = BaseFunc.xz_Distance(ec_.transform.position, forcePoint);
+        if (dis < radius) force *= dis / radius;    // 越靠近中心点，力越小 
+        
+        Vector3 pos = ec_.transform.position;
+        Vector3 direction = new Vector3(forcePoint.x - pos.x, 0, forcePoint.z - pos.z);
+        Displacement(direction,force);
     }
 
     public void Displacement(Vector3 direction, float forceStrength)
@@ -763,7 +829,6 @@ public class PushAndPullController
         if (pow < 80) return "大力";
         return "超大力";
     }
-    
 }
 
 public class PushDizzyBuff : BuffSlot
@@ -790,6 +855,7 @@ public class PushDizzyBuff : BuffSlot
         if (willDizzy) ec_.GetDizzy();
         ec_.DieAction += Die;
         checkDelay = (int) (4 / Time.timeScale);
+        ec_.elc_.Add();
     }
 
     public override void BuffUpdate() { }
@@ -802,7 +868,7 @@ public class PushDizzyBuff : BuffSlot
             checkDelay--;
             return false;
         }
-        return almostZero(rb_.velocity);
+        return BaseFunc.almostZero(rb_.velocity);
     }
 
     public override void BuffEnd()
@@ -811,6 +877,7 @@ public class PushDizzyBuff : BuffSlot
         if (isDie) return;
         ec_.DieAction -= Die;
         ec_.epc_.ChangeRoute();
+        ec_.elc_.Del();
     }
 
     private void Die(BattleCore bc_)
@@ -818,10 +885,7 @@ public class PushDizzyBuff : BuffSlot
         isDie = true;
     }
 
-    private bool almostZero(Vector3 a)
-    {
-        return Mathf.Abs(a.x) < 1e-2 && Mathf.Abs(a.y) < 1e-2 && Mathf.Abs(a.z) < 1e-2;
-    }
+    
     
 }
 

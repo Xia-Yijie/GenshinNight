@@ -34,6 +34,9 @@ public class operData : ScriptableObject
     [Header("是否禁止布置在地面或高台上")]
     public bool banLowGround;
     public bool banHighGround;
+
+    [Header("互斥干员")] 
+    public List<operData> MutualExclusionList = new List<operData>();
     
     [Header("干员各种立绘和图片")]
     public Sprite imageInQueue;
@@ -94,6 +97,9 @@ public class operData : ScriptableObject
     public string talentName1;
     public string talentName2;
 
+    [Header("干员商店描述")] 
+    public string shopDescription;
+
     [Header("粗略描述")] 
     [EnumLabel("攻速")]
     public speedDescription atkSpeedDescription;
@@ -137,6 +143,9 @@ public class operData : ScriptableObject
 
     [Header("图鉴界面头像")]
     public Sprite illustratedBookImage;
+    
+    [Header("商店界面头像")]
+    public Sprite shopImage;
     
     [EnumLabel("选择职业")]
     public ProfessionType profession;

@@ -10,18 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
-  m_Name: "\u8367"
+  m_Name: "\u8367-\u98CE\u5143\u7D20"
   m_EditorClassIdentifier: 
-  type: 1
-  skillType: 0
-  Name: "\u8367"
-  EnName: 
+  type: 5
+  skillType: 2
+  Name: "\u65C5\u884C\u8005-\u98CE"
+  EnName: Traveller
   elementType: 0
   is3D: 0
   aimingMode: 1
   canAtkDrone: 0
   banLowGround: 0
   banHighGround: 1
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 2a1e1731a27f7ed4d8954311b9361d0d, type: 3}
   operUIImage1: {fileID: 21300000, guid: 93bc178b1edac184d84fa42dd4cd8927, type: 3}
   operUIImage2: {fileID: 21300000, guid: 93bc178b1edac184d84fa42dd4cd8927, type: 3}
@@ -39,10 +40,10 @@ MonoBehaviour:
   Skill3_Release: []
   End_3Star: {fileID: 0}
   End_Fail: {fileID: 0}
-  atk: 0
+  atk: 1000
   def: 0
   magicDef: 0
-  life: 100
+  life: 10000
   maxBlock: 1
   maxAtkInterval: 0
   cost: 0
@@ -55,11 +56,12 @@ MonoBehaviour:
   spRecharge: 1
   shieldStrength: 0
   Description:
-  - 
-  - 
-  - 
-  talentName1: 
-  talentName2: 
+  - "\u53EF\u7231\u7684\u7237"
+  - "\u53EF\u7231\u7684\u7237"
+  - "\u53EF\u7231\u7684\u7237"
+  talentName1: "\u7F50\u88C5\u77E5\u8BC6"
+  talentName2: "\u5F3A\u5316\u7F50\u88C5\u77E5\u8BC6"
+  shopDescription: "\u6700\u521D\u7684\u5F00\u59CB"
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -130,8 +132,8 @@ MonoBehaviour:
   - 0
   - 0
   talentImage:
-  - {fileID: 21300000, guid: 7b427f3c514f3fa4f840d8c8d07aecce, type: 3}
-  - {fileID: 21300000, guid: 9c1ad0fa5afd38e41b04efbcbba06dd0, type: 3}
+  - {fileID: 21300000, guid: 0f40067aa8a46a842af948cad1ad798b, type: 3}
+  - {fileID: 21300000, guid: 0f40067aa8a46a842af948cad1ad798b, type: 3}
   atkRange:
   - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
   - {fileID: 6645886670027540070, guid: 5063eeb8de814af449962b378c35819b, type: 3}
@@ -141,13 +143,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   - {fileID: 21300000, guid: ad5059a35aa15924d81d3e3218e43696, type: 3}
   illustratedBookImage: {fileID: 21300000, guid: f901daa9e23be1a408a5129b0559b9b2, type: 3}
+  shopImage: {fileID: 21300000, guid: ab5bbc3b16dc4164a81beec1a02e7e03, type: 3}
   profession: 0
   star: 5
   skillImage:
   - {fileID: 21300000, guid: 42f07f9204dca0e4d87c91c7d9a087e7, type: 3}
   - {fileID: 21300000, guid: f85ccec24f14e4444a2041ef383a42e5, type: 3}
   - {fileID: 21300000, guid: 6658716322ab49d46a55657381639039, type: 3}
-  skillName0: 
+  skillName0: "\u88C2\u7A7A\u4E4B\u98CE"
   description0:
   - 
   - 
@@ -157,7 +160,7 @@ MonoBehaviour:
   - 
   - 
   initSP0: 00000000000000000000000000000000000000000000000000000000
-  maxSP0: 00000000000000000000000000000000000000000000000000000000
+  maxSP0: 02000000000000000000000000000000000000000000000000000000
   duration0:
   - 0
   - 0
@@ -168,10 +171,10 @@ MonoBehaviour:
   - 0
   expNeed0: 000000000000000000000000000000000000000000000000
   costNeed0: 000000000000000000000000000000000000000000000000
-  skill0_recoverType: 0
-  skill0_releaseType: 0
+  skill0_recoverType: 1
+  skill0_releaseType: 3
   skillCanEndEarly0: 0
-  skillName1: 
+  skillName1: "\u98CE\u6DA1\u5251"
   description1:
   - 
   - 
@@ -181,21 +184,21 @@ MonoBehaviour:
   - 
   - 
   initSP1: 00000000000000000000000000000000000000000000000000000000
-  maxSP1: 00000000000000000000000000000000000000000000000000000000
+  maxSP1: 01000000010000000100000001000000010000000100000001000000
   duration1:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
   expNeed1: 000000000000000000000000000000000000000000000000
   costNeed1: 000000000000000000000000000000000000000000000000
   skill1_recoverType: 0
   skill1_releaseType: 0
   skillCanEndEarly1: 0
-  skillName2: 
+  skillName2: "\u98CE\u606F\u6FC0\u8361"
   description2:
   - 
   - 
@@ -205,15 +208,15 @@ MonoBehaviour:
   - 
   - 
   initSP2: 00000000000000000000000000000000000000000000000000000000
-  maxSP2: 00000000000000000000000000000000000000000000000000000000
+  maxSP2: 01000000010000000100000001000000010000000100000001000000
   duration2:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1.6
+  - 1.6
+  - 1.6
+  - 1.6
+  - 1.6
+  - 1.6
+  - 1.6
   expNeed2: 000000000000000000000000000000000000000000000000
   costNeed2: 000000000000000000000000000000000000000000000000
   skill2_recoverType: 0

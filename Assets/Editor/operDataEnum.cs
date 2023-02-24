@@ -22,19 +22,21 @@ public class operDataEnum : Editor
     private SerializedProperty  canAtkDrone;
     private SerializedProperty  banLowGround;
     private SerializedProperty  banHighGround;
+    private SerializedProperty  MutualExclusionList;
     
     //"立绘图片"1中变量
     private SerializedProperty imageInQueue;
     private SerializedProperty operUIImage1;
     private SerializedProperty operUIImage2;
     private SerializedProperty illustratedBookImage;
+    private SerializedProperty shopImage;
     private SerializedProperty profession;
     private SerializedProperty star;
     private SerializedProperty talentImage;
     private SerializedProperty skillImage;
     private SerializedProperty  atkRangeImage;
-    //“语音集合”2中变量
     
+    //“语音集合”2中变量
     private SerializedProperty Report;
     private SerializedProperty Deploy;
     private SerializedProperty Selected;
@@ -65,6 +67,7 @@ public class operDataEnum : Editor
     private SerializedProperty  Description;
     private SerializedProperty  talentName1;
     private SerializedProperty  talentName2;
+    private SerializedProperty shopDescription;
     private SerializedProperty  atkSpeedDescription;
     private SerializedProperty  resetSpeedDescription;
     //"成长属性"4中变量
@@ -133,12 +136,14 @@ public class operDataEnum : Editor
         canAtkDrone = od_.FindProperty("canAtkDrone");
         banLowGround = od_.FindProperty("banLowGround");
         banHighGround = od_.FindProperty("banHighGround");
+        MutualExclusionList = od_.FindProperty("MutualExclusionList");
         
         //"立绘图片"1中变量
         imageInQueue = od_.FindProperty("imageInQueue");
         operUIImage1 = od_.FindProperty("operUIImage1");
         operUIImage2 = od_.FindProperty("operUIImage2");
         illustratedBookImage = od_.FindProperty("illustratedBookImage");
+        shopImage = od_.FindProperty("shopImage");
         profession = od_.FindProperty("profession");
         star = od_.FindProperty("star");
         talentImage = od_.FindProperty("talentImage");
@@ -175,6 +180,7 @@ public class operDataEnum : Editor
         Description = od_.FindProperty("Description");
         talentName1 = od_.FindProperty("talentName1");
         talentName2 = od_.FindProperty("talentName2");
+        shopDescription = od_.FindProperty("shopDescription");
         atkSpeedDescription = od_.FindProperty("atkSpeedDescription");
         resetSpeedDescription = od_.FindProperty("resetSpeedDescription");
         //"成长属性"4中变量
@@ -242,7 +248,7 @@ public class operDataEnum : Editor
             EditorGUILayout.PropertyField(canAtkDrone);
             EditorGUILayout.PropertyField(banLowGround);
             EditorGUILayout.PropertyField(banHighGround);
-            
+            EditorGUILayout.PropertyField(MutualExclusionList);
         }
         else if(type.enumValueIndex == 1)
         {
@@ -250,6 +256,7 @@ public class operDataEnum : Editor
             EditorGUILayout.PropertyField(operUIImage1);
             EditorGUILayout.PropertyField(operUIImage2);
             EditorGUILayout.PropertyField(illustratedBookImage);
+            EditorGUILayout.PropertyField(shopImage);
             EditorGUILayout.PropertyField(profession);
             EditorGUILayout.PropertyField(star);
             EditorGUILayout.PropertyField(talentImage);
@@ -290,6 +297,7 @@ public class operDataEnum : Editor
             EditorGUILayout.PropertyField(Description);
             EditorGUILayout.PropertyField(talentName1);
             EditorGUILayout.PropertyField(talentName2);
+            EditorGUILayout.PropertyField(shopDescription);
             EditorGUILayout.PropertyField(atkSpeedDescription);
             EditorGUILayout.PropertyField(resetSpeedDescription);
         }
