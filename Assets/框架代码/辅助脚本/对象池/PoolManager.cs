@@ -6,7 +6,7 @@ using UnityEngine.PlayerLoop;
 public class PoolManager
 {
     // 对象池
-    private const int maxCount = 64;
+    private const int maxCount = 256;
     private static Dictionary<string, List<GameObject>> pool = new Dictionary<string, List<GameObject>>();
     private static Dictionary<string, GameObject> objPrt = new Dictionary<string, GameObject>();
     private static Transform PoolPrt;

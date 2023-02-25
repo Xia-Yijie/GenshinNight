@@ -463,17 +463,19 @@ public class SkillAtkRangeBuff : SkillBuffSlot
 {
     private GameObject atkRange;
     private OperatorCore oc_;
+    private bool SwitchAtkDrone;
 
-    public SkillAtkRangeBuff(OperatorCore oc, GameObject range) : base(oc)
+    public SkillAtkRangeBuff(OperatorCore oc, GameObject range, bool switchAtkDrone = false) : base(oc)
     {
         atkRange = range;
         oc_ = oc;
+        SwitchAtkDrone = switchAtkDrone;
     }
 
     public override void BuffStart()
     {
         base.BuffStart();
-        oc_.ChangeAtkRange(atkRange);
+        oc_.ChangeAtkRange(atkRange, SwitchAtkDrone);
     }
 
     public override void BuffUpdate() { }
@@ -481,7 +483,7 @@ public class SkillAtkRangeBuff : SkillBuffSlot
     public override void BuffEnd()
     {
         base.BuffEnd();
-        oc_.ChangeAtkRange();
+        oc_.ChangeAtkRange(SwitchAtkDrone);
     }
 }
 

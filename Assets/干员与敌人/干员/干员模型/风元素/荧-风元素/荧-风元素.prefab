@@ -101,6 +101,8 @@ MonoBehaviour:
   Skill2_AtkRange: {fileID: 6645886670027540070, guid: db5b396854378084b94e270be96fd89d, type: 3}
   Skill3_FlyAnim: {fileID: 145256, guid: 642eb9beb45e2044ea1429089ca4926b, type: 3}
   tornado: {fileID: 5892027514256557664}
+  HealAnim: {fileID: 105942, guid: f7bb48f7be00f6941ac0baf7b24ec044, type: 3}
+  GreenBuffAnim: {fileID: 1584990886521843734, guid: 71f4a8a31464fd44589a64e6e32c23a1, type: 3}
 --- !u!1 &5327064275504170085
 GameObject:
   m_ObjectHideFlags: 0

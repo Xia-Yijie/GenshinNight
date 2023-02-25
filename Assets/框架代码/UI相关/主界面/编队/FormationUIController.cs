@@ -87,6 +87,7 @@ public class FormationUIController : MonoBehaviour
     public void StartGame()
     {
         InitManager.ld_ = ld_;
+        InitManager.globalArgs = (GlobalLevelArgs) ld_.args.Clone();    // 将参数浅拷贝到InitManager中
         SceneSwitch.LoadScene(ld_.Name_set, ld_);
     }
 

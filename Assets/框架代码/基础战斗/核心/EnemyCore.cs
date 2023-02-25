@@ -821,6 +821,14 @@ public class PushAndPullController
         BuffManager.AddBuff(buff);
     }
 
+    public void ContinueAbsorb(Transform center, float force, bool dizzy, float radius, 
+        Func<EnemyCore, bool> endCondition = null)
+    {// 持续牵引
+        ContinuePushBuff continuePushBuff = new ContinuePushBuff(this,
+            force, radius, dizzy, center, endCondition);
+        BuffManager.AddBuff(continuePushBuff);
+    }
+
     public static string PowerInterpreter(float pow)
     {
         if (pow < 20) return "超小力";
@@ -852,10 +860,13 @@ public class PushDizzyBuff : BuffSlot
 
     public override void BuffStart()
     {
-        if (willDizzy) ec_.GetDizzy();
+        if (willDizzy)
+        {
+            ec_.GetDizzy();
+            ec_.elc_.Add();
+        }
         ec_.DieAction += Die;
         checkDelay = (int) (4 / Time.timeScale);
-        ec_.elc_.Add();
     }
 
     public override void BuffUpdate() { }
@@ -873,20 +884,99 @@ public class PushDizzyBuff : BuffSlot
 
     public override void BuffEnd()
     {
-        if (willDizzy) ec_.RevokeDizzy();
+        if (willDizzy)
+        {
+            ec_.RevokeDizzy();
+            ec_.elc_.Del();
+        }
         if (isDie) return;
         ec_.DieAction -= Die;
         ec_.epc_.ChangeRoute();
-        ec_.elc_.Del();
     }
 
     private void Die(BattleCore bc_)
     {
         isDie = true;
     }
+}
 
+public class ContinuePushBuff : BuffSlot
+{// 将敌人超目标物体持续牵引，可选择是否击晕
+
+    private PushAndPullController ppc_;
+    private Rigidbody rb_;
+    private float force;
+    private float radius;
+    private bool willDizzy;
+    private Func<EnemyCore, bool> condition;
+    private EnemyCore ec_;
+    private bool isDie;
+    private Transform centerTrans;
     
+    public ContinuePushBuff(PushAndPullController pushAndPullController, float forceCount,
+        float radius_, bool dizzy, Transform center, Func<EnemyCore, bool> endCondition = null)
+    {
+        ppc_ = pushAndPullController;
+        rb_ = ppc_.rb_;
+        ec_ = ppc_.ec_;
+        force = forceCount;
+        radius = radius_;
+        willDizzy = dizzy;
+        condition = endCondition;
+        centerTrans = center;
+    }
     
+    public override void BuffStart()
+    {
+        if (willDizzy)
+        {
+            ec_.GetDizzy();
+            ec_.elc_.Add();
+        }
+        ec_.DieAction += Die;
+    }
+
+    public override void BuffUpdate()
+    {
+        // float v = rb_.velocity.magnitude;
+        // float scale = v < 1 ? force : v < 2 ? force * (2 - v) : 0;
+        float dis = BaseFunc.xz_Distance(ec_.transform.position, centerTrans.position);
+        float finalForce = dis < radius ? force * dis / radius : force; // 越靠近中心点，力越小 
+        
+        // 方向向量归一化
+        Vector3 direction = centerTrans.position - ec_.transform.position;
+        float k = Mathf.Sqrt(1.0f / (direction.x * direction.x + direction.z * direction.z));
+        direction.x *= k;
+        direction.z *= k;
+        direction *= finalForce;
+        
+        // 施加持续的力
+        rb_.AddForce(direction, ForceMode.Force);
+    }
+
+    public override bool BuffEndCondition()
+    {
+        if (isDie) return true;
+        if (!centerTrans.gameObject.activeSelf) return true;
+        return condition != null && condition(ec_);
+    }
+
+    public override void BuffEnd()
+    {
+        if (willDizzy)
+        {
+            ec_.RevokeDizzy();
+            ec_.elc_.Del();
+        }
+        if (isDie) return;
+        ec_.DieAction -= Die;
+        ec_.epc_.ChangeRoute();
+    }
+    
+    private void Die(BattleCore bc_)
+    {
+        isDie = true;
+    }
 }
 
 public class EnemySlowDurationBuff : BattleCoreDurationBuff

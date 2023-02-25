@@ -351,6 +351,8 @@ public class ReactionController
         float mastery, bool reversal = false) 
     {// 扩散反应
 
+        attacker.SwirlAction?.Invoke((BattleCore) elc_);    // 触发扩散反应的回调函数
+        
         Vector3 center = elc_.transform.position;
         ElementSlot swirlElement = new ElementSlot(
             firElement.eleType == ElementType.Frozen ? ElementType.Cryo : firElement.eleType

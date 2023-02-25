@@ -30,4 +30,7 @@ public class levelData : ScriptableObject
     public float exp = 1000;
     public int HP = 10;
     public int place = 10;
+
+    [Header("关卡全局参数设置")] 
+    public GlobalLevelArgs args;
 }

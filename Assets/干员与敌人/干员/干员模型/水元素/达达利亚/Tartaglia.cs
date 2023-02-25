@@ -142,6 +142,7 @@ public class Tartaglia : OperatorCore
     
     public override void ElitismAction1_2()
     {// 在精二时，对所有处于断流下的敌人加死亡函数，让他们在死亡时触发断流-破
+        base.ElitismAction1_2();
         foreach (var tmp in RiptideDic)
         {
             EnemyCore ec_ = tmp.Key;

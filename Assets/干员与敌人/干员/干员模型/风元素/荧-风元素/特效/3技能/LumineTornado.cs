@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEditor.MPE;
 using UnityEngine;
 
 public class LumineTornado : MonoBehaviour
@@ -14,7 +15,9 @@ public class LumineTornado : MonoBehaviour
     private Lumine_Anemo lumine;
     private List<EnemyCore> innerList = new List<EnemyCore>();
     private ElementTimer timer;
+    [HideInInspector] public ElementType willType;
     [HideInInspector] public ElementType type;
+    private float typeChangeDelay;
     private float delay;
     private float remainTime;
     private float speed = 1f;
@@ -22,7 +25,7 @@ public class LumineTornado : MonoBehaviour
     private void Awake()
     {
         lumine = transform.parent.GetComponent<Lumine_Anemo>();
-        timer = new ElementTimer(lumine, 0.4f);
+        timer = new ElementTimer(lumine, 0.8f);
     }
 
 
@@ -44,7 +47,8 @@ public class LumineTornado : MonoBehaviour
             _ => new Vector3(0, 0, 0)
         };
         
-        ChangeType(ElementType.Anemo);
+        PreChangeType(ElementType.Anemo);
+        ChangeType();
     }
 
     private void Update()
@@ -58,6 +62,8 @@ public class LumineTornado : MonoBehaviour
         remainTime -= Time.deltaTime;
         if (remainTime <= 0)
         {
+            innerList.Clear();
+            timer.Clear();
             gameObject.SetActive(false);
             return;
         }
@@ -72,12 +78,12 @@ public class LumineTornado : MonoBehaviour
         
     }
 
-    public void ChangeType(ElementType t)
+    public void PreChangeType(ElementType t)
     {
         if (t != ElementType.Anemo && t != ElementType.Pyro && t != ElementType.Electro &&
             t != ElementType.Hydro && t != ElementType.Cryo) return;
-        type = t;
-        switch (type)
+        willType = t;
+        switch (t)
         {
             case ElementType.Anemo:
             default:
@@ -111,6 +117,13 @@ public class LumineTornado : MonoBehaviour
                 ChangePSColor(ps4, new Color32(255, 255, 255, 150), new Color32(75, 216, 255, 150));
                 break;
         }
+
+        Invoke(nameof(ChangeType), 0.5f);
+    }
+
+    private void ChangeType()
+    {
+        type = willType;
     }
 
     private void ChangePSColor(ParticleSystem ps, Color32 color1, Color32 color2)
@@ -130,6 +143,10 @@ public class LumineTornado : MonoBehaviour
         EnemyCore ec = other.GetComponent<EnemyCore>();
         innerList.Add(ec);
         ec.DieAction += DelEnemy;
+
+        bool dizzy = ec.ei_.mass < 2;
+        ec.ppc_.ContinueAbsorb(transform, 20,
+            dizzy, 0.7f, EC => !innerList.Contains(EC));
     }
 
     private void OnTriggerExit(Collider other)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
   m_Name: "\u8367-\u98CE\u5143\u7D20"
   m_EditorClassIdentifier: 
-  type: 5
+  type: 3
   skillType: 2
   Name: "\u65C5\u884C\u8005-\u98CE"
   EnName: Traveller
@@ -46,7 +46,7 @@ MonoBehaviour:
   life: 10000
   maxBlock: 1
   maxAtkInterval: 0
-  cost: 0
+  cost: 20
   consumPlace: 1
   reTime: 0
   maxLevel: 000000000000000000000000

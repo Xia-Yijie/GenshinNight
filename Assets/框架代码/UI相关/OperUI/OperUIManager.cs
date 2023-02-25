@@ -119,6 +119,7 @@ public class OperUIManager : MonoBehaviour
     
     public static void LeaveLevel()
     {
+        InitManager.TimeRecoverCompletely();
         instance.gameObject.SetActive(false);
         SceneSwitch.LoadScene("主界面");
     }
@@ -732,6 +733,9 @@ public class SkillUIController
     {
         int tmp = (int) Math.Pow(10, places);
         float deta = val - baseVal;
+        if (deta >= -1e-4) val += 1e-6f;
+        else val -= 1e-6f;  // 精度显示问题
+
         string percent = percentage ? "%" : "";
         baseVal = (float) ((int) (baseVal * tmp)) / (float) tmp;
         deta = (float) ((int) (deta * tmp)) / (float) tmp;
@@ -740,7 +744,7 @@ public class SkillUIController
             baseVal *= 100;
             deta *= 100;
         }
-        if (Mathf.Abs(deta) < 1e-3) return baseVal.ToString(CultureInfo.InvariantCulture) + percent;
+        if (Mathf.Abs(deta) < 1e-4) return baseVal.ToString(CultureInfo.InvariantCulture) + percent;
         
         bool isGreen = (deta > 0) ^ incRed;
         string symbol = deta > 0 ? "+" : "";
@@ -788,7 +792,7 @@ public class SkillUIController
         shieldStrengthText.text = ToDetailString(oc_.shieldStrength, 2, false, true);
         
         costDetailText.text = ToDetailString(oc_.costNeed, 0, true);
-        reTimeDetailText.text = ToDetailString(oc_.recoverTime, 0, true);
+        reTimeDetailText.text = ToDetailString(oc_.recoverTime, 1, true);
 
         int atkSpeed = (int) oc_.atkSpeedController.atkSpeed.val;
         atkSpeedText.text = atkSpeed == 0 ? "0" :

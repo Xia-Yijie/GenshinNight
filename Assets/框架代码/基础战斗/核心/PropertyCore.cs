@@ -10,7 +10,7 @@ public class PropertyCore : MonoBehaviour
     // 基础数据
     public ValueBuffer atk_ = new ValueBuffer(0);
     public ValueBuffer def_ = new ValueBuffer(0);
-    public ValueBuffer magicDef_ = new ValueBuffer(0);
+    public ValueBuffer magicDef_ = new ValueBuffer(0);  // 这个要除以100计算
     public LifeController life_ = new LifeController();
     public SPController sp_ = new SPController();
     

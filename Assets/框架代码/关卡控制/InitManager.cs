@@ -11,16 +11,19 @@ public class InitManager : MonoBehaviour
     // 当前场上所有的干员/敌人
     public static List<OperatorCore> operList = new List<OperatorCore>();
     public static List<EnemyCore> enemyList = new List<EnemyCore>();
-    // 本场战斗选择的所有干员/分别的数量
+    // 本场战斗选择的所有干员/分别的数量/分别的预制体
     public static List<operData> allOperDataList = new List<operData>();
     public static List<int> allOperNumList = new List<int>();
+    public static List<OperatorCore> allOperatorCoreList = new List<OperatorCore>();
     // 本场战斗还未布置的所有干员，按角色划分，二级队列为多数量干员（箱子等）准备
     public static List<List<OperatorCore>> offOperList = new List<List<OperatorCore>>();
     // operReTime[i]=t表示id为i的干员目前的再部署时间为t，反应到DragSlot上
     public static float[] operReTime = new float[20];
     // 统一的干员优先级
     public static int operPriority;
-    
+    // Awake过程中添加的全局OperInitAction，会给每个干员都加上
+    public static Action<OperatorCore> GlobleOperInitAction;
+
     // 本场战斗会出现的所有敌人，按波次切分
     public static List<List<EnemyWaveInfoSlot>> EnemySlotList = new List<List<EnemyWaveInfoSlot>>();
     public static int totEnemyNum;
@@ -46,6 +49,7 @@ public class InitManager : MonoBehaviour
     // 关卡资源控制器
     public static ResourceController resourceController = new ResourceController();
     public static levelData ld_;
+    public static GlobalLevelArgs globalArgs = new GlobalLevelArgs();
     
     // 当前关卡速度
     public static bool globalTimeSlow = false;
@@ -78,6 +82,8 @@ public class InitManager : MonoBehaviour
                 OperatorCore oc_ = newOper.GetComponent<OperatorCore>();
                 oc_.operID = i;
                 offOperList[i].Add(oc_);
+                allOperatorCoreList.Add(oc_);
+                oc_.OperInitAction += GlobleOperInitAction;     // 添加全局初始函数
             }
         }
         
@@ -108,6 +114,7 @@ public class InitManager : MonoBehaviour
         totEnemyNum = 0;
         operPriority = 0;
         enemyWaveControllerIsNull = true;
+        GlobleOperInitAction = null;
     }
 
     public static int GetAndAddOperPriority(int add = 1)
@@ -272,6 +279,12 @@ public class InitManager : MonoBehaviour
         globalPause = pause;
         RefreshTimeScale();
     }
+    
+    public static void TimeRecoverCompletely()
+    {
+        globalTimeSlow = globalPause = globalDoubleSpeed = false;
+        RefreshTimeScale();
+    }
 
     private static void RefreshTimeScale()
     {
@@ -292,6 +305,19 @@ public class InitManager : MonoBehaviour
     }
 
 }
+
+[Serializable]
+public class GlobalLevelArgs
+{// 对全场生效的一些参数，在切换场景时实例化
+    public float RecoverTimeRate = 1;   // 全场干员再部署时间影响参数，为乘子
+
+
+    public object Clone()
+    {// 浅拷贝函数
+        return MemberwiseClone();
+    }
+}
+
 
 public class DragSlotController
 {

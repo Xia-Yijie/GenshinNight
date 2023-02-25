@@ -19,6 +19,7 @@ public class OperatorCore : BattleCore
     [HideInInspector] public int eliteLevel;    // 干员精英化等级
     [HideInInspector] public int[] skillLevel = new int[3];    // 干员技能等级[0:6]
     [HideInInspector] public ValueBuffer costNeed = new ValueBuffer();      // 干员当前部署费用
+    [HideInInspector] private int costIncCount = 2;    // 再部署增加费用最多两次
     [HideInInspector] public int operID;        // 在InitManager的offOperList里的编号
     [HideInInspector] public ValueBuffer recoverTime = new ValueBuffer(0);   // 干员再部署时间
     [HideInInspector] public int skillNum;      // 该干员选择的技能编号[0,2]
@@ -47,8 +48,8 @@ public class OperatorCore : BattleCore
     // 眩晕相关
     private GameObject dizzyStarts;
 
-    // 入场委托函数（一般为被动与天赋）
-    [HideInInspector] public Action PutOnAction;
+    // 入场委托函数，在OperInit中被调用，不会清空
+    [HideInInspector] public Action<OperatorCore> OperInitAction;
     
     // 低血量语音
     private float lowHP_DeadLine = 0.2f;
@@ -65,7 +66,8 @@ public class OperatorCore : BattleCore
         ac_ = new SpineAnimController(anim, this);
 
         aimingMode = od_.aimingMode;
-        InitCalculation();      // 初始化battleCalculation
+        InitCalculation();
+        costNeed.ChangeBaseValue(od_.cost);
         ChangeAtkRange();       // 生成atkRange
     }
     
@@ -110,9 +112,11 @@ public class OperatorCore : BattleCore
 
         // 重设生命值
         life_.RecoverCompletely();
+        // 初始化battleCalculation
+        InitCalculation();      
         
         // 初始化元素附着相关
-        foreach (var timer in elementTimerList) timer.Clear();
+        foreach (var timer in timerList) timer.Clear();
         attachedElement.Clear();
         reactionController.Init();
         
@@ -186,7 +190,7 @@ public class OperatorCore : BattleCore
         }
         
         // 入场委托函数
-        PutOnAction?.Invoke();
+        OperInitAction?.Invoke(this);
         
         // 根据选择的技能设置spController
         int lel = skillLevel[skillNum];
@@ -219,10 +223,10 @@ public class OperatorCore : BattleCore
         elementMastery.Init(od_.elementalMastery);
         elementDamage.Init(od_.elementalDamage);
         elementResistance.Init(od_.elementalResistance);
-        recoverTime.Init(od_.reTime);
         shieldStrength.Init(od_.shieldStrength);
+        sp_.spRecharge.Init(1);
         
-        costNeed.ChangeBaseValue(od_.cost);
+        recoverTime.Init(od_.reTime);
     }
 
     private void Dizzy()
@@ -426,9 +430,10 @@ public class OperatorCore : BattleCore
             DieAction(this);
             DieAction = null;
         }
-        
-        if (costNeed.val + costNeed.baseVal / 2 <= costNeed.baseVal * 2)
+
+        if (costIncCount > 0)
         {
+            costIncCount--;
             ValueBuffInner costBuff = new ValueBuffInner(ValueBuffMode.Percentage, 0.5f);
             costNeed.AddValueBuff(costBuff);
         }
@@ -491,6 +496,7 @@ public class OperatorCore : BattleCore
         operatorList.Clear();
         enemyList.Clear();
         atkRange.Clear();
+        InitCalculation();
 
         ac_.TurnRightImm();
     }

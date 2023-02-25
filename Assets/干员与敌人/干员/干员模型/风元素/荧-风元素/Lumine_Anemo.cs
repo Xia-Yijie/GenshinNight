@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Lumine_Anemo : OperatorCore
+public class Lumine_Anemo : TravellerCore
 {
     [Header("荧的特效")]
     public GameObject NorAtkSlash;
@@ -17,9 +19,8 @@ public class Lumine_Anemo : OperatorCore
     public GameObject Skill2_AtkRange;
     public GameObject Skill3_FlyAnim;
     public LumineTornado tornado;
-    
-    
-    
+    public GameObject HealAnim;
+    public GameObject GreenBuffAnim;
 
     private float[] Skill1_Multi = {1.1f, 1.25f, 1.4f, 1.6f, 1.8f, 2.05f, 2.4f};
     private float[] Skill2_DurMilti = {1f, 1.15f, 1.3f, 1.5f, 1.7f, 1.9f, 2.2f};
@@ -29,6 +30,9 @@ public class Lumine_Anemo : OperatorCore
     private float[] Skill3_Multi = {1.3f, 1.5f, 1.7f, 2f, 2.3f, 2.6f, 3f};
     private float[] Skill3_EleMulti = {0.35f, 0.42f, 0.5f, 0.58f, 0.66f, 0.75f, 0.85f};
     private ElementTimer skill3_timer;
+    private GreenShadowTimer greenTimer;    // 翠绿之影计时器
+    
+    
     protected override void Awake_Core()
     {
         base.Awake_Core();
@@ -40,12 +44,36 @@ public class Lumine_Anemo : OperatorCore
             PushAndPullController.mediumForce,
         };
         skill3_timer = new ElementTimer(this, 2f);
+        greenTimer = new GreenShadowTimer(this, 8f);
+
+        if (gameManager.knowledgeData.BuffAnemo.num > 0)
+        {// 愿风神忽悠你，全场+10法抗，-15%再部署时间
+            InitManager.GlobleOperInitAction += core =>
+            {// 减法抗
+                ValueBuffInner inner = new ValueBuffInner(ValueBuffMode.Fixed, 10);
+                core.magicDef_.AddValueBuff(inner);
+            };
+            InitManager.GlobleOperInitAction += core =>
+            {// 减再部署时间
+                ValueBuffInner inner2 = new ValueBuffInner(ValueBuffMode.Percentage, -0.15f);
+                core.recoverTime.AddValueBuff(inner2);
+            };
+        }
+
+        SwirlAction += greenTimer.Add;     // 给自己加上翠绿之影回调
     }
 
     public override void OperInit()
     {
         base.OperInit();
         tornado.gameObject.SetActive(false);
+        KnowledgeAction.ActAnemo(this);
+        if (eliteLevel >= 2 && skillNum == 2 && gameManager.knowledgeDataStrengthen.SpInitAnemo.num > 0)
+        {// 装备风息激荡的旅行者在部署时，直接补满所有技力
+            sp_.GetSp(sp_.maxSp);
+        }
+
+        DieAction += ClearGreenShadow;  // 死亡时删除所有翠绿之影
     }
 
     public void Skill1_Begin()
@@ -133,7 +161,7 @@ public class Lumine_Anemo : OperatorCore
         SkillAnimStaBuff staBuff = new SkillAnimStaBuff(this, anim, 1);
         BuffManager.AddBuff(staBuff);
 
-        SkillAtkRangeBuff atkRangeBuff = new SkillAtkRangeBuff(this, Skill2_AtkRange);
+        SkillAtkRangeBuff atkRangeBuff = new SkillAtkRangeBuff(this, Skill2_AtkRange, true);
         BuffManager.AddBuff(atkRangeBuff);
 
         GameObject wind = PoolManager.GetObj(Skill2_Anim);
@@ -147,8 +175,7 @@ public class Lumine_Anemo : OperatorCore
     {
         yield return new WaitForSeconds(0.4f);
 
-        // bool canPull = gameManager.knowledgeData.WhirlingAnemo.num > 0;
-        bool canPull = true;
+        bool canPull = gameManager.knowledgeData.WhirlingAnemo.num > 0;
         int cnt = 4;
         bool canAttach = true;
         float dam = atk_.val * Skill2_DurMilti[skillLevel[1]];
@@ -227,24 +254,35 @@ public class Lumine_Anemo : OperatorCore
         BuffManager.AddBuff(recycleObj);
         
         tornado.Init();
+        
+        // 复苏之风
+        if (eliteLevel < 2 || gameManager.knowledgeDataStrengthen.HealAnemo.num == 0) return;
+        foreach (var OC in InitManager.operList)
+        {
+            GameObject heal = PoolManager.GetObj(HealAnim);
+            heal.transform.SetParent(OC.transform);
+            heal.transform.localPosition = Vector3.zero;
+            DurationRecycleObj recycleObj2 = new DurationRecycleObj(heal, 1f, OC, true);
+            BuffManager.AddBuff(recycleObj2);
+
+            LumineTornadoHealBuff healBuff = new LumineTornadoHealBuff(OC, this);
+            BuffManager.AddBuff(healBuff);
+        }
     }
 
     public void Skill3_Damage(EnemyCore tarEC)
     {
         // 尝试元素转化
-        bool dye = false;   // 本次攻击有无染上颜色
-        if (tornado.type == ElementType.Anemo)
+        if (tornado.willType == ElementType.Anemo)
         {
-            dye = true;
             if(tarEC.IsAttachElement(ElementType.Pyro))
-                tornado.ChangeType(ElementType.Pyro);
+                tornado.PreChangeType(ElementType.Pyro);
             else if(tarEC.IsAttachElement(ElementType.Hydro))
-                tornado.ChangeType(ElementType.Hydro);
+                tornado.PreChangeType(ElementType.Hydro);
             else if(tarEC.IsAttachElement(ElementType.Electro))
-                tornado.ChangeType(ElementType.Electro);
+                tornado.PreChangeType(ElementType.Electro);
             else if (tarEC.IsAttachElement(ElementType.Cryo))
-                tornado.ChangeType(ElementType.Cryo);
-            else dye = false;
+                tornado.PreChangeType(ElementType.Cryo);
         }
         
         float dam = atk_.val * Skill3_Multi[skillLevel[2]];
@@ -253,16 +291,18 @@ public class Lumine_Anemo : OperatorCore
         Battle(tarEC, dam, DamageMode.Physical, anemoSlot, canAttach, true);
         
         // 染色附加伤害
-        if (tornado.type != ElementType.Anemo && !dye)
+        if (tornado.type != ElementType.Anemo)
         {
             float dyeDam = atk_.val * GetSkill3_EleMulti();
             ElementSlot slot = new ElementSlot(tornado.type, 1f);
             Battle(tarEC, dyeDam, DamageMode.Physical, slot, canAttach, true);
         }
-        
-        // 中心吸附
-        tarEC.ppc_.Absorb_Center(tornado.transform.position,
-            PushAndPullController.littleForce / 1.5f, 0.7f);
+    }
+    
+
+    public void ClearGreenShadow(BattleCore bc)
+    {// 旅行者死亡时触发，删除场上所有翠绿之影效果
+        greenTimer.Clear();
     }
 
 
@@ -290,7 +330,7 @@ public class Lumine_Anemo : OperatorCore
             multi *= 2;
         return multi;
     }
-    
+
     public override string GetSkillDescription(int SkillID)
     {
         int lel = skillLevel[SkillID];
@@ -352,7 +392,7 @@ public class Lumine_Anemo : OperatorCore
         {
             str = "罐装知识提供的属性提升已生效";
             if (gameManager.knowledgeData.BuffAnemo.num > 0)
-                str += "\n·在场时，所有干员的法术抗性" +
+                str += "\n·所有干员的法术抗性" +
                        CT.GetColorfulText("+10") + "，部署冷却时间" +
                        CT.GetColorfulText("-15%");
             return str;
@@ -381,6 +421,146 @@ public class Lumine_Anemo : OperatorCore
             // 2 => Skill3_AtkRange.name,
             _ => ""
         };
+    }
+    
+}
+
+public class LumineTornadoHealBuff : BuffSlot
+{// 风息激荡对全场干员产生的治疗
+    private Lumine_Anemo lumine;
+    private OperatorCore oc_;
+    private int count;
+    private float t;
+    private bool isDie;
+
+    public LumineTornadoHealBuff(OperatorCore oc, Lumine_Anemo lu)
+    {
+        lumine = lu;
+        oc_ = oc;
+        count = 5;
+        t = 0;
+        isDie = false;
+    }
+
+    public override void BuffStart()
+    {
+        oc_.DieAction += Die;
+    }
+
+    public override void BuffUpdate()
+    {
+        t -= Time.deltaTime;
+        if (t <= 0)
+        {
+            t = 1;
+            count--;
+            oc_.GetHeal(lumine, oc_.life_.val * 0.03f);
+        }
+    }
+
+    public override bool BuffEndCondition()
+    {
+        if (isDie) return true;
+        return count <= 0;
+    }
+
+    public override void BuffEnd()
+    {
+        if (isDie) return;
+        oc_.DieAction -= Die;
+    }
+
+    private void Die(BattleCore bc)
+    {
+        isDie = true;
+    }
+}
+
+public class GreenShadowTimer : BuffTimer
+{
+    private const float MagicDefReduce = 20;
+    private const float ElementResistanceReduce = 0.3f;
+    private Lumine_Anemo lumine;
+    
+    class GreenShadowInner
+    {
+        public ValueBuffInner inner1;
+        public ValueBuffInner inner2;
+        public GameObject BuffAnim;
+    }
+
+    private Dictionary<BattleCore, GreenShadowInner> dict = new Dictionary<BattleCore, GreenShadowInner>();
+    
+    
+    public GreenShadowTimer(Lumine_Anemo lu, float maxDurTime) : base(lu, maxDurTime)
+    {
+        lumine = lu;
+    }
+
+    public override void Add(BattleCore tarBC)
+    {
+        if (lumine.eliteLevel < 2 || 
+            gameManager.knowledgeDataStrengthen.GreenAnemo.num == 0) return;
+        base.Add(tarBC);
+    }
+
+    protected override void StartAction(BattleCore tarBC)
+    {// 对某个敌人造成扩散后，触发翠绿之影效果
+        base.StartAction(tarBC);
+
+        ValueBuffInner magicDefInner = new ValueBuffInner(ValueBuffMode.Fixed, -MagicDefReduce);
+        tarBC.magicDef_.AddValueBuff(magicDefInner);
+        ValueBuffInner resistanceInner = new ValueBuffInner(ValueBuffMode.Fixed, -ElementResistanceReduce);
+        tarBC.elementResistance.AddValueBuff(resistanceInner);
+
+        // 放入翠绿之影buff动画
+        GameObject shadow = PoolManager.GetObj(lumine.GreenBuffAnim);
+        shadow.transform.SetParent(tarBC.transform);
+        Vector3 pos = tarBC.animTransform.localPosition + new Vector3(0, 0, 0.7f);
+        shadow.transform.localPosition = pos;
+
+        GreenShadowInner inner = new GreenShadowInner
+        {
+            inner1 = magicDefInner,
+            inner2 = resistanceInner,
+            BuffAnim = shadow
+        };
+        dict.Add(tarBC, inner);
+
+        tarBC.DieAction += RecycleBuff;
+    }
+
+    protected override void EndAction(BattleCore tarBC)
+    {// 某个敌人持续时间到了，去除翠绿之影效果
+        base.EndAction(tarBC);
+        GreenShadowInner two = dict[tarBC];
+        tarBC.magicDef_.DelValueBuff(two.inner1);
+        tarBC.elementResistance.DelValueBuff(two.inner2);
+        PoolManager.RecycleObj(two.BuffAnim);
+
+        tarBC.DieAction -= RecycleBuff;
+        dict.Remove(tarBC);
+    }
+
+    public override void Clear()
+    {
+        foreach (var pair in buffTimeDict)
+        {// 将所有敌人身上的翠绿之影效果移除
+            EndAction(pair.Key);
+        }
+        
+        buffTimeDict.Clear();   // 这里删掉的是buffTimeDict
+    }
+
+    private void RecycleBuff(BattleCore bc)
+    {
+        GreenShadowInner two = dict[bc];
+        bc.magicDef_.DelValueBuff(two.inner1);
+        bc.elementResistance.DelValueBuff(two.inner2);
+        PoolManager.RecycleObj(two.BuffAnim);
+        dict.Remove(bc);
+        
+        buffTimeDict.Remove(bc);
     }
     
 }

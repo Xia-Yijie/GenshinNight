@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ElementCore : PropertyCore
 {
-    public List<ElementTimer> elementTimerList = new List<ElementTimer>();
+    public List<Timer> timerList = new List<Timer>();
     public ElementTimer defaultElementTimer;
     public ReactionController reactionController;
     
@@ -35,6 +35,10 @@ public class ElementCore : PropertyCore
     [HideInInspector] public bool electroCharging;          // 当前是否处于感电状态下
     [HideInInspector] public bool frozen;                   // 是否处于冻结状态
     
+    // 触发各种反应时，攻击者会调用的回调函数
+    [HideInInspector] public Action<BattleCore> SwirlAction;    // 触发扩散
+    
+    
     // 特殊霸体
     public bool frozenImmune { get; protected set; } = false;
 
@@ -53,7 +57,7 @@ public class ElementCore : PropertyCore
     protected override void Update_Core()
     {
         base.Update_Core();
-        foreach (var timer in elementTimerList)
+        foreach (var timer in timerList)
         {
             timer.Update();
         }
@@ -141,7 +145,7 @@ public class ElementCore : PropertyCore
             }
 
             // 元素抗性
-            damage *= (1 - elementResistance.val);
+            damage = CalculateElementResistance(damage, elementResistance.val);
         }
         
         if (getElementDamFuncList.Count > 0)   // 计算元素伤害委托
@@ -153,22 +157,22 @@ public class ElementCore : PropertyCore
         damage = GetDamageProperty(damage, mode);   // 计算防御和法抗
 
         float finalDamage = damage;     // 最终受到的伤害
-        
-        // 显示伤害数字
-        if (!haveText && !isBig) return;
-        if (finalDamage == 0) return;    // 0点伤害就不显示了
-        GameObject damageText;
-        if (isBig) damageText = PoolManager.GetObj(StoreHouse.instance.bigDamageText);
-        else damageText = PoolManager.GetObj(StoreHouse.instance.smallDamageText);
-        Text text = damageText.GetComponent<Text>();
-        damageText.transform.SetParent(OperUIManager.WorldCanvas.transform);
 
-        text.text = finalDamage.ToString("f0");
-        text.color = StoreHouse.GetElementDamageColor(elementSlot.eleType);
-        Vector3 center = transform.position;
-        text.transform.position = center;
-        
-        
+        // 显示伤害数字
+        if ((haveText || isBig) && finalDamage != 0)    // 有显示指令，以及伤害不为0
+        {
+            GameObject damageText;
+            if (isBig) damageText = PoolManager.GetObj(StoreHouse.instance.bigDamageText);
+            else damageText = PoolManager.GetObj(StoreHouse.instance.smallDamageText);
+            Text text = damageText.GetComponent<Text>();
+            damageText.transform.SetParent(OperUIManager.WorldCanvas.transform);
+    
+            text.text = finalDamage.ToString("f0");
+            text.color = StoreHouse.GetElementDamageColor(elementSlot.eleType);
+            Vector3 center = transform.position;
+            text.transform.position = center;
+        }
+
         // 身上所有的护盾先吃一遍伤害，最终受到的伤害由护盾挡下伤害后剩余最少的那个决定
         for (int i = 0; i < shieldList.Count; i++)
         {
@@ -222,9 +226,9 @@ public class ElementCore : PropertyCore
         text.transform.position = center;
     }
 
-    public void GetHeal(BattleCore healer, float count)
+    public void GetHeal(BattleCore healer, float count, bool haveText = true)
     {
-        GetHeal(healer, count, new ElementSlot(), false);
+        GetHeal(healer, count, new ElementSlot(), false, haveText);
     }
 
 
@@ -285,6 +289,16 @@ public class ElementCore : PropertyCore
     public virtual void FrozenBegin() { }
     
     public virtual void FrozenEnd() { }
+    
+    
+    private float CalculateElementResistance(float damage, float resistance)
+    {
+        if (resistance > 0.95f) damage = 0.05f * damage;
+        else if (resistance >= 0) damage = (1 - resistance) * damage;
+        else damage = (1 - (resistance / 2)) * damage;
+        return damage;
+    }
+    
 }
 
 
@@ -324,59 +338,4 @@ public enum ElementType : byte
     Frozen,     // 冻结反应产生的特殊元素
     [EnumLabel("激元素")]
     Catalyze,   // 原激化反应产生的特殊元素
-}
-
-public class ElementTimer
-{
-    private float maxDuring;        // 最大元素附着间隔
-    private ElementCore elc_;       // 可能为null，表示无源计时器，此时需要手动调用Update
-    
-    private Dictionary<ElementCore, float> elementTimeDict;
-
-
-    public ElementTimer(ElementCore elementCore, float maxDuringTime = 3)
-    {
-        elc_ = elementCore;
-        maxDuring = maxDuringTime;
-        elementTimeDict = new Dictionary<ElementCore, float>();
-
-        if (elc_ != null) elc_.elementTimerList.Add(this);
-        
-    }
-
-    public void Update()
-    {// 每帧更新，需要在ElementCore内注册调用
-
-        for (int i = 0; i < elementTimeDict.Count; i++)
-        {
-            var tmp = elementTimeDict.ElementAt(i);
-            ElementCore elementCore = tmp.Key;
-            elementTimeDict[elementCore] -= Time.deltaTime;
-
-            if (elementTimeDict[elementCore] <= 0)         // 如果该ElementCore已完成冷却，则删除
-            {
-                elementTimeDict.Remove(elementCore);
-                i--;
-            }
-
-        }
-    }
-
-    /// <summary>
-    /// 判断目标能否被挂上元素，如果可以，让目标进入元素附着冷却
-    /// 也可以作为其他冷却时间的触发函数
-    /// </summary>
-    public bool AttachElement(ElementCore elementCore)
-    {
-        if (maxDuring < 0) return true;
-        if (elementTimeDict.ContainsKey(elementCore)) return false;
-        elementTimeDict.Add(elementCore, maxDuring);
-        return true;
-    }
-
-    public void Clear()
-    {
-        elementTimeDict.Clear();
-    }
-    
 }
