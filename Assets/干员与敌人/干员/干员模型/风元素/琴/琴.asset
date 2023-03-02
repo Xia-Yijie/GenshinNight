@@ -22,6 +22,7 @@ MonoBehaviour:
   canAtkDrone: 0
   banLowGround: 0
   banHighGround: 1
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 7949c9516902d494b866ebc3985ca0dd, type: 3}
   operUIImage1: {fileID: 21300000, guid: c16f7f3ccd8130f46932ff3252528736, type: 3}
   operUIImage2: {fileID: 21300000, guid: 6b897ecd225c22646bdc2b9bb52fef73, type: 3}
@@ -61,7 +62,7 @@ MonoBehaviour:
   atk: 500
   def: 0
   magicDef: 0
-  life: 5000
+  life: 50000
   maxBlock: 1
   maxAtkInterval: 0
   cost: 0

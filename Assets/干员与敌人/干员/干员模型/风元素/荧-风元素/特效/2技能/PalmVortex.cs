@@ -37,7 +37,7 @@ public class PalmVortex : MonoBehaviour
         
         transform.localPosition = dpos;
         
-        DurationRecycleObj recycleObj = new DurationRecycleObj(gameObject, 2f, lumine, true);
+        DurationRecycleObj recycleObj = new DurationRecycleObj(gameObject, 2.5f, lumine, true);
         BuffManager.AddBuff(recycleObj);
 
         charge.SetActive(gameManager.knowledgeData.WhirlingAnemo.num != 0);
@@ -52,7 +52,7 @@ public class PalmVortex : MonoBehaviour
     private void Update()
     {
         t += Time.deltaTime;
-        if (t > 1.5f)
+        if (t > 2f)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, tarPos, 0.1f);
             if (!hadImpact)

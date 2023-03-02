@@ -14,6 +14,8 @@ public class canKnowSettingSlot : MonoBehaviour
     public Text statusText;
     public Sprite greenSprite;
     public Sprite redSprite;
+    public AudioClip enableAudio;
+    public AudioClip disableAudio;
     
     private KnowledgeBuffer buffer;
 
@@ -37,6 +39,8 @@ public class canKnowSettingSlot : MonoBehaviour
 
     public void OnClick()
     {
+        if(buffer.isEnabled()) AudioManager.PlayEFF(disableAudio);
+        else AudioManager.PlayEFF(enableAudio);
         buffer.SwitchEnable();
         RefreshSlot();
     }

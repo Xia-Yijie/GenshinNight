@@ -103,6 +103,11 @@ MonoBehaviour:
   tornado: {fileID: 5892027514256557664}
   HealAnim: {fileID: 105942, guid: f7bb48f7be00f6941ac0baf7b24ec044, type: 3}
   GreenBuffAnim: {fileID: 1584990886521843734, guid: 71f4a8a31464fd44589a64e6e32c23a1, type: 3}
+  NorAtkAudio: {fileID: 8300000, guid: eae2f73a809ad814585939cea8816a7d, type: 3}
+  SharpAtkAudio: {fileID: 8300000, guid: b1e026772a8468e4ab7152bde0a1d003, type: 3}
+  Skill2Audio: {fileID: 8300000, guid: b938e5d40d9378c42ba0b7f94bf156ae, type: 3}
+  Skill2HitAudio: {fileID: 8300000, guid: 4f73c36d2f8e77649b7436f575c7e7c0, type: 3}
+  Skill3Audio: {fileID: 8300000, guid: 8338a305d21d3494da398a4bd57649c0, type: 3}
 --- !u!1 &5327064275504170085
 GameObject:
   m_ObjectHideFlags: 0

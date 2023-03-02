@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using DuloGames.UI;
+using Spine.Unity.Editor;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,9 +11,55 @@ public class SaveData
     public string PlayerID;
     public int Mora;
     public int Primogem;
-    public canningKnowledgeData canningKnowledgeData_ = new canningKnowledgeData();
-    public canningKnowledgeData_Strengthen canningKnowledgeDataStrengthen = new canningKnowledgeData_Strengthen();
-    public List<bool> UnlockOperList = new List<bool>();
+    public canningKnowledgeData KnowledgeData = new canningKnowledgeData();
+    public canningKnowledgeData_Strengthen KnowledgeDataStrengthen = new canningKnowledgeData_Strengthen();
+    public List<string> AllValidOperName = new List<string>();
+    public int UnlockCharacterNum;
 
 
+    public void DownLoad()
+    {// 让本数据与内存数据相同
+        Mora = gameManager.Mora;
+        Primogem = gameManager.Primogem;
+        KnowledgeData = gameManager.knowledgeData;
+        KnowledgeDataStrengthen = gameManager.knowledgeDataStrengthen;
+        AllValidOperName.Clear();
+        foreach (var pair in gameManager.AllOperValid.Where(pair => pair.Value))
+        {
+            AllValidOperName.Add(pair.Key);
+        }
+        UnlockCharacterNum = gameManager.UnlockCharacterNum;
+    }
+    
+    public void UpLoad()
+    {// 让内存数据与本数据相同
+        gameManager.Mora = Mora;
+        gameManager.Primogem = Primogem;
+        gameManager.knowledgeData = KnowledgeData;
+        gameManager.knowledgeDataStrengthen = KnowledgeDataStrengthen;
+        gameManager.UnlockCharacterNum = UnlockCharacterNum;
+        gameManager.AllOperValid.Clear();
+        foreach (var na in AllValidOperName)
+        {
+            gameManager.AllOperValid.Add(na, true);
+        }
+        foreach (var od in gameManager.AllOperData)
+        {
+            if (gameManager.AllOperValid.ContainsKey(od.Name)) continue;
+            gameManager.AllOperValid.Add(od.Name, false);
+        }
+    }
+    
+}
+
+public class SaveDataSmall
+{
+    public int Mora;
+    public int Primogem;
+    
+    public void DownLoad()
+    {
+        Mora = gameManager.Mora;
+        Primogem = gameManager.Primogem;
+    }
 }

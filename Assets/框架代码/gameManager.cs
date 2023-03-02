@@ -18,12 +18,15 @@ public class gameManager : MonoBehaviour
     public static int formationNum;     // 当前选择的编队编号
     
     // 持有的摩拉袋和原石数量
-    public static int Mora = 200;
+    public static int Mora = 2000;
     public static int Primogem = 800000;
     
     // 当前的罐装知识数据
     public static canningKnowledgeData knowledgeData = new canningKnowledgeData();
     public static canningKnowledgeData_Strengthen knowledgeDataStrengthen = new canningKnowledgeData_Strengthen();
+    
+    // 通用存档地址
+    public static string SaveDataPath; 
     
     private void Awake()
     {
@@ -35,6 +38,8 @@ public class gameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this);
 
+        SaveDataPath = Application.persistentDataPath + "/SaveData"; 
+        
         AllOperData = AllOperData_p;
         foreach (var od in AllOperData)
         {

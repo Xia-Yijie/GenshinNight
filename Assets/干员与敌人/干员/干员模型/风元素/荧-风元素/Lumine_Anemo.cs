@@ -21,6 +21,11 @@ public class Lumine_Anemo : TravellerCore
     public LumineTornado tornado;
     public GameObject HealAnim;
     public GameObject GreenBuffAnim;
+    public AudioClip NorAtkAudio;
+    public AudioClip SharpAtkAudio;
+    public AudioClip Skill2Audio;
+    public AudioClip Skill2HitAudio;
+    public AudioClip Skill3Audio;
 
     private float[] Skill1_Multi = {1.1f, 1.25f, 1.4f, 1.6f, 1.8f, 2.05f, 2.4f};
     private float[] Skill2_DurMilti = {1f, 1.15f, 1.3f, 1.5f, 1.7f, 1.9f, 2.2f};
@@ -109,8 +114,13 @@ public class Lumine_Anemo : TravellerCore
 
             // 造成伤害
             StartCoroutine(Skill1_CauseDamage(isSuper));
+            AudioManager.PlayEFF(SharpAtkAudio);
         }
-        else if (skillNum == 0) sp_.GetSp_Atk();
+        else
+        {
+            if (skillNum == 0) sp_.GetSp_Atk();
+            AudioManager.PlayEFF(NorAtkAudio);
+        }
 
         var slash = PoolManager.GetObj(NorAtkSlash);
         slash.transform.SetParent(transform);
@@ -156,8 +166,6 @@ public class Lumine_Anemo : TravellerCore
 
     public override void SkillStart_2()
     {
-        base.SkillStart_2();
-
         SkillAnimStaBuff staBuff = new SkillAnimStaBuff(this, anim, 1);
         BuffManager.AddBuff(staBuff);
 
@@ -169,6 +177,7 @@ public class Lumine_Anemo : TravellerCore
         Vector3 center = pv.Init(this);
 
         StartCoroutine(Skill2_DurDamage(BaseFunc.x0z(BaseFunc.FixCoordinate(center))));
+        AudioManager.PlayEFF(Skill2Audio);
     }
 
     IEnumerator Skill2_DurDamage(Vector3 center)
@@ -176,13 +185,14 @@ public class Lumine_Anemo : TravellerCore
         yield return new WaitForSeconds(0.4f);
 
         bool canPull = gameManager.knowledgeData.WhirlingAnemo.num > 0;
-        int cnt = 4;
+        int cnt = 5;
         bool canAttach = true;
         float dam = atk_.val * Skill2_DurMilti[skillLevel[1]];
         ElementSlot anemoSlot = new ElementSlot(ElementType.Anemo, 1f);
 
         for (int i = 0; i < cnt; i++)
         {
+            if (enemyList.Count > 0) AudioManager.PlayEFF(Skill2HitAudio);
             foreach (var BC in enemyList)
             {
                 EnemyCore EC = (EnemyCore) BC;
@@ -201,12 +211,14 @@ public class Lumine_Anemo : TravellerCore
             }
 
             canAttach = false;
-            yield return new WaitForSeconds(0.26f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 
     public void Skill2_BurstDamage()
     {
+        base.SkillStart_2();
+
         Vector3 rol = direction switch
         {
             FourDirection.Right => new Vector3(0, 90, 0),
@@ -244,6 +256,7 @@ public class Lumine_Anemo : TravellerCore
     public override void SkillStart_3()
     {
         base.SkillStart_3();
+        AudioManager.PlayEFF(Skill3Audio);
         SkillAnimStaBuff animStaBuff = new SkillAnimStaBuff(this, anim, 2);
         BuffManager.AddBuff(animStaBuff);
 
@@ -350,7 +363,7 @@ public class Lumine_Anemo : TravellerCore
                 
                 return str;
             case 1:
-                str = "旅行者在掌中汇聚真空涡流，在持续时间内对前方范围内的敌人造成4次" +
+                str = "旅行者在掌中汇聚真空涡流，在持续时间内对前方范围内的敌人造成5次" +
                       CT.ChangeToColorfulPercentage(Skill2_DurMilti[lel]) + "的" +
                       CT.GetColorfulText("风元素物理", CT.AnemoGreen) + "伤害";
                 if (gameManager.knowledgeData.WhirlingAnemo.num > 0)
