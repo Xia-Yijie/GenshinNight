@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private Camera camera;
-    
-    private float rolSpeed = 0.1f;
-    private float posSpeed = 0.5f;
+
+    private float rolSpeed = 6f;
+    private float posSpeed = 25f;
     
     private Quaternion tarRol;
     public Quaternion slowRol;
@@ -35,8 +35,12 @@ public class CameraController : MonoBehaviour
     
     void Update()
     {
-        camera.transform.rotation= Quaternion.Slerp(camera.transform.rotation,tarRol , rolSpeed);
-        camera.transform.position = Vector3.MoveTowards(camera.transform.position, tarPos, posSpeed);
+        // float rs = Time.timeScale == 0 ? rolSpeed_t0 : rolSpeed * (Time.deltaTime / Time.timeScale);
+        // float ps = Time.timeScale == 0 ? posSpeed_t0 : posSpeed * (Time.deltaTime / Time.timeScale);
+        // Debug.Log(ps);
+
+        camera.transform.rotation= Quaternion.Slerp(camera.transform.rotation,tarRol , rolSpeed * Time.unscaledDeltaTime);
+        camera.transform.position = Vector3.MoveTowards(camera.transform.position, tarPos, posSpeed * Time.unscaledDeltaTime);
     }
 
     /// <summary>
@@ -48,7 +52,7 @@ public class CameraController : MonoBehaviour
     {
         tarPos = tarPos_;
         tarRol = tarRol_;
-        posSpeed = Vector3.Distance(camera.transform.position, tarPos) / 10;
+        posSpeed = Vector3.Distance(camera.transform.position, tarPos) * 6;
     }
     
     

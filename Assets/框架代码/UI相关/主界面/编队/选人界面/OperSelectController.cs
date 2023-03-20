@@ -63,7 +63,7 @@ public class OperSelectController : MonoBehaviour
         int i = 0;
         foreach (var OD in gameManager.AllOperData)
         {
-            if (!gameManager.AllOperValid[OD.Name]) continue;
+            if (!gameManager.AllOperValid[OD.EnName]) continue;
             if (gameManager.formation[gameManager.formationNum].Contains(OD))
             {
                 operSelects[i].ChangeShowingOD(OD);
@@ -74,7 +74,7 @@ public class OperSelectController : MonoBehaviour
 
         foreach (var OD in gameManager.AllOperData)
         {
-            if (!gameManager.AllOperValid[OD.Name]) continue;
+            if (!gameManager.AllOperValid[OD.EnName]) continue;
             if (!gameManager.formation[gameManager.formationNum].Contains(OD))
             {
                 operSelects[i].ChangeShowingOD(OD);

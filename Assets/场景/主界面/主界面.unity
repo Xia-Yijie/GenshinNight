@@ -12161,6 +12161,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 07339c6e590f93f4e91bfaf38d5b6ebd, type: 2}
   - {fileID: 11400000, guid: fcafc3fb815b5cd46b3be90cb5cf1e85, type: 2}
   - {fileID: 11400000, guid: 869bd179437fdb04b8aa5a6173e0f622, type: 2}
+  - {fileID: 11400000, guid: bf4021c28fbe56544af96e3fa1494de4, type: 2}
   - {fileID: 11400000, guid: 471e676b1655a4b4399fb74a831c9bbd, type: 2}
   - {fileID: 11400000, guid: f94b1d200eaf004479c188ce35f47e42, type: 2}
   - {fileID: 11400000, guid: ebc4dae822aa1e340beef50403d753c8, type: 2}
@@ -25979,7 +25980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1033014002
 Transform:
   m_ObjectHideFlags: 0
@@ -45593,11 +45594,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4718090981544361364, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: cannotPlayBGM
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4718090981544361364, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: cannotPlayTalk
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4718090981544361365, guid: f3becdeb6dd46054b82d4c7b9801a8b2, type: 3}
       propertyPath: m_RootOrder

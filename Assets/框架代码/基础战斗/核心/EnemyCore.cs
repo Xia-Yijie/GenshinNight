@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.MemoryMappedFiles;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class EnemyCore : BattleCore
@@ -288,21 +285,23 @@ public class EnemyCore : BattleCore
     /// <summary>
     /// 该敌人被某干员阻挡
     /// </summary>
-    public void BeBlocked()
+    public void BeBlocked(OperatorCore oc_)
     {
         blocked++;
         cannotMove++;
         elc_.Add();
+        actuallyBlockList.Add(oc_);
     }
 
     /// <summary>
     /// 该敌人脱离某干员的阻挡
     /// </summary>
-    public void UnBlocked()
+    public void UnBlocked(OperatorCore oc_)
     {
         blocked--;
         cannotMove--;
         elc_.Del();
+        actuallyBlockList.Remove(oc_);
     }
 
     public ValueBuffInner GetSlow(float slowRate)

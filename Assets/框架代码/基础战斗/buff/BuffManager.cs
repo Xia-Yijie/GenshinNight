@@ -164,7 +164,7 @@ public abstract class SkillBuffSlot : BuffSlot
 
     public override void BuffEnd()
     {
-        bc_.DieAction -= Die;
+        if (!isDie) bc_.DieAction -= Die;
     }
 
 

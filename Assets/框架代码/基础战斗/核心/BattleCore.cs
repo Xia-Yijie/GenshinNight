@@ -45,6 +45,7 @@ public class BattleCore : ElementCore
 
     // 阻挡的BattleCore列表
     [HideInInspector] public List<BattleCore> blockList = new List<BattleCore>();
+    [HideInInspector] public List<BattleCore> actuallyBlockList = new List<BattleCore>();
     protected int blocked = 0;        // 只有敌人时有效，表示阻挡该敌人的干员数量
 
     protected override void Start_Core()
@@ -107,9 +108,9 @@ public class BattleCore : ElementCore
         operatorList.Sort(operCmp);
         enemyList.Sort(enemyCmp);
 
-        if (blocked > 0 && blockList.Count > 0)
+        if (actuallyBlockList.Count > 0)
         {
-            target = blockList[0];
+            target = actuallyBlockList[0];
             tarIsNull = false;
             return;
         }

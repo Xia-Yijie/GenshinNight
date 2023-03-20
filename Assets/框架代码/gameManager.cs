@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class gameManager : MonoBehaviour
@@ -39,11 +40,12 @@ public class gameManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         SaveDataPath = Application.persistentDataPath + "/SaveData"; 
+        Debug.Log(SaveDataPath);
         
         AllOperData = AllOperData_p;
         foreach (var od in AllOperData)
         {
-            AllOperValid.Add(od.Name, false);
+            AllOperValid.Add(od.EnName, false);
         }
         
         for (int i = 0; i < 4; i++) formation[i] = new List<operData>();
@@ -60,4 +62,10 @@ public class gameManager : MonoBehaviour
     {
         
     }
+
+    public static operData GetOperDataByEnName(string EnName)
+    {
+        return AllOperData.FirstOrDefault(od => od.EnName == EnName);
+    }
+    
 }

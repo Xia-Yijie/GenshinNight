@@ -63,7 +63,7 @@ public class wishUI : MonoBehaviour
         {
             var od = gameManager.AllOperData[i];
             if (selectElement != ElementType.None && od.elementType != selectElement) continue;
-            if (gameManager.AllOperValid[od.Name]) continue;    // 如果已经激活，则放到后面
+            if (gameManager.AllOperValid[od.EnName]) continue;    // 如果已经激活，则放到后面
             instance.GetSlot(od, true);
         }
         // 再生成已解锁的角色
@@ -71,7 +71,7 @@ public class wishUI : MonoBehaviour
         {
             var od = gameManager.AllOperData[i];
             if (selectElement != ElementType.None && od.elementType != selectElement) continue;
-            if (gameManager.AllOperValid[od.Name]) instance.GetSlot(od, false);
+            if (gameManager.AllOperValid[od.EnName]) instance.GetSlot(od, false);
         }
 
         instance.RefreshUISlot();

@@ -13,6 +13,7 @@ Shader "Spine/Skeleton Tint" {
 		[NoScaleOffset] _MainTex ("MainTex", 2D) = "black" {}
 		_Cutoff ("Shadow alpha cutoff", Range(0,1)) = 0.1
 		_angle ("Angle" , Range(0,360))=60
+		_upDis ("Updis" , Range(0,10))=2
 	}
 
 	SubShader {
@@ -35,6 +36,7 @@ Shader "Spine/Skeleton Tint" {
 			uniform float4 _Color;
 			uniform float4 _Black;
 			uniform float _angle;
+			uniform float _upDis;
 
 			struct VertexInput {
 				float4 vertex : POSITION;
@@ -63,7 +65,7 @@ Shader "Spine/Skeleton Tint" {
                 //half2 center = half2(0, -0);
                 //v.vertex.zy -= center;
 
-                half z = v.vertex.z * cosTheta - v.vertex.y * sinTheta - 1;
+                half z = v.vertex.z * cosTheta - v.vertex.y * sinTheta - _upDis;
                 half y = v.vertex.z * sinTheta + v.vertex.y * cosTheta;
                 v.vertex = half4(v.vertex.x, y, z, v.vertex.w);
 

@@ -70,7 +70,7 @@ public class wishSlot : MonoBehaviour
         ShopUIController.RefreshPrimogem();
         ShopUIController.ShowText("哇哦，客官今天的手气真不错，居然180发就出金了！是一位十分强力的伙伴呢");
 
-        gameManager.AllOperValid[od_.Name] = true;
+        gameManager.AllOperValid[od_.EnName] = true;
         gameManager.UnlockCharacterNum++;
 
         wishUI.RefreshPage(wishUI.instance.showingType);

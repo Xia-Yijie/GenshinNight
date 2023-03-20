@@ -15,26 +15,26 @@ MonoBehaviour:
   type: 0
   skillType: 1
   Name: "\u73AB\u5170\u838E"
-  EnName: 
+  EnName: Melantha
   elementType: 2
   is3D: 0
   aimingMode: 1
   canAtkDrone: 0
   banLowGround: 0
   banHighGround: 1
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 9676590998410744aaf3843ff3855e37, type: 3}
   operUIImage1: {fileID: 21300000, guid: 1e2ec7ca5852d7143b67cf2e36551992, type: 3}
   operUIImage2: {fileID: 21300000, guid: 1e2ec7ca5852d7143b67cf2e36551992, type: 3}
   operPrefab: {fileID: 4017286986384649430, guid: 5db088180aa026946a7c4111e3bc6fd9, type: 3}
   Report: {fileID: 0}
-  LevelUP: {fileID: 0}
+  Deploy: []
+  Selected: []
   ElitismUP:
   - {fileID: 0}
   - {fileID: 0}
-  Join: []
-  Selected: []
-  Deploy: []
-  Fighting: []
+  LowHP: []
+  DieAudio: []
   Skill1_Release: []
   Skill2_Release: []
   Skill3_Release: []
@@ -61,6 +61,7 @@ MonoBehaviour:
   - "\u65E0\u6CD5\u7CBE\u4E8C\n\u6700\u5927\u7B49\u7EA7\u4E3A\u7CBE\u4E0055\u7EA7"
   talentName1: 
   talentName2: 
+  shopDescription: 
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   illustratedBookImage: {fileID: 21300000, guid: f70dd4b35d1c5224dac13ba7fe6ed76d, type: 3}
+  shopImage: {fileID: 0}
   profession: 0
   star: 4
   skillImage:

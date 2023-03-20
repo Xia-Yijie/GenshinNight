@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ShopUIController : MonoBehaviour
 {
@@ -104,7 +104,7 @@ public class ShopUIController : MonoBehaviour
     public void TouchDori()
     {
         DoriAnim.SetTrigger("jump");
-        ShowText("哈哈哈");
+        ShowText(DoriTalk.Interact[Random.Range(0, DoriTalk.Interact.Count)]);
     }
 
     public void SelectPage(int id)
@@ -168,4 +168,19 @@ public class DoriTalk
 
     public const string Wish = "多莉提供超级友好的代抽服务！只需要提供一点点保底的原石，就能百分百邀请到一位" +
                                "心仪的伙伴加入队伍，是不是超级划算呐~";
+
+
+
+    public static List<string> Interact = new List<string>
+    {
+        "我爱摩拉，摩拉爱我，啦啦啦~",
+        "先把商品涨价百分之三十，然后再打八折卖出，不仅我赚得多了，顾客也会觉得划算，这就是双赢！",
+        "摩拉在阳光下闪闪发光，真好看！嘿嘿",
+        "我的摩拉是我的，你的摩拉还是我的，嘿嘿",
+        "想见见驮兽吗？没问题！你想见多少我就有多少。只不过这个门票钱嘛，欸嘿嘿…",
+        "想听故事？那就…给我一百万摩拉。嗯…看在我们交情的份上，给你打个九点九折好了，九十九万摩拉。怎么样？很划算吧！",
+        "万能的多莉商店，应有尽有，童叟无欺。只要摩拉够，只有想不到，没有买不到。需要任何东西，或者遇到任何困难，都可以来找我喔！",
+        "只要摩拉管够，和教令院对着干也没什么大不了的",
+        "以前也有些蠢蘑菇试图欠账不还，嘿嘿，也不看看我是谁。不如，你来猜猜看他们的下场如何吧？",
+    };
 }

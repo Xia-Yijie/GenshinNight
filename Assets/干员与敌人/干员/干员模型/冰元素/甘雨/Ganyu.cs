@@ -516,7 +516,8 @@ public class GanyuSkill3Buff : SkillBuffSlot
         if (id != -1)
         {// 算出敌人在0.2秒后的位置
             EnemyCore ec_ = (EnemyCore) gy_.enemyList[id];
-            center = ec_.epc_.ExpectPos(0.2f);
+            // center = ec_.epc_.ExpectPos(0.2f);
+            center = ec_.transform.position;
         }
         else
         {// 范围内随机落冰

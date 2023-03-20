@@ -15,26 +15,26 @@ MonoBehaviour:
   type: 0
   skillType: 1
   Name: "\u6893\u5170"
-  EnName: 
+  EnName: Orchid
   elementType: 4
   is3D: 0
   aimingMode: 1
   canAtkDrone: 1
   banLowGround: 1
   banHighGround: 0
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 95e32bc44903fb34f8ba33a6f4f0b08b, type: 3}
   operUIImage1: {fileID: 21300000, guid: dc090533a992a404ca0608d60d31447d, type: 3}
   operUIImage2: {fileID: 21300000, guid: dc090533a992a404ca0608d60d31447d, type: 3}
   operPrefab: {fileID: 119723908454965617, guid: da639da40d5a9a94086d9cc10944a4dd, type: 3}
   Report: {fileID: 0}
-  LevelUP: {fileID: 0}
+  Deploy: []
+  Selected: []
   ElitismUP:
   - {fileID: 0}
   - {fileID: 0}
-  Join: []
-  Selected: []
-  Deploy: []
-  Fighting: []
+  LowHP: []
+  DieAudio: []
   Skill1_Release: []
   Skill2_Release: []
   Skill3_Release: []
@@ -61,6 +61,7 @@ MonoBehaviour:
   - 
   talentName1: 
   talentName2: 
+  shopDescription: 
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   illustratedBookImage: {fileID: 21300000, guid: f1e154e70719d434bb315e9730e9e6c8, type: 3}
+  shopImage: {fileID: 0}
   profession: 0
   star: 4
   skillImage:

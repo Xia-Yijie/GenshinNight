@@ -37,6 +37,6 @@ MonoBehaviour:
   m_CanChangeZPosition: 0
   m_FloodFillContiguousOnly: 1
   m_Prefabs:
-  - {fileID: 7739678029023140052, guid: 81f05a6eca6cdaf47907f4c75aa8ddb8, type: 3}
+  - {fileID: 4933759136668448339, guid: a6f380eacbafb554b9a0067844c813d6, type: 3}
   m_PerlinScale: 0.5
   m_Z: 0

@@ -15,7 +15,7 @@ public class operData : ScriptableObject
 
     [Header("干员名称")]
     public string Name;
-    public string EnName;//干员英文名称
+    public string EnName;       //干员名称标识（英文）
 
     [Header("元素")]
     [EnumLabel("elementType")] 

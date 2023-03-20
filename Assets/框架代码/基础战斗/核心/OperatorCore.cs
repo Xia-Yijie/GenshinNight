@@ -112,8 +112,8 @@ public class OperatorCore : BattleCore
 
         // 重设生命值
         life_.RecoverCompletely();
-        // 初始化battleCalculation
-        InitCalculation();      
+        // 消除属性们的buff
+        ClearCalculation();      
         
         // 初始化元素附着相关
         foreach (var timer in timerList) timer.Clear();
@@ -227,6 +227,24 @@ public class OperatorCore : BattleCore
         sp_.spRecharge.Init(1);
         
         recoverTime.Init(od_.reTime);
+    }
+    
+    private void ClearCalculation()
+    {
+        atk_.ClearBuff();
+        def_.ClearBuff();
+        magicDef_.ClearBuff();
+        life_.ClearBuff();
+        maxBlock.ClearBuff();
+        atkSpeedController = new AtkSpeedController(this, ac_, 0, od_.maxAtkInterval);
+
+        elementMastery.ClearBuff();
+        elementDamage.ClearBuff();
+        elementResistance.ClearBuff();
+        shieldStrength.ClearBuff();
+        sp_.spRecharge.ClearBuff();
+        
+        recoverTime.ClearBuff();
     }
 
     private void Dizzy()
@@ -342,7 +360,8 @@ public class OperatorCore : BattleCore
         {
             block += (int) ec_.maxBlock.val;
             alreadyBlockSet[ec_] = false;
-            ec_.UnBlocked();
+            actuallyBlockList.Remove(ec_);
+            ec_.UnBlocked(this);
         }
     }
 
@@ -356,9 +375,12 @@ public class OperatorCore : BattleCore
             if (alreadyBlockSet.ContainsKey(ec_) && alreadyBlockSet[ec_])
             {
                 alreadyBlockSet[ec_] = false;
-                ec_.UnBlocked();
+                actuallyBlockList.Remove(ec_);
+                ec_.UnBlocked(this);
             }
         }
+        alreadyBlockSet.Clear();
+        actuallyBlockList.Clear();
 
         block = (int) maxBlock.val;
     }
@@ -372,8 +394,9 @@ public class OperatorCore : BattleCore
             
             if (ec_.maxBlock.val <= block)
             {
-                ec_.BeBlocked();
+                ec_.BeBlocked(this);
                 block -= (int) ec_.maxBlock.val;
+                if (!alreadyBlockSet.ContainsKey(ec_)) actuallyBlockList.Add(ec_);
                 alreadyBlockSet[ec_] = true;
             }
         }

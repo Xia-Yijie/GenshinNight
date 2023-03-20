@@ -15,26 +15,26 @@ MonoBehaviour:
   type: 0
   skillType: 1
   Name: "\u7C73\u683C\u9C81"
-  EnName: 
+  EnName: Beagle
   elementType: 1
   is3D: 0
   aimingMode: 1
   canAtkDrone: 0
   banLowGround: 0
   banHighGround: 1
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 7092060e8e411a747a4a310a6ecb9136, type: 3}
   operUIImage1: {fileID: 21300000, guid: e6adc7876d7702140b4db686962ea4e0, type: 3}
   operUIImage2: {fileID: 21300000, guid: e6adc7876d7702140b4db686962ea4e0, type: 3}
   operPrefab: {fileID: 445414149424886812, guid: baeafee86d354244ba4344eeb09858bd, type: 3}
   Report: {fileID: 0}
-  LevelUP: {fileID: 0}
+  Deploy: []
+  Selected: []
   ElitismUP:
   - {fileID: 0}
   - {fileID: 0}
-  Join: []
-  Selected: []
-  Deploy: []
-  Fighting: []
+  LowHP: []
+  DieAudio: []
   Skill1_Release: []
   Skill2_Release: []
   Skill3_Release: []
@@ -61,6 +61,7 @@ MonoBehaviour:
   - 
   talentName1: 
   talentName2: 
+  shopDescription: 
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   illustratedBookImage: {fileID: 21300000, guid: a51dd0478b348bd458cea2228434c472, type: 3}
+  shopImage: {fileID: 0}
   profession: 0
   star: 4
   skillImage:

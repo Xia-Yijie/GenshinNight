@@ -21,6 +21,7 @@ public class OperAnimEvent : MonoBehaviour
     {
         if (oc_.tarIsNull) FightEnd();
         oc_.NorAtkStartCool();
+        // if (!oc_.anim.GetBool("fight")) oc_.anim.SetBool("fight", true);
     }
     
     public void OnAttack()
@@ -84,6 +85,32 @@ public class SkillAnimStaBuff : SkillBuffSlot
     {
         anim.SetInteger("sta", preSta);
         bc_.NorAtkClear();
+        base.BuffEnd();
+    }
+}
+
+public class SkillActionBuff : SkillBuffSlot
+{
+    private Action startAction;
+    private Action endAction;
+
+    public SkillActionBuff(BattleCore bc_, Action start, Action end) : base(bc_)
+    {
+        startAction = start;
+        endAction = end;
+    }
+
+    public override void BuffStart()
+    {
+        startAction?.Invoke();
+        base.BuffStart();
+    }
+
+    public override void BuffUpdate() { }
+
+    public override void BuffEnd()
+    {
+        endAction?.Invoke();
         base.BuffEnd();
     }
 }

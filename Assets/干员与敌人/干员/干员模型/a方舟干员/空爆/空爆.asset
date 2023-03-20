@@ -15,26 +15,26 @@ MonoBehaviour:
   type: 0
   skillType: 1
   Name: "\u7A7A\u7206"
-  EnName: 
+  EnName: Catapult
   elementType: 0
   is3D: 0
   aimingMode: 1
   canAtkDrone: 1
   banLowGround: 1
   banHighGround: 0
+  MutualExclusionList: []
   imageInQueue: {fileID: 21300000, guid: 348fd6827e390b84a86fa5770a270614, type: 3}
   operUIImage1: {fileID: 21300000, guid: 2550b9ba495e73d4a88b2b5de53531ac, type: 3}
   operUIImage2: {fileID: 21300000, guid: 2550b9ba495e73d4a88b2b5de53531ac, type: 3}
   operPrefab: {fileID: 7520140682617371351, guid: 67f73eaf2b9a7a846aea608e753e1cfe, type: 3}
   Report: {fileID: 0}
-  LevelUP: {fileID: 0}
+  Deploy: []
+  Selected: []
   ElitismUP:
   - {fileID: 0}
   - {fileID: 0}
-  Join: []
-  Selected: []
-  Deploy: []
-  Fighting: []
+  LowHP: []
+  DieAudio: []
   Skill1_Release: []
   Skill2_Release: []
   Skill3_Release: []
@@ -61,6 +61,7 @@ MonoBehaviour:
   - 
   talentName1: 
   talentName2: 
+  shopDescription: 
   atkSpeedDescription: 0
   resetSpeedDescription: 0
   growingAtk:
@@ -142,6 +143,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   illustratedBookImage: {fileID: 21300000, guid: 6906648695bdb9a4691637f249defecd, type: 3}
+  shopImage: {fileID: 0}
   profession: 0
   star: 4
   skillImage:

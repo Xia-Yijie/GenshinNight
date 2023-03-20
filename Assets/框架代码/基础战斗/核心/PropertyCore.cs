@@ -92,6 +92,11 @@ public class PropertyCore : MonoBehaviour
             mdef = mdef - args.ignoreMagicDefFixed < 0 ? 0 : mdef - args.ignoreMagicDefFixed;// 法术穿透
             dam = dam * (1 - (mdef / 100));
         }
+        
+        else if (mode == DamageMode.Real)
+        {// 真实伤害
+            
+        }
 
         return dam;
     }
@@ -102,14 +107,15 @@ public class PropertyCore : MonoBehaviour
 public enum DamageMode
 {
     Physical,
-    Magic
+    Magic,
+    Real,
 }
 
 public enum ValueBuffMode
 {
     Fixed,
     Percentage,
-    Multi
+    Multi,
 }
 
 public class ValueBuffInner
@@ -229,6 +235,14 @@ public class ValueBuffer
     public void DelFunc(Func<float, float> func)
     {
         valueFuncList.Remove(func);
+    }
+    
+    // 清空所有的buff
+    public void ClearBuff()
+    {
+        valueBuffList.Clear();
+        valueFuncList.Clear();
+        RefreshValue();
     }
     
 }

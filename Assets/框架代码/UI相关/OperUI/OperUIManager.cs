@@ -37,7 +37,6 @@ public class OperUIManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
         gc_ = instance.transform.Find("InfoCanvas").GetComponent<gradualChange>();
-        edgeUIController = new EdgeUIController();
     }
 
     private void Start()
@@ -45,6 +44,7 @@ public class OperUIManager : MonoBehaviour
         rightUIController = new RightUIController();
         levelUIController = new LevelUIController();
         skillUIController = new SkillUIController();
+        edgeUIController = new EdgeUIController();
         gameObject.SetActive(false);
         // Invoke(nameof(SetFalse), 0.5f);
     }
@@ -840,7 +840,7 @@ public class SkillUIController
                 recoveryTypeImage.color = GetRecoverTypeColor(od_.skill0_recoverType);
                 recoveryTypeText.text = GetRecoverTypeText(od_.skill0_recoverType);
                 triggerTypeText.text = GetReleaseTypeText(od_.skill0_releaseType);
-                durationText.text = od_.duration0[skillLevel].ToString("f0");
+                durationText.text = od_.duration0[skillLevel] > 99 ? "无限" : od_.duration0[skillLevel].ToString("f0");
                 beginSpText.text = od_.initSP0[skillLevel].ToString();
                 maxSpText.text = od_.maxSP0[skillLevel].ToString();
                 skillDescriptionText.text = oc_.GetSkillDescription(0);
@@ -852,7 +852,7 @@ public class SkillUIController
                 recoveryTypeImage.color = GetRecoverTypeColor(od_.skill1_recoverType);
                 recoveryTypeText.text = GetRecoverTypeText(od_.skill1_recoverType);
                 triggerTypeText.text = GetReleaseTypeText(od_.skill1_releaseType);
-                durationText.text = od_.duration1[skillLevel].ToString("f0");
+                durationText.text = od_.duration1[skillLevel] > 99 ? "无限" : od_.duration1[skillLevel].ToString("f0");
                 beginSpText.text = od_.initSP1[skillLevel].ToString();
                 maxSpText.text = od_.maxSP1[skillLevel].ToString();
                 skillDescriptionText.text = oc_.GetSkillDescription(1);
@@ -864,7 +864,7 @@ public class SkillUIController
                 recoveryTypeImage.color = GetRecoverTypeColor(od_.skill2_recoverType);
                 recoveryTypeText.text = GetRecoverTypeText(od_.skill2_recoverType);
                 triggerTypeText.text = GetReleaseTypeText(od_.skill2_releaseType);
-                durationText.text = od_.duration2[skillLevel].ToString("f0");
+                durationText.text = od_.duration2[skillLevel] > 99 ? "无限" : od_.duration2[skillLevel].ToString("f0");
                 beginSpText.text = od_.initSP2[skillLevel].ToString();
                 maxSpText.text = od_.maxSP2[skillLevel].ToString();
                 skillDescriptionText.text = oc_.GetSkillDescription(2);

@@ -14,6 +14,7 @@ public class CT
     public static string HydroBlue = "#00A0FF";
     public static string CryoWhite = "#AFFFFF";
     public static string AnemoGreen = "#00FFC8";
+    public static string NoneGray = "#AAAAAA";
 
 
     public static string ChangeToPercentage(float x)

@@ -46,6 +46,10 @@ public class ElementCore : PropertyCore
     public List<Func<ElementSlot, float, float>> getElementDamFuncList =
         new List<Func<ElementSlot, float, float>>();
     
+    // 受到最终伤害改变委托列表，由其他类注册
+    public List<Func<BattleCore, BattleCore, float, float>> getFinalDamFuncList =
+        new List<Func<BattleCore, BattleCore, float, float>>();
+    
     protected override void Start_Core()
     {
         base.Start_Core();
@@ -155,11 +159,28 @@ public class ElementCore : PropertyCore
             foreach (var damFunc in tmp) damage = damFunc(elementSlot, damage);
         }
         damage = GetDamageProperty(damage, mode);   // 计算防御和法抗
+        
+        float showingDamage = damage;  // 先记录吃护盾前的伤害
+        
+        // 身上所有的护盾先吃一遍伤害，最终受到的伤害由护盾挡下伤害后剩余最少的那个决定
+        for (int i = 0; i < shieldList.Count; i++)
+        {
+            var shield = shieldList[i];
+            damage = Mathf.Min(damage, shield.GetDamage(damage, elementSlot.eleType));
+            if (!shield.isActiveAndEnabled) i--;
+        }
+        float shieldDamage = showingDamage - damage;    // 被护盾吃下的伤害
+        
+        if (getFinalDamFuncList.Count > 0)   // 计算最终伤害委托
+        {// 复制一份委托并遍历
+            List<Func<BattleCore, BattleCore, float, float>> tmp = 
+                new List<Func<BattleCore, BattleCore, float, float>>(getFinalDamFuncList);
+            foreach (var damFunc in tmp) damage = damFunc((BattleCore) this, attacker, damage);
+        }
 
-        float finalDamage = damage;     // 最终受到的伤害
-
+        showingDamage = damage + shieldDamage;  // 显示出来的伤害为受到的伤害 + 护盾吃下的伤害
         // 显示伤害数字
-        if ((haveText || isBig) && finalDamage != 0)    // 有显示指令，以及伤害不为0
+        if ((haveText || isBig) && showingDamage != 0)    // 有显示指令，以及伤害不为0
         {
             GameObject damageText;
             if (isBig) damageText = PoolManager.GetObj(StoreHouse.instance.bigDamageText);
@@ -167,21 +188,15 @@ public class ElementCore : PropertyCore
             Text text = damageText.GetComponent<Text>();
             damageText.transform.SetParent(OperUIManager.WorldCanvas.transform);
     
-            text.text = finalDamage.ToString("f0");
+            text.text = showingDamage.ToString("f0");
             text.color = StoreHouse.GetElementDamageColor(elementSlot.eleType);
             Vector3 center = transform.position;
             text.transform.position = center;
         }
 
-        // 身上所有的护盾先吃一遍伤害，最终受到的伤害由护盾挡下伤害后剩余最少的那个决定
-        for (int i = 0; i < shieldList.Count; i++)
-        {
-            var shield = shieldList[i];
-            finalDamage = Mathf.Min(finalDamage, shield.GetDamage(damage, elementSlot.eleType));
-            if (!shield.isActiveAndEnabled) i--;
-        }
-        
-        life_.GetDamage(finalDamage);               // 最终受到的伤害
+        if(!noAttacher)     // 调用攻击者的最终攻击回调函数
+            attacker.GetFinalDamage_Attacker((BattleCore) this, mode, elementSlot, damage);
+        life_.GetDamage(damage);               // 最终受到的伤害
         if (!noAttacher) attacker.targetIsKilled = life_.life <= 0;      // 目标是否被击杀
     }
 
@@ -285,6 +300,10 @@ public class ElementCore : PropertyCore
         if (element2.eleType != ElementType.Anemo && element2.eleType != ElementType.Geo)
             attachedElement.Add(element2.eleType, element2.eleCount);
     }
+    
+    
+    public virtual void GetFinalDamage_Attacker(BattleCore tarBC, DamageMode mode, 
+        ElementSlot slot, float damage) { } // 当攻击者对受击者造成伤害后，受击者调用攻击者的这个函数
     
     public virtual void FrozenBegin() { }
     

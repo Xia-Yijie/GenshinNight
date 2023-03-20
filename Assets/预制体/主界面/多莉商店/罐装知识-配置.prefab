@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 623e2e0ce8f3394429f22ece4527193d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfTrans: {fileID: 0}
+  selfTrans: {fileID: 8941545398191875920}
   itemImage: {fileID: 8941545398174311559}
   titleText: {fileID: 8941545397611223853}
   descriptionText: {fileID: 8941545398821850276}
