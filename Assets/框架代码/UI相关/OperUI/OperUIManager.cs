@@ -1,11 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
+using Random = UnityEngine.Random;
 using Slider = UnityEngine.UI.Slider;
 
 public class OperUIManager : MonoBehaviour
@@ -25,6 +27,7 @@ public class OperUIManager : MonoBehaviour
     public static LevelUIController levelUIController;
     public static SkillUIController skillUIController;
     public static EdgeUIController edgeUIController;
+    public static ConclusionUIController conclusionUIController;
     
     private void Awake()
     {
@@ -37,15 +40,18 @@ public class OperUIManager : MonoBehaviour
         DontDestroyOnLoad(this);
         
         gc_ = instance.transform.Find("InfoCanvas").GetComponent<gradualChange>();
-    }
-
-    private void Start()
-    {
         rightUIController = new RightUIController();
         levelUIController = new LevelUIController();
         skillUIController = new SkillUIController();
         edgeUIController = new EdgeUIController();
+        conclusionUIController = new ConclusionUIController();
         gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        
+        
         // Invoke(nameof(SetFalse), 0.5f);
     }
 
@@ -70,6 +76,7 @@ public class OperUIManager : MonoBehaviour
     {
         instance.gameObject.SetActive(true);
         edgeUIController.Init();
+        conclusionUIController.Init();
     }
 
     /// <summary>
@@ -119,9 +126,16 @@ public class OperUIManager : MonoBehaviour
     
     public static void LeaveLevel()
     {
+        conclusionUIController.Close();
+        
         InitManager.TimeRecoverCompletely();
         instance.gameObject.SetActive(false);
         SceneSwitch.LoadScene("主界面");
+    }
+
+    public static void ShowConclusionUI()
+    {
+        conclusionUIController.Show();
     }
     
 }
@@ -902,16 +916,16 @@ public enum SkillUISta
 
 public class EdgeUIController
 {
-    public Text expText;
-    public Text costText;
-    public Slider costSlider;
-    public Text remainPlaceText;
-    public Text waveText;
-    public Text levelHPText;
+    private Text expText;
+    private Text costText;
+    private Slider costSlider;
+    private Text remainPlaceText;
+    private Text waveText;
+    private Text levelHPText;
 
-    public Image globalSpeedImage;
-    public Image globalPauseImage;
-    public Image settingImage;
+    private Image globalSpeedImage;
+    private Image globalPauseImage;
+    private Image settingImage;
 
     private float costDetaTime;
     
@@ -972,6 +986,88 @@ public class EdgeUIController
             ? StoreHouse.instance.speed2x_Sprite
             : StoreHouse.instance.speed1x_Sprite;
     }
+
+
+}
+
+public class ConclusionUIController
+{
+    private gradualChange cUI;
+    private Image conclusionOperImage;
+    private Text LevelIDText;
+    private Text LevelNameText;
+    private List<GameObject> ConclusionStarList;
+    private List<GameObject> ConclusionEmptyStarList;
+    private Text primogemGetText;
+    private Text moraGetText;
+    private Text rewardGetText;
+
+    private bool showing = false;
+
+    public ConclusionUIController()
+    {
+        cUI = OperUIElements.instance.cUI;
+        conclusionOperImage = OperUIElements.instance.conclusionOperImage;
+        LevelIDText = OperUIElements.instance.LevelIDText;
+        LevelNameText = OperUIElements.instance.LevelNameText;
+        ConclusionStarList = OperUIElements.instance.ConclusionStarList;
+        ConclusionEmptyStarList = OperUIElements.instance.ConclusionEmptyStarList;
+        primogemGetText = OperUIElements.instance.primogemGetText;
+        moraGetText = OperUIElements.instance.moraGetText;
+        rewardGetText = OperUIElements.instance.rewardGetText;
+        cUI = OperUIElements.instance.cUI;
+    }
+
+    public void Init()
+    {
+        cUI.ImmediateHide();
+        showing = false;
+    }
+
+    public void Close()
+    {
+        cUI.Hide();
+        showing = false;
+    }
+
+    public void Show()
+    {
+        if (showing) return;
+        showing = true;
+        if (InitManager.ld_ == null) return;
+        levelData ld_ = InitManager.ld_;
+        cUI.Show();
+
+        if (InitManager.allOperDataList.Count == 0)
+        {
+            conclusionOperImage.sprite = OperUIElements.instance.defaultConclusionOperImage;
+        }
+        else
+        {
+            operData showOper = InitManager.allOperDataList[Random.Range(0, InitManager.allOperDataList.Count)];
+            conclusionOperImage.sprite = showOper.operConclusionImage;
+        }
+
+        LevelIDText.text = ld_.ID_show;
+        LevelNameText.text = ld_.Name_show;
+        int HP = InitManager.resourceController.HP;
+        int star = HP == ld_.HP ? 3 : HP > ld_.HP / 2 ? 2 : HP > 0 ? 1 : 0;
+        for (int i = 0; i < 3; i++)
+            ConclusionStarList[i].SetActive(i < star);
+        for (int i = 0; i < 3; i++)
+            ConclusionEmptyStarList[i].SetActive(i >= star);
+
+        int primogem = star * ld_.Primogem;
+        int mora = star * ld_.Mora;
+        gameManager.GetPrimogem(primogem);
+        gameManager.GetMora(mora);
+        primogemGetText.text = primogem.ToString();
+        moraGetText.text = mora.ToString();
+
+        rewardGetText.text = (star * 100) + "%原石&摩拉袋奖励";
+    }
+    
+
 
 
 }

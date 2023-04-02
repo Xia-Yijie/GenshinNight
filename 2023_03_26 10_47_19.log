@@ -1,0 +1,12 @@
+[time]:2023/3/26 10:47:19
+[type]:Exception
+[exception message]:ArgumentNullException: Value cannot be null.
+Parameter name: key
+[stack trace]:System.Collections.Generic.Dictionary`2[TKey,TValue].TryInsert (TKey key, TValue value, System.Collections.Generic.InsertionBehavior behavior) (at <695d1cc93cca45069c528c15c9fdd749>:0)
+System.Collections.Generic.Dictionary`2[TKey,TValue].set_Item (TKey key, TValue value) (at <695d1cc93cca45069c528c15c9fdd749>:0)
+StoryInterpreter.SwapPos () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:308)
+StoryInterpreter.Swap_Analysis (StoryInstruct slot) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:176)
+StoryInterpreter.AnalysisGroup (System.Collections.Generic.List`1[T] list) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:78)
+StoryInterpreter+<Analysis>d__13.MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:45)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+

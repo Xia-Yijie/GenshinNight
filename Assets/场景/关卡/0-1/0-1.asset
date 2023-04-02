@@ -25,3 +25,7 @@ MonoBehaviour:
   exp: 50
   HP: 3
   place: 10
+  Primogem: 0
+  Mora: 0
+  args:
+    RecoverTimeRate: 1

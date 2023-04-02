@@ -20,7 +20,7 @@ public class OperAnimEvent : MonoBehaviour
     public void FightBegin()
     {
         if (oc_.tarIsNull) FightEnd();
-        oc_.NorAtkStartCool();
+        else oc_.NorAtkStartCool();
         // if (!oc_.anim.GetBool("fight")) oc_.anim.SetBool("fight", true);
     }
     

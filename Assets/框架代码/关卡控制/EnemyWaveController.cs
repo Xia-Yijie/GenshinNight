@@ -92,6 +92,7 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
     void Update()
     {
         if (wave == -1) return;
+        LevelEndMonitor();
         timeLine += Time.deltaTime;
         
         // 生成满足条件的敌人
@@ -119,8 +120,8 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
             if (nxtWaveTime >= GetNextWaveTime()) NextWaveStart();
         }
     }
-    
-    
+
+
     /// <summary>
     /// 准备进入下一波，展示UI
     /// </summary>
@@ -191,6 +192,14 @@ public class EnemyWaveController : MonoBehaviour        // 按波次和时间生
     private float GetNextWaveTime()
     {
         return wave < 0 || wave >= waveTimeList.Count ? MaxWaveTime : waveTimeList[wave];
+    }
+
+    private void LevelEndMonitor()
+    {// 监测关卡是否可以结束
+        if (InitManager.resourceController.HP == 0) OperUIManager.ShowConclusionUI();
+        if (wave >= maxWave - 1
+            && enemyQueue.Count == 0
+            && InitManager.enemyList.Count == 0) OperUIManager.ShowConclusionUI();
     }
     
 }

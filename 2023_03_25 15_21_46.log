@@ -1,0 +1,9 @@
+[time]:2023/3/25 15:21:46
+[type]:Exception
+[exception message]:ArgumentOutOfRangeException: Index and length must refer to a location within the string.
+Parameter name: length
+[stack trace]:System.String.Substring (System.Int32 startIndex, System.Int32 length) (at <695d1cc93cca45069c528c15c9fdd749>:0)
+StoryInterpreter.AnalysisGroup (System.Collections.Generic.List`1[T] list) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:80)
+StoryInterpreter+<Analysis>d__12.MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:43)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+

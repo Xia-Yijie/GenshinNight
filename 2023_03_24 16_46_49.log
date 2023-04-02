@@ -1,0 +1,13 @@
+[time]:2023/3/24 16:46:49
+[type]:Exception
+[exception message]:MissingReferenceException: The object of type 'Animator' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object.
+[stack trace]:UnityEngine.Animator.SetBool (System.String name, System.Boolean value) (at <082079bc50d24a31b6315b0c6d37f2d0>:0)
+DragSlotController.DownAnims () (at Assets/框架代码/关卡控制/InitManager.cs:374)
+InitManager.TimeRecover () (at Assets/框架代码/关卡控制/InitManager.cs:267)
+DragSlot.DragRecover () (at Assets/框架代码/关卡控制/拖动/DragSlot.cs:202)
+DragSlot.OnEndDrag (UnityEngine.EventSystems.PointerEventData eventData) (at Assets/框架代码/关卡控制/拖动/DragSlot.cs:181)
+UnityEngine.EventSystems.ExecuteEvents.Execute (UnityEngine.EventSystems.IEndDragHandler handler, UnityEngine.EventSystems.BaseEventData eventData) (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs:78)
+UnityEngine.EventSystems.ExecuteEvents.Execute[T] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.ExecuteEvents+EventFunction`1[T1] functor) (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs:262)
+UnityEngine.EventSystems.EventSystem:Update() (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:385)
+

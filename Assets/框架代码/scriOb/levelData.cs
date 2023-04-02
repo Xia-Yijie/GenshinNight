@@ -5,9 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New levelData",menuName = "myScript/levelData")]
 public class levelData : ScriptableObject
 {
-    public string Name_set;
-    public string Name_show;
-    public string ID_show;
+    public string Name_set;     // 关卡文件名
+    public string Name_show;    // 关卡展示名
+    public string ID_show;      // 关卡展示的ID
     public string recommendLevel;
     
     [TextArea] 
@@ -30,6 +30,11 @@ public class levelData : ScriptableObject
     public float exp = 1000;
     public int HP = 10;
     public int place = 10;
+
+    [Header("关卡掉落资源（满星三倍结算）")] 
+    public int Primogem;
+    public int Mora;
+    
 
     [Header("关卡全局参数设置")] 
     public GlobalLevelArgs args;

@@ -1,0 +1,20 @@
+[time]:2023/3/25 15:24:34
+[type]:Error
+[exception message]:剧情文本解析错误：第5行 add指令第二参数指定的sprite不存在：派蒙
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:312)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:93)
+StoryInterpreter/<Analysis>d__12:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:43)
+UnityEngine.MonoBehaviour:StartCoroutine (System.Collections.IEnumerator)
+StoryInterpreter:Interpret (storyData) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:32)
+StoryManager:Start () (at Assets/框架代码/剧情相关/StoryManager.cs:26)
+
+[time]:2023/3/25 15:24:34
+[type]:Error
+[exception message]:剧情文本解析错误：第8行 del指令用字符串指定的位置不存在
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:312)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:93)
+StoryInterpreter/<Analysis>d__12:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:43)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+

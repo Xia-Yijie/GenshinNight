@@ -402,6 +402,12 @@ public class OperatorCore : BattleCore
         }
     }
 
+    public void ChangeMaxBlock(int newBlock)
+    {// 改变最大阻挡数
+        maxBlock.ChangeBaseValue(newBlock);
+        DelAllBlockedEnemy(this);
+    }
+
 
     /// <summary>
     /// 摧毁旧的atkRange，生成一个新的atkRange，同时更新block的值
@@ -529,6 +535,7 @@ public class OperatorCore : BattleCore
         InitManager.operList.Remove(this);
     }
 
+    private ValueBuffInner dizzyBuff;
     public override bool GetDizzy()
     {
         if (!base.GetDizzy()) return false;
@@ -537,13 +544,25 @@ public class OperatorCore : BattleCore
         dizzyStarts = PoolManager.GetObj(StoreHouse.instance.dizzyStarts);
         dizzyStarts.transform.SetParent(transform);
         dizzyStarts.transform.localPosition = pos;
+        
+        // 阻挡数变为0
+        dizzyBuff = new ValueBuffInner(ValueBuffMode.Multi, 0);
+        maxBlock.AddValueBuff(dizzyBuff);
+        DelAllBlockedEnemy(this);
+        
         return true;
     }
 
     public override void RevokeDizzy()
     {
         base.RevokeDizzy();
-        if (dizziness <= 0) PoolManager.RecycleObj(dizzyStarts);
+        if (dizziness <= 0)
+        {
+            PoolManager.RecycleObj(dizzyStarts);
+            // 阻挡数恢复
+            maxBlock.DelValueBuff(dizzyBuff);
+            DelAllBlockedEnemy(this);
+        }
     }
 
     /// <summary>

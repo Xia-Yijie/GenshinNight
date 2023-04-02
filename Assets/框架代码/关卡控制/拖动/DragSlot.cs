@@ -30,7 +30,7 @@ public class DragSlot : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHan
     
     private void Awake()
     {
-        if (InitManager.dragSlotController.dragSlotList.Count >= 12)
+        if (InitManager.dragSlotController.dragSlotList.Count >= 11)
         {
             Destroy(gameObject);
             return;

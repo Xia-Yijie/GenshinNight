@@ -1,0 +1,18 @@
+[time]:2023/3/28 16:51:18
+[type]:Error
+[exception message]:剧情文本解析错误：第53行 addl指令第一参数数字有误
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:469)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:127)
+StoryInterpreter/<Analysis>d__13:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:45)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+
+[time]:2023/3/28 16:51:18
+[type]:Error
+[exception message]:剧情文本解析错误：第58行 add指令第一参数数字有误
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:469)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:127)
+StoryInterpreter/<Analysis>d__13:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:45)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+

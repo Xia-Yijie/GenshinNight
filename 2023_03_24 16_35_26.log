@@ -1,0 +1,16 @@
+[time]:2023/3/24 16:35:26
+[type]:Exception
+[exception message]:MissingReferenceException: The object of type 'Animator' has been destroyed but you are still trying to access it.
+Your script should either check if it is null or you should not destroy the object.
+[stack trace]:UnityEngine.Animator.SetBool (System.String name, System.Boolean value) (at <082079bc50d24a31b6315b0c6d37f2d0>:0)
+DragSlotController.DownAnims () (at Assets/框架代码/关卡控制/InitManager.cs:374)
+InitManager.TimeRecover () (at Assets/框架代码/关卡控制/InitManager.cs:267)
+OperUIManager.CloseOperUI () (at Assets/框架代码/UI相关/OperUI/OperUIManager.cs:121)
+UnityEngine.Events.InvokableCall.Invoke () (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+UnityEngine.Events.UnityEvent.Invoke () (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+UnityEngine.UI.Button.Press () (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs:68)
+UnityEngine.UI.Button.OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData) (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Button.cs:110)
+UnityEngine.EventSystems.ExecuteEvents.Execute (UnityEngine.EventSystems.IPointerClickHandler handler, UnityEngine.EventSystems.BaseEventData eventData) (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs:50)
+UnityEngine.EventSystems.ExecuteEvents.Execute[T] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.ExecuteEvents+EventFunction`1[T1] functor) (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/ExecuteEvents.cs:262)
+UnityEngine.EventSystems.EventSystem:Update() (at Library/PackageCache/com.unity.ugui@1.0.0/Runtime/EventSystem/EventSystem.cs:385)
+

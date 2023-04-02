@@ -1,0 +1,4 @@
+[time]:2023/3/26 15:07:30
+[type]:Error
+[exception message]:Assets\��ܴ���\�������\StoryManager.cs(142,24): error CS0029: Cannot implicitly convert type 'int' to 'UnityEngine.Color32'
+[stack trace]:

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a8e4d35ffc7a4492c301535843904, type: 3}
+  m_Name: "\u4E16\u754C\u6811\u7684\u53D8\u52A8"
+  m_EditorClassIdentifier: 
+  backgroundDictionary:
+    m_keys:
+    - "\u4E16\u754C\u6811\u5916"
+    m_values:
+    - {fileID: 21300000, guid: 5c9f72160ba085149b9065c1c7235a75, type: 3}
+  characterDictionary:
+    m_keys:
+    - "\u8367"
+    - "\u6D3E\u8499"
+    - "\u7EB3\u897F\u59B2"
+    m_values:
+    - {fileID: 21300000, guid: 72efece7c342dc548bf0d94c00eba3f0, type: 3}
+    - {fileID: 21300000, guid: 1946b891d045e1b47b2006f3db9d851d, type: 3}
+    - {fileID: 21300000, guid: 99620fdf78e97e145adea2c9bc0e9042, type: 3}
+  audioClipDictionary:
+    m_keys: []
+    m_values: []
+  story: {fileID: 4900000, guid: 184a34d58e3e8f84bba1f34935b8e50e, type: 3}

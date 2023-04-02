@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7127676667925355728
 Transform:
   m_ObjectHideFlags: 0
@@ -242,14 +242,15 @@ MonoBehaviour:
   aimingMode: 0
   tarPriority: 0
   dieNow: 0
-  norAtkInterval: 0
   fighting: 0
   dying: 0
   dizziness: 0
   animTransform: {fileID: 0}
   frontCanvas: {fileID: 0}
   blockList: []
+  actuallyBlockList: []
   ei_: {fileID: 11400000, guid: 402255d8bce433c4b93fd8a303474e9c, type: 2}
+  willRegister: 0
   wave: 0
   appearTime: 0
   pointList:
@@ -269,6 +270,7 @@ MonoBehaviour:
   - {x: -1.5, y: 7.5, z: 0}
   - {x: -0.5, y: 4.5, z: 0}
   anim: {fileID: 0}
+  rigidbody: {fileID: 0}
   operatorList_es: []
   enemyList_es: []
   SAG: {fileID: 0}
@@ -483,19 +485,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6895900440935360311, guid: 8424f0483b085784fa60df7d01ad1cf5, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6895900440935360311, guid: 8424f0483b085784fa60df7d01ad1cf5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6916071744710290316, guid: 8424f0483b085784fa60df7d01ad1cf5, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.58
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6916071744710290316, guid: 8424f0483b085784fa60df7d01ad1cf5, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8424f0483b085784fa60df7d01ad1cf5, type: 3}

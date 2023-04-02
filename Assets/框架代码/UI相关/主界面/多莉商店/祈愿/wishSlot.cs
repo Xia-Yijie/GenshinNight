@@ -66,7 +66,7 @@ public class wishSlot : MonoBehaviour
             return;
         }
         
-        gameManager.Primogem -= primogemCost;
+        gameManager.GetPrimogem(-primogemCost);
         ShopUIController.RefreshPrimogem();
         ShopUIController.ShowText("哇哦，客官今天的手气真不错，居然180发就出金了！是一位十分强力的伙伴呢");
 

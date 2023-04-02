@@ -1,0 +1,4 @@
+[time]:2023/3/26 10:43:00
+[type]:Error
+[exception message]:Assets\��ܴ���\�������\StoryManager.cs(252,25): error CS0111: Type 'StoryManager' already defines a member called 'Swap' with the same parameter types
+[stack trace]:

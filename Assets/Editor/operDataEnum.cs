@@ -28,6 +28,7 @@ public class operDataEnum : Editor
     private SerializedProperty imageInQueue;
     private SerializedProperty operUIImage1;
     private SerializedProperty operUIImage2;
+    private SerializedProperty operConclusionImage;
     private SerializedProperty illustratedBookImage;
     private SerializedProperty shopImage;
     private SerializedProperty profession;
@@ -142,6 +143,7 @@ public class operDataEnum : Editor
         imageInQueue = od_.FindProperty("imageInQueue");
         operUIImage1 = od_.FindProperty("operUIImage1");
         operUIImage2 = od_.FindProperty("operUIImage2");
+        operConclusionImage = od_.FindProperty("operConclusionImage");
         illustratedBookImage = od_.FindProperty("illustratedBookImage");
         shopImage = od_.FindProperty("shopImage");
         profession = od_.FindProperty("profession");
@@ -255,6 +257,7 @@ public class operDataEnum : Editor
             EditorGUILayout.PropertyField(imageInQueue);
             EditorGUILayout.PropertyField(operUIImage1);
             EditorGUILayout.PropertyField(operUIImage2);
+            EditorGUILayout.PropertyField(operConclusionImage);
             EditorGUILayout.PropertyField(illustratedBookImage);
             EditorGUILayout.PropertyField(shopImage);
             EditorGUILayout.PropertyField(profession);

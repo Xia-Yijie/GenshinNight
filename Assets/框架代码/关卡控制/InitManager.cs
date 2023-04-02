@@ -384,8 +384,7 @@ public class ResourceController
     public float exp { get; private set; }
     public int HP { get; private set; }
     public int remainPlace { get; private set; }
-    
-    
+
     /// <summary>
     /// 初始化关卡资源
     /// </summary>

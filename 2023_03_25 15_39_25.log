@@ -1,0 +1,12 @@
+[time]:2023/3/25 15:39:25
+[type]:Exception
+[exception message]:KeyNotFoundException: The given key was not present in the dictionary.
+[stack trace]:System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <695d1cc93cca45069c528c15c9fdd749>:0)
+StoryInterpreter.Del_Analysis (StoryInstruct slot) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:157)
+StoryInterpreter.AnalysisGroup (System.Collections.Generic.List`1[T] list) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:71)
+StoryInterpreter+<Analysis>d__12.MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:43)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+StoryInterpreter:Interpret(storyData) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:32)
+StoryManager:Start() (at Assets/框架代码/剧情相关/StoryManager.cs:26)
+

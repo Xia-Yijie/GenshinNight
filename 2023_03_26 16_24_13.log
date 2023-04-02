@@ -1,0 +1,9 @@
+[time]:2023/3/26 16:24:13
+[type]:Error
+[exception message]:剧情文本解析错误：第12行 jump指令用字符串指定的位置不存在
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:462)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:120)
+StoryInterpreter/<Analysis>d__13:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:45)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+

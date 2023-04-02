@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 711e856df5cc6a64fbd12d1819b750a1, type: 3}
   m_Name: "\u6728\u68CD\u4E18\u4E18\u4EBA"
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   Name: "\u6728\u68CD\u4E18\u4E18\u4EBA"
   atk: 500
   def: 100
   magicDef: 0
-  life: 400000
+  life: 8000
   consumeBlock: 1
   minAtkInterval: 1
   talentDescription: 

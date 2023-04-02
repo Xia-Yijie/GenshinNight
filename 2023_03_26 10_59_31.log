@@ -1,0 +1,4 @@
+[time]:2023/3/26 10:59:31
+[type]:Error
+[exception message]:Assets\��ܴ���\�������\StoryManager.cs(240,32): error CS0161: 'StoryManager.Jump(StoryInstruct)': not all code paths return a value
+[stack trace]:

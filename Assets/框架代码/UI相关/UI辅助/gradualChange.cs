@@ -22,7 +22,7 @@ public class gradualChange : MonoBehaviour
         if (alpha != cg.alpha)
         {
             cg.alpha = Mathf.Lerp(cg.alpha, alpha,
-                (alphaSpeed * Time.deltaTime) / Time.timeScale * 60);
+                (alphaSpeed * Time.unscaledDeltaTime * 60));
             if (Mathf.Abs(alpha-cg.alpha)<=0.01)
             {
                 cg.alpha = alpha;

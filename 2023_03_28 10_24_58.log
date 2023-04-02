@@ -1,0 +1,9 @@
+[time]:2023/3/28 10:24:58
+[type]:Error
+[exception message]:剧情文本解析错误：第24行 额外的文本指令
+[stack trace]:UnityEngine.Debug:LogError (object)
+StoryInterpreter:PrintError (StoryInstructError) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:469)
+StoryInterpreter:AnalysisGroup (System.Collections.Generic.List`1<StoryInstruct>) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:127)
+StoryInterpreter/<Analysis>d__13:MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:45)
+UnityEngine.SetupCoroutine:InvokeMoveNext (System.Collections.IEnumerator,intptr)
+

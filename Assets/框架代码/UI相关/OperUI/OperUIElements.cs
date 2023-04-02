@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OperUIElements : MonoBehaviour
 {
-    private static OperUIElements instance;
+    public static OperUIElements instance;
 
     [Header("rightUI相关")]
     public GameObject dragPanel_p;
@@ -199,6 +199,18 @@ public class OperUIElements : MonoBehaviour
     public static Image globalPauseImage;
     public Image settingImage_p;
     public static Image settingImage;
+    
+    [Header("ConclusionUI相关")] 
+    public gradualChange cUI;
+    public Image conclusionOperImage;
+    public Sprite defaultConclusionOperImage;   // 这个不是组件
+    public Text LevelIDText;
+    public Text LevelNameText;
+    public List<GameObject> ConclusionStarList = new List<GameObject>();
+    public List<GameObject> ConclusionEmptyStarList = new List<GameObject>();
+    public Text primogemGetText;
+    public Text moraGetText;
+    public Text rewardGetText;
     
 
     private void Awake()

@@ -1,0 +1,4 @@
+[time]:2023/3/30 21:38:58
+[type]:Error
+[exception message]:Copying assembly from 'Temp/Assembly-CSharp.dll' to 'Library/ScriptAssemblies/Assembly-CSharp.dll' failed. Detailed error: Sharing violation on path 
+[stack trace]:

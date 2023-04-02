@@ -19,8 +19,8 @@ public class gameManager : MonoBehaviour
     public static int formationNum;     // 当前选择的编队编号
     
     // 持有的摩拉袋和原石数量
-    public static int Mora = 2000;
-    public static int Primogem = 800000;
+    public static int Mora { get; private set; } = 2000;
+    public static int Primogem { get; private set; } = 800000;
     
     // 当前的罐装知识数据
     public static canningKnowledgeData knowledgeData = new canningKnowledgeData();
@@ -39,9 +39,8 @@ public class gameManager : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(this);
 
-        SaveDataPath = Application.persistentDataPath + "/SaveData"; 
-        Debug.Log(SaveDataPath);
-        
+        SaveDataPath = Application.persistentDataPath + "/SaveData";
+
         AllOperData = AllOperData_p;
         foreach (var od in AllOperData)
         {
@@ -66,6 +65,25 @@ public class gameManager : MonoBehaviour
     public static operData GetOperDataByEnName(string EnName)
     {
         return AllOperData.FirstOrDefault(od => od.EnName == EnName);
+    }
+
+
+    public static void SetPrimogem(int v)
+    {
+        Primogem = v;
+    }
+    public static void GetPrimogem(int v)
+    {
+        Primogem += v;
+    }
+
+    public static void SetMora(int v)
+    {
+        Mora = v;
+    }
+    public static void GetMora(int v)
+    {
+        Mora += v;
     }
     
 }

@@ -211,6 +211,7 @@ public class ValueBuffer
     /// </summary>
     public void AddValueBuff(ValueBuffInner buff)
     {
+        if (buff == null) return;
         valueBuffList.Add(buff);
         RefreshValue();
     }
@@ -220,6 +221,7 @@ public class ValueBuffer
     /// </summary>
     public void DelValueBuff(ValueBuffInner buff)
     {
+        if (buff == null) return;
         valueBuffList.Remove(buff);
         RefreshValue();
     }

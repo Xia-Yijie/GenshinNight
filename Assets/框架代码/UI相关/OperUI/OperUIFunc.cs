@@ -84,7 +84,8 @@ public class OperUIFunc : MonoBehaviour
         oc_.def_.AddBaseValue(od_.elitismDef[oc_.eliteLevel]);
         oc_.magicDef_.AddBaseValue(od_.elitismMagicDef[oc_.eliteLevel]);
         oc_.life_.AddBaseValue(od_.elitismLife[oc_.eliteLevel]);
-        oc_.maxBlock.AddBaseValue(od_.elitismBlock[oc_.eliteLevel]);
+        oc_.ChangeMaxBlock((int) oc_.maxBlock.baseVal + od_.elitismBlock[oc_.eliteLevel]);
+        // oc_.maxBlock.AddBaseValue(od_.elitismBlock[oc_.eliteLevel]);
 
         // 播放突破语音
         if (od_.ElitismUP[oc_.eliteLevel] != null)

@@ -49,7 +49,7 @@ public class Tartaglia : OperatorCore
     // 技能2
     private float[] skill2_Multi = {2f, 2.3f, 2.6f, 2.9f, 3.2f, 3.6f, 4f};
     // [HideInInspector] public float[] skill2_atkSpeedIncrease = {-30, -30, -30, -30, -30, -30, -30};
-    private float riptideProbability_2 = 0.5f;
+    private float riptideProbability_2 = 1f;
     
     [HideInInspector] public Vector3 skill2_tarPos;
     private float skill2_radius = 1.2f;

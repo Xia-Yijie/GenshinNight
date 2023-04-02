@@ -52,8 +52,8 @@ public class SaveData
     
     public void UpLoad()
     {// 让内存数据与本数据相同
-        gameManager.Mora = Mora;
-        gameManager.Primogem = Primogem;
+        gameManager.SetMora(Mora);
+        gameManager.SetPrimogem(Primogem);
         gameManager.knowledgeData = KnowledgeData;
         gameManager.knowledgeDataStrengthen = KnowledgeDataStrengthen;
         gameManager.UnlockCharacterNum = UnlockCharacterNum;

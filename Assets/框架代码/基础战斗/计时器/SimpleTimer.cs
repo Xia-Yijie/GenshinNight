@@ -37,6 +37,11 @@ public class SimpleTimer : Timer
         t = maxT;
         return true;
     }
+
+    public void Reset()
+    {
+        t = maxT;
+    }
     
     
 }

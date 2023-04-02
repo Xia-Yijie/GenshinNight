@@ -53,8 +53,8 @@ public class canningKnowledgeSlot : MonoBehaviour
             ShopUIController.ShowText("真是抱歉，客官要的那个已经没货了。");
             return;
         }
-
-        gameManager.Mora -= buffer.price;
+        
+        gameManager.GetMora(-buffer.price);
         ShopUIController.RefreshMora();
         
         ShopUIController.ShowText("客官出手可真是大方~我这里还有好多货，客官不看看再走吗？");

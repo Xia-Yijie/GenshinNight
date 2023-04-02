@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e0c3c45b4a547140bca8625c627546d, type: 3}
   m_Name: "\u7434"
   m_EditorClassIdentifier: 
-  type: 0
+  type: 1
   skillType: 1
   Name: "\u7434"
   EnName: Jean
@@ -26,6 +26,7 @@ MonoBehaviour:
   imageInQueue: {fileID: 21300000, guid: 7949c9516902d494b866ebc3985ca0dd, type: 3}
   operUIImage1: {fileID: 21300000, guid: c16f7f3ccd8130f46932ff3252528736, type: 3}
   operUIImage2: {fileID: 21300000, guid: 6b897ecd225c22646bdc2b9bb52fef73, type: 3}
+  operConclusionImage: {fileID: 21300000, guid: e26a0d4c4e7632946b84801c60f054ff, type: 3}
   operPrefab: {fileID: 7037498382563450326, guid: 5efb922419a9ecc41b27e8cf6d5505a3, type: 3}
   Report: {fileID: 8300000, guid: 50a1de1b68b0858458239b106df0ae0c, type: 3}
   Deploy:

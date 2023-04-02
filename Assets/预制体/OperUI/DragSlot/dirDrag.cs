@@ -37,7 +37,12 @@ public class dirDrag : MonoBehaviour,IBeginDragHandler,IDragHandler,IEndDragHand
         faceLeft = Quaternion.Euler(0, 180, 0);
         faceUP = Quaternion.Euler(0, -90, 0);
     }
-    
+
+    private void OnEnable()
+    {
+        transform.localPosition = Vector3.zero;
+    }
+
     void Update()
     {
         if (!draging)

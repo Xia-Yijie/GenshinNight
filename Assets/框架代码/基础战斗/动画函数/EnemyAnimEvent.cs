@@ -23,4 +23,15 @@ public class EnemyAnimEvent : MonoBehaviour
         ec_.OnDie();
     }
     
+    public void FightBegin()
+    {
+        if (ec_.tarIsNull) FightEnd();
+        else ec_.NorAtkStartCool();
+    }
+    
+    public void FightEnd()
+    {
+        ec_.anim.SetBool("fight", false);
+    }
+    
 }

@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: "Assets/\u573A\u666F/\u4E3B\u754C\u9762/\u4E3B\u754C\u9762.unity"
+    path: "Assets/\u573A\u666F/\u4E3B\u754C\u9762.unity"
     guid: e155cd097fd63b64c963eaffc464d7c8
   - enabled: 1
-    path: "Assets/\u573A\u666F/\u5173\u5361/\u6D4B\u8BD5\u5173\u5361/\u6D4B\u8BD5\u5173\u5361.unity"
+    path: "Assets/\u573A\u666F/\u5173\u5361/\u6D4B\u8BD5\u5173\u5361/test.unity"
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: "Assets/\u573A\u666F/\u5173\u5361/0-1/0-1.unity"

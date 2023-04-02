@@ -17,9 +17,9 @@ MonoBehaviour:
   atk: 0
   def: 0
   magicDef: 0
-  life: 30000
+  life: 40000
   consumeBlock: 1
-  minAtkInterval: 1
+  minAtkInterval: 2
   talentDescription: 
   elementType: 7
   elementalMastery: 0

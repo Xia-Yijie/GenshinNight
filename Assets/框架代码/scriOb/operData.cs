@@ -42,6 +42,7 @@ public class operData : ScriptableObject
     public Sprite imageInQueue;
     public Sprite operUIImage1;
     public Sprite operUIImage2;
+    public Sprite operConclusionImage;
 
     [Header("干员预制体")]
     public GameObject operPrefab;

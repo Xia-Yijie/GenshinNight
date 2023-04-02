@@ -35,7 +35,9 @@ public class EnemyCore : BattleCore
     [HideInInspector] public List<OperatorCore> operatorList_es = new List<OperatorCore>();
     [HideInInspector] public List<EnemyCore> enemyList_es = new List<EnemyCore>();
     [HideInInspector] public SAG_EnemySpecial SAG;
-    
+
+
+
     protected override void Awake_Core()
     {
         base.Awake_Core();
@@ -191,27 +193,29 @@ public class EnemyCore : BattleCore
         if (staInfo.IsName("Fight"))
         {
             fighting = true;
+            
+        }
+        else fighting = false;
+        
+        if (!tarIsNull && CanAtk() && !fighting)
+        {
+            anim.SetBool("fight", true);
+            // NorAtkStartCool();
+            // fightingContinue = (int) (3 / Time.timeScale);;
+            
             // 根据目标位置转变敌人朝向
             Vector2 detaPos = BaseFunc.xz(transform.position) - BaseFunc.xz(target.transform.position);
             if (detaPos.x < 0) ac_.TurnRight();
             else ac_.TurnLeft();
         }
-        else fighting = false;
-        
-        if (!tarIsNull && CanAtk())
-        {
-            anim.SetBool("fight", true);
-            NorAtkStartCool();
-            fightingContinue = (int) (3 / Time.timeScale);;
-        }
-        else if (fightingContinue > 0)
-        {
-            fightingContinue--;
-        }
-        else
-        {
-            anim.SetBool("fight", false);
-        }
+        // else if (fightingContinue > 0)
+        // {
+        //     fightingContinue--;
+        // }
+        // else
+        // {
+        //     anim.SetBool("fight", false);
+        // }
     }
 
     private Vector2 lastPoint;

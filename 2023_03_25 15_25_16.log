@@ -1,0 +1,13 @@
+[time]:2023/3/25 15:25:16
+[type]:Exception
+[exception message]:IndexOutOfRangeException: Index was outside the bounds of the array.
+[stack trace]:(wrapper stelemref) System.Object.virt_stelemref_sealed_class(intptr,object)
+StoryInterpreter.AddPos (System.Int32 pos, System.String name) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:292)
+StoryInterpreter.Add_Analysis (StoryInstruct slot) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:126)
+StoryInterpreter.AnalysisGroup (System.Collections.Generic.List`1[T] list) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:69)
+StoryInterpreter+<Analysis>d__12.MoveNext () (at Assets/框架代码/剧情相关/StoryInterpreter.cs:43)
+UnityEngine.SetupCoroutine.InvokeMoveNext (System.Collections.IEnumerator enumerator, System.IntPtr returnValueAddress) (at <2c831a24e8f345e7a82c0159a31280b3>:0)
+UnityEngine.MonoBehaviour:StartCoroutine(IEnumerator)
+StoryInterpreter:Interpret(storyData) (at Assets/框架代码/剧情相关/StoryInterpreter.cs:32)
+StoryManager:Start() (at Assets/框架代码/剧情相关/StoryManager.cs:26)
+
